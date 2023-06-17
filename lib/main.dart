@@ -31,6 +31,7 @@ class SpaApp extends StatelessWidget {
     );
 
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       title: 'SPA',
       home: const SplashPage(),
       navigatorKey: navigatorKey,
