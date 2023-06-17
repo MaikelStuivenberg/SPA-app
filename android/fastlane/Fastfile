@@ -30,7 +30,7 @@ platform :android do
   lane :build_and_deploy do
 
     package_name = "nl.schoolofperformingarts.app"
-    build_number = google_play_track_version_codes(package_name: package_name, track: "production", json_key_data: ENV['GOOGLE_PLAY_JSON_KEY_DATA'])[0] + 1
+    build_number = 1
 
     Dir.chdir "../.." do
         sh("flutter", "packages", "get")
