@@ -1,7 +1,11 @@
 import 'dart:convert';
+import 'dart:ffi';
+import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:path_provider/path_provider.dart';
+import 'package:share_plus/share_plus.dart';
 import 'package:spa_app/shared/widgets/default_body.dart';
 import 'package:spa_app/utils/styles.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -29,7 +33,7 @@ class PhotosPageState extends State<PhotosPage> {
     // const albumId = '72177720300776159';
 
     const url =
-        'https://www.flickr.com/services/rest/?method=flickr.people.getPhotos&api_key=$apiKey&user_id=$userId&extras=url_m,date_taken&sort=date-taken-desc&per_page=10&format=json&nojsoncallback=1';
+        'https://www.flickr.com/services/rest/?method=flickr.people.getPhotos&api_key=$apiKey&user_id=$userId&extras=url_m,date_taken&sort=date-taken-desc&per_page=10&format=json&nojsoncallback=1&extras=url_m,url_k';
 
     final response = await http.get(Uri.parse(url));
     if (response.statusCode == 200) {
@@ -80,35 +84,16 @@ class PhotosPageState extends State<PhotosPage> {
 
   Widget _buildPhotoGrid() {
     return Padding(
-      padding: const EdgeInsets.fromLTRB(16, 10, 16, 10),
+      padding: const EdgeInsets.fromLTRB(10, 25, 10, 10),
       child: _photos.isNotEmpty
           ? SingleChildScrollView(
               child: Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
-                  Container(
-                    height: 15,
-                  ),
-                  SizedBox(
-                    width: double.infinity,
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        _buildPhotoGridRow([
-                          _photos[0],
-                          _photos[2],
-                          _photos[4],
-                          _photos[6],
-                          _photos[8]
-                        ]),
-                        _buildPhotoGridRow([
-                          _photos[1],
-                          _photos[3],
-                          _photos[5],
-                          _photos[7],
-                          _photos[9]
-                        ]),
-                      ],
-                    ),
+                  Row(
+                    children: [
+                      _buildPhotoGridRow(),
+                    ],
                   ),
                 ],
               ),
@@ -117,28 +102,54 @@ class PhotosPageState extends State<PhotosPage> {
     );
   }
 
-  Widget _buildPhotoGridRow(List<dynamic> sublist) {
-    final photoWidth = ((MediaQuery.of(context).size.width - 32.0) / 2.0) - 8.0;
-    return Column(
-      children: [
-        for (var i = 0; i < sublist.length; i++)
-          Padding(
-            padding: const EdgeInsets.all(4),
-            child: ClipRRect(
-              borderRadius: BorderRadius.circular(6),
-              child: Image.network(
-                sublist[i]['url_m'].toString(),
-                semanticLabel: '',
-                fit: BoxFit.cover,
-                width: photoWidth,
-                height: 200,
-                errorBuilder: (context, error, stackTrace) => const Center(
-                  child: Icon(Icons.error_outline),
-                ),
+  Widget _buildPhotoGridRow() {
+    return Expanded(
+      child: Column(
+        children: [
+          for (var i = 0; i < 10; i++)
+            Padding(
+              padding: const EdgeInsets.all(4),
+              child: Stack(
+                children: [
+                  ClipRRect(
+                    borderRadius: BorderRadius.circular(6),
+                    child: Image.network(
+                      _photos[i]['url_m'].toString(),
+                      semanticLabel: '',
+                      fit: BoxFit.contain,
+                      errorBuilder: (context, error, stackTrace) =>
+                          const Center(
+                        child: Icon(Icons.error_outline),
+                      ),
+                    ),
+                  ),
+                  Container(
+                    width: double.infinity,
+                    child: Align(
+                      alignment: Alignment.topRight,
+                      child: IconButton(
+                        onPressed: () async {
+                          final response = await http
+                              .get(Uri.parse(_photos[i]['url_k'].toString()));
+                          final directory = await getTemporaryDirectory();
+                          final path = directory.path;
+                          final file = File('$path/spa.jpg');
+                          await file.writeAsBytes(response.bodyBytes);
+                          await Share.shareXFiles([XFile('$path/spa.jpg')]);
+                        },
+                        icon: const Icon(
+                          Icons.send,
+                          color: Colors.white,
+                          size: 30,
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
               ),
             ),
-          ),
-      ],
+        ],
+      ),
     );
   }
 }
