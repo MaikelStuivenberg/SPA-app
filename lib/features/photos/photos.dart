@@ -1,8 +1,8 @@
 import 'dart:convert';
-import 'dart:ffi';
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:http/http.dart' as http;
 import 'package:path_provider/path_provider.dart';
 import 'package:share_plus/share_plus.dart';
@@ -56,8 +56,8 @@ class PhotosPageState extends State<PhotosPage> {
       SafeArea(
         child: Column(
           children: [
-            const Text(
-              "Meest recente foto's",
+            Text(
+              AppLocalizations.of(context)!.photoTitle,
               style: Styles.pageTitle,
             ),
             Expanded(child: _buildPhotoGrid()),
@@ -71,7 +71,8 @@ class PhotosPageState extends State<PhotosPage> {
                 }
               },
               style: Styles.buttonStyle,
-              child: const Text('Bekijk alles', style: Styles.buttonText),
+              child: Text(AppLocalizations.of(context)!.photoSeeAll,
+                  style: Styles.buttonText),
             ),
             Container(
               height: 30,
@@ -123,7 +124,7 @@ class PhotosPageState extends State<PhotosPage> {
                       ),
                     ),
                   ),
-                  Container(
+                  SizedBox(
                     width: double.infinity,
                     child: Align(
                       alignment: Alignment.topRight,

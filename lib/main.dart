@@ -1,7 +1,7 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:spa_app/features/rules/pages/rules_page.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:spa_app/features/splash/splash.dart';
 import 'package:spa_app/routes.dart';
 import 'package:spa_app/utils/unanimated_page_route.dart';
@@ -21,7 +21,6 @@ class SpaApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
     SystemChrome.setSystemUIOverlayStyle(
       SystemUiOverlayStyle.dark.copyWith(
           statusBarColor: Colors.white, // Color for Android
@@ -35,10 +34,9 @@ class SpaApp extends StatelessWidget {
       title: 'SPA',
       home: const SplashPage(),
       navigatorKey: navigatorKey,
-      theme: ThemeData(
-        useMaterial3: true
-      ),
-
+      theme: ThemeData(useMaterial3: true),
+      localizationsDelegates: AppLocalizations.localizationsDelegates,
+      supportedLocales: AppLocalizations.supportedLocales,
       onGenerateRoute: (settings) {
         return UnanimatedPageRoute(
           builder: (context) => Routes.routes[settings.name]!(context),

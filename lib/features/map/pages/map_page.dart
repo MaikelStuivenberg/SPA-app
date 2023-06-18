@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:spa_app/features/rules/widgets/rule_container.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:spa_app/shared/widgets/default_body.dart';
 import 'package:spa_app/utils/styles.dart';
 
@@ -28,8 +28,8 @@ class MapPageState extends State<MapPage> {
       SafeArea(
         child: Column(
           children: [
-            const Text(
-              'Kaart',
+            Text(
+              AppLocalizations.of(context)!.mapTitle,
               style: Styles.pageTitle,
             ),
             Container(
@@ -48,7 +48,7 @@ class MapPageState extends State<MapPage> {
               ),
               child: InteractiveViewer(
                 panEnabled: false, // Set it to false
-                boundaryMargin: EdgeInsets.all(100),
+                boundaryMargin: const EdgeInsets.all(100),
                 minScale: 0.5,
                 maxScale: 2,
                 child: Image.asset('assets/map.png'),

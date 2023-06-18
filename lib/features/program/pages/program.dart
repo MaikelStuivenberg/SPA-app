@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:intl/intl.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 import 'package:spa_app/features/program/models/activity.dart';
@@ -88,15 +89,15 @@ class ProgramPageState extends State<ProgramPage> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Center(
+          Center(
             child: Text(
-              'Programma',
+              AppLocalizations.of(context)!.programTitle,
               style: Styles.pageTitle,
             ),
           ),
           Center(
             child: Text(
-              DateFormatter(dateTime).formatAsDayname(),
+              DateFormatter(dateTime, context).formatAsDayname(),
               style: Styles.pageSubTitle,
             ),
           ),
@@ -111,7 +112,7 @@ class ProgramPageState extends State<ProgramPage> {
                 ]),
                 builder: (context, snapshot) {
                   if (snapshot.connectionState != ConnectionState.done) {
-                    return const Text('Loading');
+                    return Text(AppLocalizations.of(context)!.loading);
                   }
                   user = snapshot.data![1] as User;
                   /** Convert FirebaseStoreDocs to Activity*/

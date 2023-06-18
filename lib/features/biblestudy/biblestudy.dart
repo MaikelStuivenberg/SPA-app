@@ -62,7 +62,7 @@ class BibleStudyPageState extends State<BibleStudyPage> {
             ),
             Center(
               child: Text(
-                DateFormatter(dateTime).formatAsDayname(),
+                DateFormatter(dateTime, context).formatAsDayname(),
                 style: Styles.pageSubTitle,
               ),
             ),

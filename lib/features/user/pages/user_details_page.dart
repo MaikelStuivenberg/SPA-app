@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-import 'package:spa_app/features/rules/widgets/rule_container.dart';
-import 'package:spa_app/features/user/models/user.dart';
 import 'package:spa_app/shared/repositories/user_data.dart';
 import 'package:spa_app/shared/widgets/default_body.dart';
 import 'package:spa_app/utils/app_colors.dart';
@@ -42,8 +40,8 @@ class UserDetailsPageState extends State<UserDetailsPage> {
                 return SingleChildScrollView(
                   child: Column(
                     children: [
-                      const Text(
-                        'Profiel',
+                      Text(
+                        AppLocalizations.of(context)!.profileTitle,
                         style: Styles.pageTitle,
                       ),
                       Container(height: 20),
@@ -57,8 +55,10 @@ class UserDetailsPageState extends State<UserDetailsPage> {
                             CircleAvatar(
                               backgroundColor: Colors.transparent,
                               foregroundImage: ((snapshot.data?.image != null)
-                                  ? MemoryImage(snapshot.data!.image!)
-                                  : const AssetImage('assets/profile_default.jpg')) as ImageProvider<Object>,
+                                      ? MemoryImage(snapshot.data!.image!)
+                                      : const AssetImage(
+                                          'assets/profile_default.jpg'))
+                                  as ImageProvider<Object>,
                             ),
                             Positioned(
                                 bottom: 0,
@@ -92,7 +92,8 @@ class UserDetailsPageState extends State<UserDetailsPage> {
                           text: snapshot.data!.firstname,
                         ),
                         decoration: Styles.textInputDecoration.copyWith(
-                          labelText: 'Voornaam',
+                          labelText:
+                              AppLocalizations.of(context)!.profileFirstname,
                         ),
                         style: Styles.textInput,
                         onChanged: (value) {
@@ -104,7 +105,8 @@ class UserDetailsPageState extends State<UserDetailsPage> {
                           text: snapshot.data!.lastname,
                         ),
                         decoration: Styles.textInputDecoration.copyWith(
-                          labelText: 'Achternaam',
+                          labelText:
+                              AppLocalizations.of(context)!.profileLastname,
                         ),
                         style: Styles.textInput,
                         onChanged: (value) {
@@ -116,7 +118,7 @@ class UserDetailsPageState extends State<UserDetailsPage> {
                           text: snapshot.data!.age,
                         ),
                         decoration: Styles.textInputDecoration.copyWith(
-                          labelText: 'Leeftijd',
+                          labelText: AppLocalizations.of(context)!.profileAge,
                         ),
                         style: Styles.textInput,
                         onChanged: (value) {
@@ -127,7 +129,7 @@ class UserDetailsPageState extends State<UserDetailsPage> {
                         value: snapshot.data!.major,
                         dropdownColor: const Color.fromARGB(135, 0, 0, 0),
                         decoration: Styles.textInputDecoration.copyWith(
-                          labelText: 'Major',
+                          labelText: AppLocalizations.of(context)!.profileMajor,
                         ),
                         style: Styles.textInput,
                         items: const [
@@ -160,7 +162,7 @@ class UserDetailsPageState extends State<UserDetailsPage> {
                         value: snapshot.data!.minor,
                         dropdownColor: const Color.fromARGB(135, 0, 0, 0),
                         decoration: Styles.textInputDecoration.copyWith(
-                          labelText: 'Minor',
+                          labelText: AppLocalizations.of(context)!.profileMinor,
                         ),
                         style: Styles.textInput,
                         items: const [
@@ -200,7 +202,8 @@ class UserDetailsPageState extends State<UserDetailsPage> {
                         onPressed: () async {
                           await _userDataRepository.setUser(snapshot.data!);
                         },
-                        child: const Text('Opslaan', style: Styles.buttonText),
+                        child: Text(AppLocalizations.of(context)!.save,
+                            style: Styles.buttonText),
                       ),
                     ],
                   ),
