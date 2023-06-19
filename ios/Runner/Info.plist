@@ -57,8 +57,8 @@
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
 	<key>NSPhotoLibraryUsageDescription</key>
-	<string>$(PRODUCT_NAME) would like access to your photo gallery</string>
+	<string>This app requires access to your photo library to be able to show a custom image on your profile page</string>
 	<key>NSCameraUsageDescription</key>
-	<string>$(PRODUCT_NAME) would like to use your camera</string>
+	<string>This app requires access to your camera to be able to make a custom image for your profile page</string>
 </dict>
 </plist>
