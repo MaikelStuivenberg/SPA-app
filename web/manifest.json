@@ -1,6 +1,6 @@
 {
-    "name": "spa_app",
-    "short_name": "spa_app",
+    "name": "SPA",
+    "short_name": "SPA",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",
