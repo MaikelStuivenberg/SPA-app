@@ -71,6 +71,7 @@ class UserDetailsPageState extends State<UserDetailsPage> {
                                       if (value != null) {
                                         await _userDataRepository.setImage(
                                             await value.readAsBytes());
+
                                         setState(() {});
                                       }
                                     });
@@ -96,8 +97,9 @@ class UserDetailsPageState extends State<UserDetailsPage> {
                               AppLocalizations.of(context)!.profileFirstname,
                         ),
                         style: Styles.textInput,
-                        onChanged: (value) {
+                        onChanged: (value) async {
                           snapshot.data!.firstname = value;
+                          await _userDataRepository.setUser(snapshot.data!);
                         },
                       ),
                       TextFormField(
@@ -109,8 +111,9 @@ class UserDetailsPageState extends State<UserDetailsPage> {
                               AppLocalizations.of(context)!.profileLastname,
                         ),
                         style: Styles.textInput,
-                        onChanged: (value) {
+                        onChanged: (value) async {
                           snapshot.data!.lastname = value;
+                          await _userDataRepository.setUser(snapshot.data!);
                         },
                       ),
                       TextFormField(
@@ -121,8 +124,9 @@ class UserDetailsPageState extends State<UserDetailsPage> {
                           labelText: AppLocalizations.of(context)!.profileAge,
                         ),
                         style: Styles.textInput,
-                        onChanged: (value) {
+                        onChanged: (value) async {
                           snapshot.data!.age = value;
+                          await _userDataRepository.setUser(snapshot.data!);
                         },
                       ),
                       DropdownButtonFormField(
@@ -154,8 +158,9 @@ class UserDetailsPageState extends State<UserDetailsPage> {
                             child: Text('Theatre'),
                           ),
                         ],
-                        onChanged: (String? value) {
+                        onChanged: (String? value) async {
                           snapshot.data!.major = value;
+                          await _userDataRepository.setUser(snapshot.data!);
                         },
                       ),
                       DropdownButtonFormField(
@@ -190,20 +195,15 @@ class UserDetailsPageState extends State<UserDetailsPage> {
                             value: 'Compositie',
                             child: Text('Compositie'),
                           ),
+                          DropdownMenuItem(
+                            value: 'Timbrels',
+                            child: Text('Timbrels'),
+                          ),
                         ],
-                        onChanged: (String? value) {
+                        onChanged: (String? value) async {
                           snapshot.data!.minor = value;
-                        },
-                      ),
-                      // save button
-                      Container(height: 20),
-                      ElevatedButton(
-                        style: Styles.buttonStyle,
-                        onPressed: () async {
                           await _userDataRepository.setUser(snapshot.data!);
                         },
-                        child: Text(AppLocalizations.of(context)!.save,
-                            style: Styles.buttonText),
                       ),
                     ],
                   ),
