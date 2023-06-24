@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:spa_app/features/map/widgets/map_item.dart';
 import 'package:spa_app/shared/widgets/default_body.dart';
 import 'package:spa_app/utils/styles.dart';
 
@@ -47,12 +48,25 @@ class MapPageState extends State<MapPage> {
                 ],
               ),
               child: InteractiveViewer(
-                panEnabled: false, // Set it to false
-                boundaryMargin: const EdgeInsets.all(100),
                 minScale: 0.5,
-                maxScale: 2,
+                maxScale: 5,
                 child: Image.asset('assets/map.png'),
               ),
+            ),
+            const Expanded(
+              child: SingleChildScrollView(
+                  child: Column(
+                children: [
+                  MapItemWidget('A', 'Brass'),
+                  MapItemWidget('B', 'Administratie'),
+                  MapItemWidget('Bosshardt', 'Choir'),
+                  MapItemWidget('Congreshal', 'MMS / Opening / Worship'),
+                  MapItemWidget('E/F', 'Dance 13-'),
+                  MapItemWidget('K1', 'Dance 13+'),
+                  MapItemWidget('K2', 'Theater'),
+                  MapItemWidget('Restaurant', 'Ontbijt / Lunch / Diner'),
+                ],
+              )),
             ),
           ],
         ),

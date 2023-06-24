@@ -74,7 +74,7 @@ class Styles {
   static const TextStyle textStyleLarge = TextStyle(
     color: Color.fromARGB(255, 80, 80, 80),
     fontWeight: FontWeight.w600,
-    fontSize: 22,
+    fontSize: 20,
     fontFamily: 'Montserrat',
     decoration: TextDecoration.none,
   );

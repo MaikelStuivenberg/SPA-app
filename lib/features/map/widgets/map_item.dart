@@ -1,18 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:spa_app/utils/styles.dart';
 
-class RuleContainerWidget extends StatelessWidget {
-  const RuleContainerWidget(this.title, this.text, {super.key});
+class MapItemWidget extends StatelessWidget {
+  const MapItemWidget(this.location, this.description, {super.key});
 
-  final String title;
-  final String text;
+  final String location;
+  final String description;
 
   @override
   Widget build(BuildContext context) {
     return SafeArea(
       child: Container(
-        margin: const EdgeInsets.fromLTRB(16, 16, 16, 16),
-        padding: const EdgeInsets.all(16),
+        margin: const EdgeInsets.fromLTRB(16, 8, 16, 8),
+        padding: const EdgeInsets.fromLTRB(16, 8, 16, 8),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(6),
           color: Colors.white,
@@ -24,17 +24,17 @@ class RuleContainerWidget extends StatelessWidget {
             ),
           ],
         ),
-        child: Column(
+        child: Row(
           children: [
-            Padding(
-              padding: const EdgeInsets.only(bottom: 8),
+            SizedBox(
+              width: 140,
               child: Text(
-                title,
-                style: Styles.pageSubTitleDark,
+                location,
+                style: Styles.textStyleLarge,
               ),
             ),
             Text(
-              text,
+              description,
               style: Styles.textStyle,
             ),
           ],

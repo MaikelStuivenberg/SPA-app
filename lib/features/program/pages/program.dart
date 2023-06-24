@@ -115,12 +115,16 @@ class ProgramPageState extends State<ProgramPage> {
                     return Text(AppLocalizations.of(context)!.loading);
                   }
                   user = snapshot.data![1] as User;
-                  /** Convert FirebaseStoreDocs to Activity*/
+                  // Convert FirebaseStoreDocs to Activity
                   activities =
                       (snapshot.data![0] as QuerySnapshot<Map<String, dynamic>>)
                           .docs
                           .map<Activity>(Activity.createFromDoc)
-                          /** Filter on current day */
+                          
+                          // Filter out activities without date
+                          .where((el) => el.date != null)
+
+                          // Filter on current day
                           .where(
                             (el) =>
                                 el.date!.toDate().isAfter(dateTime) &&
@@ -128,7 +132,7 @@ class ProgramPageState extends State<ProgramPage> {
                                       dateTime.add(const Duration(days: 1)),
                                     ),
                           )
-                          /** Only show relevant majors */
+                          // Only show relevant majors
                           .where(
                             (el) =>
                                 el.requirements == null ||
@@ -138,7 +142,7 @@ class ProgramPageState extends State<ProgramPage> {
                                     el.requirements!['major'] == user.major),
                           )
 
-                          /** Only show relevant minors */
+                          // Only show relevant minors
                           .where(
                             (el) =>
                                 el.requirements == null ||
@@ -148,7 +152,7 @@ class ProgramPageState extends State<ProgramPage> {
                                     el.requirements!['minor'] == user.minor),
                           )
 
-                          /** Filter on age <13 */
+                          // Filter on age <13
                           .where(
                             (el) =>
                                 el.requirements == null ||
@@ -159,7 +163,7 @@ class ProgramPageState extends State<ProgramPage> {
                                     int.tryParse(user.age!)! < 13),
                           )
 
-                          /** Filter on age >=13 */
+                          // Filter on age >=13
                           .where(
                             (el) =>
                                 el.requirements == null ||
@@ -184,7 +188,7 @@ class ProgramPageState extends State<ProgramPage> {
                       return Container(
                         margin: const EdgeInsets.symmetric(vertical: 8),
                         padding: const EdgeInsets.all(8),
-                        height: 100,
+                        height: 95,
                         decoration: BoxDecoration(
                           color: Colors.white,
                           borderRadius: BorderRadius.circular(6),
@@ -217,16 +221,22 @@ class ProgramPageState extends State<ProgramPage> {
                                         padding: EdgeInsets.only(left: 4),
                                       ),
                                       Text(
-                                          DateFormat('HH:mm')
-                                              .format(activity.date!.toDate()),
-                                          style: Styles.textStyleMedium),
+                                        DateFormat('HH:mm')
+                                            .format(activity.date!.toDate()),
+                                        style: Styles.textStyleMedium,
+                                      ),
                                     ],
                                   ),
                                 ),
-                                Text(activity.title!,
-                                    style: Styles.textStyleLarge),
+                                Text(
+                                  activity.title!,
+                                  style: Styles.textStyleLarge,
+                                ),
                                 Padding(
-                                  padding: const EdgeInsets.only(bottom: 2, top: 3),
+                                  padding: const EdgeInsets.only(
+                                    bottom: 2,
+                                    top: 0,
+                                  ),
                                   child: Row(
                                     children: [
                                       const Icon(
@@ -236,8 +246,10 @@ class ProgramPageState extends State<ProgramPage> {
                                       const Padding(
                                         padding: EdgeInsets.only(left: 4),
                                       ),
-                                      Text('${activity.location}',
-                                          style: Styles.textStyleMedium),
+                                      Text(
+                                        activity.location ?? '',
+                                        style: Styles.textStyleMedium,
+                                      ),
                                     ],
                                   ),
                                 ),

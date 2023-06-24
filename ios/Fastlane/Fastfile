@@ -48,8 +48,9 @@ platform :ios do
       force: true,
       precheck_include_in_app_purchases: false,
       release_notes: {
-        'default': 'We made the app a little bit better',
-        'nl-NL': 'We hebben de app weer een beetje beter gemaakt',
+        'default': 'We have given the SPA app even more groove',
+        'en-GB': 'We have given the SPA app even more groove',
+        'nl-NL': 'We hebben de SPA app nog meer swing gegeven',
       }
     )
   end
