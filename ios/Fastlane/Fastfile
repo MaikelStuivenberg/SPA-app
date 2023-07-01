@@ -47,6 +47,10 @@ platform :ios do
       automatic_release: true,
       force: true,
       precheck_include_in_app_purchases: false,
+      submission_information: {
+        add_id_info_uses_idfa: false,
+        export_compliance_uses_encryption: false,
+      },
       release_notes: {
         'default': 'We have given the SPA app even more groove',
         'en-GB': 'We have given the SPA app even more groove',
