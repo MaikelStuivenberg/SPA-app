@@ -3,23 +3,24 @@ import 'package:spa_app/routes.dart';
 import 'package:spa_app/utils/app_colors.dart';
 
 class DefaultBodyWidget extends StatelessWidget {
-  const DefaultBodyWidget(this._childWidget, {super.key});
+  const DefaultBodyWidget(this._childWidget, {this.showMenu = true, super.key});
 
   final Widget _childWidget;
+  final bool showMenu;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      floatingActionButton: FloatingActionButton(
+      floatingActionButton: showMenu ? FloatingActionButton(
         backgroundColor: AppColors.buttonColor,
         onPressed: () {
           Navigator.pushNamed(context, Routes.program);
         },
         child: const Icon(Icons.calendar_today, color: Colors.white),
-      ),
+      ) : null,
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       backgroundColor: AppColors.background,
-      bottomNavigationBar: _buildNavigationBar(context),
+      bottomNavigationBar: showMenu ? _buildNavigationBar(context) : null,
       body: Stack(
         children: <Widget>[
           SizedBox.expand(

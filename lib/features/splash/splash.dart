@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:spa_app/routes.dart';
 import 'package:spa_app/utils/app_colors.dart';
 
@@ -15,8 +16,15 @@ class SplashPageState extends State<SplashPage> {
   @override
   Widget build(BuildContext context) {
     // After 1000ms, go to program page
-    Timer(const Duration(milliseconds: 1500), () {
-      Navigator.of(context).pushReplacementNamed(Routes.program);
+    Timer(const Duration(milliseconds: 1000), () {
+      SharedPreferences.getInstance().then((prefs) {
+        if (prefs.getBool('isFirstTime') == null) {
+          prefs.setBool('isFirstTime', false);
+          Navigator.of(context).pushReplacementNamed(Routes.welcome);
+        } else {
+          Navigator.of(context).pushReplacementNamed(Routes.program);
+        }
+      });
     });
 
     return _buildBody();

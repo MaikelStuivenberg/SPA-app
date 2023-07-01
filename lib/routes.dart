@@ -5,6 +5,7 @@ import 'package:spa_app/features/photos/photos.dart';
 import 'package:spa_app/features/program/pages/program.dart';
 import 'package:spa_app/features/rules/pages/rules_page.dart';
 import 'package:spa_app/features/user/pages/user_details_page.dart';
+import 'package:spa_app/features/welcome/pages/welcome_page.dart';
 
 class Routes {
   Routes._();
@@ -15,6 +16,7 @@ class Routes {
   static const String rules = '/rules';
   static const String map = '/map';
   static const String userDetails = '/userdetails';
+  static const String welcome = '/welcome';
 
   // static const String music = '/music';
   // static const String games = '/games';
@@ -26,6 +28,7 @@ class Routes {
     rules: (BuildContext context) => const RulesPage(),
     map: (BuildContext context) => const MapPage(),
     userDetails: (BuildContext context) => const UserDetailsPage(),
+    welcome: (BuildContext context) => const WelcomePage(),
 
     // music: (BuildContext context) => const MusicPage(),
     // games: (BuildContext context) => const GamesPage(),
