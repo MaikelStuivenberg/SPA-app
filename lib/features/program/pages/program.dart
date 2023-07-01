@@ -120,7 +120,7 @@ class ProgramPageState extends State<ProgramPage> {
                       (snapshot.data![0] as QuerySnapshot<Map<String, dynamic>>)
                           .docs
                           .map<Activity>(Activity.createFromDoc)
-                          
+
                           // Filter out activities without date
                           .where((el) => el.date != null)
 
@@ -157,6 +157,7 @@ class ProgramPageState extends State<ProgramPage> {
                             (el) =>
                                 el.requirements == null ||
                                 user.age == null ||
+                                user.age!.isEmpty ||
                                 !el.requirements!.containsKey('age') ||
                                 el.requirements!['age'] != '<13' ||
                                 (int.tryParse(user.age!) != null &&
@@ -168,6 +169,7 @@ class ProgramPageState extends State<ProgramPage> {
                             (el) =>
                                 el.requirements == null ||
                                 user.age == null ||
+                                user.age!.isEmpty ||
                                 !el.requirements!.containsKey('age') ||
                                 el.requirements!['age'] != '>=13' ||
                                 (int.tryParse(user.age!) != null &&
@@ -198,11 +200,15 @@ class ProgramPageState extends State<ProgramPage> {
                             ClipRRect(
                               borderRadius: BorderRadius.circular(6),
                               child: Image.asset(
-                                'assets/program/${activity.image!}',
-                                width: 80,
-                                height: 80,
-                                fit: BoxFit.cover,
-                              ),
+                                  'assets/program/${activity.image!}',
+                                  width: 80,
+                                  height: 80,
+                                  fit: BoxFit.cover,
+                                  errorBuilder: (context, error, stackTrace) =>
+                                      const Icon(
+                                        Icons.broken_image,
+                                        size: 80,
+                                      )),
                             ),
                             const Padding(padding: EdgeInsets.only(left: 8)),
                             Column(
@@ -239,10 +245,16 @@ class ProgramPageState extends State<ProgramPage> {
                                   ),
                                   child: Row(
                                     children: [
-                                      const Icon(
-                                        Icons.location_on_outlined,
-                                        size: 18,
-                                      ),
+                                      if (activity.location == null ||
+                                          activity.location!.trim().isEmpty)
+                                        Container(
+                                          width: 10,
+                                        )
+                                      else
+                                        const Icon(
+                                          Icons.location_on_outlined,
+                                          size: 18,
+                                        ),
                                       const Padding(
                                         padding: EdgeInsets.only(left: 4),
                                       ),
@@ -268,58 +280,4 @@ class ProgramPageState extends State<ProgramPage> {
       ),
     );
   }
-
-  // Widget _buildWeatherWidget() {
-  //   return AnimatedContainer(
-  //     duration: const Duration(milliseconds: 600),
-  //     curve: Curves.decelerate,
-  //     width: double.infinity,
-  //     height: _weatherOpen ? 260 : 130,
-  //     decoration: BoxDecoration(
-  //       color: Colors.white,
-  //       border: Border.all(width: 0), // Set border width
-  //       borderRadius: const BorderRadius.all(
-  //         Radius.circular(20),
-  //       ),
-  //       boxShadow: [
-  //         BoxShadow(
-  //           color: Colors.black.withOpacity(0.5),
-  //           spreadRadius: 2,
-  //           blurRadius: 5,
-  //           offset: const Offset(0, 3),
-  //         ),
-  //       ],
-  //     ),
-  //     child: const SafeArea(
-  //       child: Padding(
-  //         padding: EdgeInsets.fromLTRB(10, 10, 10, 20),
-  //         child: Row(
-  //           children: [
-  //             Padding(
-  //               padding: EdgeInsets.fromLTRB(10, 0, 10, 0),
-  //               child: Icon(
-  //                 Icons.sunny,
-  //                 color: Colors.yellow,
-  //               ),
-  //             ),
-  //             Column(
-  //               crossAxisAlignment: CrossAxisAlignment.start,
-  //               mainAxisAlignment: MainAxisAlignment.spaceBetween,
-  //               children: [
-  //                 Text(
-  //                   '22 Juli',
-  //                   style: Styles.weatherDate,
-  //                 ),
-  //                 Text(
-  //                   '23º',
-  //                   style: Styles.weatherCelcius,
-  //                 ),
-  //               ],
-  //             ),
-  //           ],
-  //         ),
-  //       ),
-  //     ),
-  //   );
-  // }
 }
