@@ -40,9 +40,6 @@ flutter:
     - assets/program/
 
   fonts:
-    - family: Handlee
-      fonts:
-        - asset: fonts/Handlee/Handlee-Regular.ttf
     - family: Montserrat
       fonts:
         - asset: fonts/montserrat/Montserrat-Black.ttf
