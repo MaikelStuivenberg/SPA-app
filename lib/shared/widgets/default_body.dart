@@ -10,28 +10,33 @@ class DefaultBodyWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      floatingActionButton: showMenu ? FloatingActionButton(
-        backgroundColor: AppColors.buttonColor,
-        onPressed: () {
-          Navigator.pushNamed(context, Routes.program);
-        },
-        child: const Icon(Icons.calendar_today, color: Colors.white),
-      ) : null,
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-      backgroundColor: AppColors.background,
-      bottomNavigationBar: showMenu ? _buildNavigationBar(context) : null,
-      body: Stack(
-        children: <Widget>[
-          SizedBox.expand(
-            child: Image.asset(
-              'assets/background.jpg',
-              fit: BoxFit.fill,
-            ),
+    return Stack(
+      children: [
+        SizedBox.expand(
+          child: Image.asset(
+            'assets/background.jpg',
+            height: double.infinity,
+            alignment: Alignment.topCenter,
+            fit: BoxFit.fill,
           ),
-          _childWidget
-        ],
-      ),
+        ),
+        Scaffold(
+          floatingActionButton: showMenu
+              ? FloatingActionButton(
+                  backgroundColor: AppColors.buttonColor,
+                  onPressed: () {
+                    Navigator.pushNamed(context, Routes.program);
+                  },
+                  child: const Icon(Icons.calendar_today, color: Colors.white),
+                )
+              : null,
+          floatingActionButtonLocation:
+              FloatingActionButtonLocation.centerDocked,
+          backgroundColor: Colors.transparent,
+          bottomNavigationBar: showMenu ? _buildNavigationBar(context) : null,
+          body: _childWidget,
+        ),
+      ],
     );
   }
 

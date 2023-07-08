@@ -31,29 +31,28 @@ class SplashPageState extends State<SplashPage> {
   }
 
   Widget _buildBody() {
-    return Scaffold(
-      backgroundColor: AppColors.background,
-      body: Stack(
-        children: <Widget>[
-          SizedBox.expand(
-            child: Image.asset(
-              'assets/background.jpg',
-              fit: BoxFit.fill,
-            ),
+    return Stack(
+      children: <Widget>[
+        SizedBox.expand(
+          child: Image.asset(
+            'assets/background.jpg',
+            height: double.infinity,
+            alignment: Alignment.topCenter,
+            fit: BoxFit.fill,
           ),
-          SizedBox.expand(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Padding(
-                  padding: const EdgeInsets.all(8),
-                  child: Image.asset('assets/logo.png'),
-                ),
-              ],
-            ),
+        ),
+        SizedBox.expand(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Padding(
+                padding: const EdgeInsets.all(8),
+                child: Image.asset('assets/logo.png'),
+              ),
+            ],
           ),
-        ],
-      ),
+        ),
+      ],
     );
   }
 }

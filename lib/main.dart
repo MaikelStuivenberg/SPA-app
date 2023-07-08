@@ -1,4 +1,5 @@
 import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -7,9 +8,10 @@ import 'package:spa_app/routes.dart';
 import 'package:spa_app/utils/unanimated_page_route.dart';
 
 Future<void> main() async {
-  // await Data.init();
   WidgetsFlutterBinding.ensureInitialized();
+
   await Firebase.initializeApp();
+  await FirebaseMessaging.instance.requestPermission();
 
   runApp(const SpaApp());
 }
@@ -21,6 +23,11 @@ class SpaApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    SystemChrome.setPreferredOrientations([
+      DeviceOrientation.portraitUp,
+      DeviceOrientation.portraitDown,
+    ]);
+
     SystemChrome.setSystemUIOverlayStyle(
       SystemUiOverlayStyle.dark.copyWith(
         statusBarColor: Colors.transparent, // Color for Android

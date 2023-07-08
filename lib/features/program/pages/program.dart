@@ -21,6 +21,7 @@ class ProgramPage extends StatefulWidget {
 class ProgramPageState extends State<ProgramPage> {
   // final bool _weatherOpen = false;
   final PageController _pageController = PageController();
+  final ScrollController _listViewController = ScrollController();
 
   late Future<QuerySnapshot<Map<String, dynamic>>> programDocsFuture;
   late Future<User> userDataFuture;
@@ -35,6 +36,13 @@ class ProgramPageState extends State<ProgramPage> {
 
   @override
   Widget build(BuildContext context) {
+    // Wait till pageController has clients and then move to page with current date
+    WidgetsBinding.instance!.addPostFrameCallback((_) {
+      if (_pageController.hasClients) {
+        _pageController.jumpToPage(DateTime.now().day - 22);
+      }
+    });
+
     return Scaffold(
       body: _buildBody(),
     );
@@ -184,15 +192,30 @@ class ProgramPageState extends State<ProgramPage> {
                         );
 
                   return ListView.builder(
+                    controller: _listViewController,
                     itemCount: activities.length,
                     itemBuilder: (BuildContext context, int index) {
                       final activity = activities[index];
+                      final nextActivity = index + 1 < activities.length
+                          ? activities[index + 1]
+                          : null;
+
                       return Container(
                         margin: const EdgeInsets.symmetric(vertical: 8),
                         padding: const EdgeInsets.all(8),
                         height: 95,
                         decoration: BoxDecoration(
-                          color: Colors.white,
+                          color: (nextActivity != null &&
+                                      nextActivity.date!
+                                          .toDate()
+                                          .isBefore(DateTime.now())) ||
+                                  (nextActivity == null &&
+                                      activity.date!
+                                          .toDate()
+                                          .add(const Duration(minutes: 30))
+                                          .isBefore(DateTime.now()))
+                              ? Colors.white.withOpacity(0.5)
+                              : Colors.white,
                           borderRadius: BorderRadius.circular(6),
                         ),
                         child: Row(
@@ -200,15 +223,16 @@ class ProgramPageState extends State<ProgramPage> {
                             ClipRRect(
                               borderRadius: BorderRadius.circular(6),
                               child: Image.asset(
-                                  'assets/program/${activity.image!}',
-                                  width: 80,
-                                  height: 80,
-                                  fit: BoxFit.cover,
-                                  errorBuilder: (context, error, stackTrace) =>
-                                      const Icon(
-                                        Icons.broken_image,
-                                        size: 80,
-                                      )),
+                                'assets/program/${activity.image!}',
+                                width: 80,
+                                height: 80,
+                                fit: BoxFit.cover,
+                                errorBuilder: (context, error, stackTrace) =>
+                                    const Icon(
+                                  Icons.broken_image,
+                                  size: 80,
+                                ),
+                              ),
                             ),
                             const Padding(padding: EdgeInsets.only(left: 8)),
                             Column(
@@ -279,5 +303,15 @@ class ProgramPageState extends State<ProgramPage> {
         ],
       ),
     );
+  }
+
+  bool isCurrentItem(
+    Activity activity,
+    Activity? nextActivity,
+    DateTime currentTime,
+  ) {
+    return activity.date!.toDate().isBefore(currentTime) &&
+        nextActivity != null &&
+        nextActivity!.date!.toDate().isAfter(currentTime);
   }
 }
