@@ -199,6 +199,10 @@ class UserDetailsPageState extends State<UserDetailsPage> {
                             value: 'Timbrels',
                             child: Text('Timbrels'),
                           ),
+                          DropdownMenuItem(
+                            value: 'Improvisatie',
+                            child: Text('Improvisatie'),
+                          ),
                         ],
                         onChanged: (String? value) async {
                           snapshot.data!.minor = value;
