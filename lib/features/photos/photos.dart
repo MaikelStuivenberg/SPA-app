@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:firebase_remote_config/firebase_remote_config.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:http/http.dart' as http;
@@ -19,23 +20,34 @@ class PhotosPage extends StatefulWidget {
 
 class PhotosPageState extends State<PhotosPage> {
   List<dynamic> _photos = [];
+  bool loading = true;
 
   @override
   void initState() {
     super.initState();
+
     _getRecentImagesInAlbum();
   }
 
   Future<void> _getRecentImagesInAlbum() async {
-    // TODO(Maikel): Move this code to an service class
+    final remoteConfig = FirebaseRemoteConfig.instance;
+    final minUploadDate = remoteConfig.getInt('flickr_min_upload_date');
+    final maxUploadDate = remoteConfig.getInt('flickr_max_upload_date');
+    final photosPerPage = remoteConfig.getInt('show_photos_per_page');
+
     const apiKey = '639f377344ffa79f1f0ebc8349dbae6f';
     const userId = '195851792@N04';
-    // const albumId = '72177720300776159';
 
-    const url =
-        'https://www.flickr.com/services/rest/?method=flickr.people.getPhotos&api_key=$apiKey&user_id=$userId&extras=url_m,date_taken&sort=date-taken-desc&per_page=10&format=json&nojsoncallback=1&extras=url_m,url_k';
+    var url = 'https://www.flickr.com/services/rest/';
+    url += '?method=flickr.people.getPhotos&api_key=$apiKey';
+    url += '&user_id=$userId&extras=url_m,date_taken';
+    url += '&sort=date-taken-desc&min_upload_date=$minUploadDate';
+    url += '&max_upload_date=$maxUploadDate';
+    url += '&per_page=$photosPerPage&format=json';
+    url += '&nojsoncallback=1&extras=url_m,url_k';
 
     final response = await http.get(Uri.parse(url));
+    loading = false;
     if (response.statusCode == 200) {
       final data = json.decode(response.body);
       setState(() {
@@ -63,16 +75,18 @@ class PhotosPageState extends State<PhotosPage> {
             Expanded(child: _buildPhotoGrid()),
             ElevatedButton(
               onPressed: () async {
-                const url =
-                    'https://www.flickr.com/photos/salvationarmyyouthnl/albums/72177720300776159/with/52237203531/';
+                final albumId = FirebaseRemoteConfig.instance.getString('flickr_album_id');
+                final url = 'https://www.flickr.com/photos/salvationarmyyouthnl/albums/$albumId/';
                 final uri = Uri.parse(url);
                 if (await canLaunchUrl(uri)) {
                   await launchUrl(uri);
                 }
               },
               style: Styles.buttonStyle,
-              child: Text(AppLocalizations.of(context)!.photoSeeAll,
-                  style: Styles.buttonText),
+              child: Text(
+                AppLocalizations.of(context)!.photoSeeAll,
+                style: Styles.buttonText,
+              ),
             ),
             Container(
               height: 30,
@@ -99,7 +113,7 @@ class PhotosPageState extends State<PhotosPage> {
                 ],
               ),
             )
-          : const Text(''),
+          : Text(loading ? "Even geduld.." : "We zijn druk bezig met het maken van foto's van dit jaar! Check later nog eens. :)", textAlign: TextAlign.center, style: TextStyle(fontSize: 16, color: Colors.white),),
     );
   }
 

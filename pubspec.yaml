@@ -11,8 +11,10 @@ dependencies:
   carousel_slider: ^4.2.1
   cloud_firestore: ^4.8.1
   cupertino_icons: ^1.0.5
-  firebase_core: ^2.14.0
-  firebase_messaging: ^14.6.3
+  firebase_analytics: ^10.4.4
+  firebase_core: ^2.15.0
+  firebase_messaging: ^14.6.5
+  firebase_remote_config: ^4.2.4
   flutter:
     sdk: flutter
   flutter_localizations:

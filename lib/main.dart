@@ -1,5 +1,7 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
+import 'package:firebase_remote_config/firebase_remote_config.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -12,6 +14,28 @@ Future<void> main() async {
 
   await Firebase.initializeApp();
   await FirebaseMessaging.instance.requestPermission();
+
+  final remoteConfig = FirebaseRemoteConfig.instance;
+  await remoteConfig.setConfigSettings(
+    RemoteConfigSettings(
+      fetchTimeout: const Duration(minutes: 1),
+      minimumFetchInterval: const Duration(hours: 1),
+    ),
+  );
+
+  remoteConfig.onConfigUpdated.listen((event) async {
+    if (kDebugMode) {
+      print('Remote config updated!');
+    }
+    await remoteConfig.activate();
+  });
+
+  await remoteConfig.setDefaults(const {
+    'flickr_album_id': '72177720300776159',  //
+    'flickr_min_upload_date': 1689804000,   // Unix timestamp (2023-07-20)
+    'flickr_max_upload_date': 1690840800,   // Unix timestamp (2023-08-01)
+    'show_photos_per_page': 10,
+  });
 
   runApp(const SpaApp());
 }
