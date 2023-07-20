@@ -2,7 +2,7 @@ name: spa_app
 description: A flutter project for SPA
 publish_to: "none"
 
-version: 1.0.8+9
+version: 1.0.9+10
 
 environment:
   sdk: ">=2.19.3 <3.0.0"
@@ -11,7 +11,7 @@ dependencies:
   carousel_slider: ^4.2.1
   cloud_firestore: ^4.8.1
   cupertino_icons: ^1.0.5
-  firebase_analytics: ^10.4.4
+  # firebase_analytics: ^10.4.4
   firebase_core: ^2.15.0
   firebase_messaging: ^14.6.5
   firebase_remote_config: ^4.2.4
