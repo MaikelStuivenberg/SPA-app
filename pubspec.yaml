@@ -2,7 +2,7 @@ name: spa_app
 description: A flutter project for SPA
 publish_to: "none"
 
-version: 1.0.9+10
+version: 1.0.10+11
 
 environment:
   sdk: ">=2.19.3 <3.0.0"
