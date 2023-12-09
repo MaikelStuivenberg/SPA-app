@@ -19,20 +19,11 @@ class MapPageState extends State<MapPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: _buildBody(),
-    );
-  }
-
-  Widget _buildBody() {
-    return DefaultBodyWidget(
+    return DefaultScaffoldWidget(
+      AppLocalizations.of(context)!.mapTitle,
       SafeArea(
         child: Column(
           children: [
-            Text(
-              AppLocalizations.of(context)!.mapTitle,
-              style: Styles.pageTitle,
-            ),
             Container(
               margin: const EdgeInsets.fromLTRB(16, 16, 16, 16),
               padding: const EdgeInsets.all(16),

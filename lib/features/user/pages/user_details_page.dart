@@ -23,13 +23,8 @@ class UserDetailsPageState extends State<UserDetailsPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: _buildBody(),
-    );
-  }
-
-  Widget _buildBody() {
-    return DefaultBodyWidget(
+    return DefaultScaffoldWidget(
+      AppLocalizations.of(context)!.profileTitle,
       SafeArea(
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 16),
@@ -40,11 +35,6 @@ class UserDetailsPageState extends State<UserDetailsPage> {
                 return SingleChildScrollView(
                   child: Column(
                     children: [
-                      Text(
-                        AppLocalizations.of(context)!.profileTitle,
-                        style: Styles.pageTitle,
-                      ),
-                      Container(height: 20),
                       SizedBox(
                         height: 150,
                         width: 150,

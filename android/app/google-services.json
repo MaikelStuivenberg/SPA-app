@@ -14,7 +14,15 @@
       },
       "oauth_client": [
         {
-          "client_id": "497946122788-tpne74cvvq0q1ckgmhdbnasfj718ttnf.apps.googleusercontent.com",
+          "client_id": "497946122788-levdd18vjc781h85clj41307dtkfeova.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "nl.maikelstuivenberg.spa",
+            "certificate_hash": "69994c9bb3b28a1fcaee1ed2afbd32a6121d4dd2"
+          }
+        },
+        {
+          "client_id": "497946122788-g5q00d0pm4h2gjocbqe1drhiuie317dl.apps.googleusercontent.com",
           "client_type": 3
         }
       ],

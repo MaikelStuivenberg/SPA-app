@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:spa_app/features/auth/pages/login_page.dart';
+import 'package:spa_app/features/auth/pages/register_page.dart';
 import 'package:spa_app/features/biblestudy/biblestudy.dart';
 import 'package:spa_app/features/map/pages/map_page.dart';
 import 'package:spa_app/features/photos/photos.dart';
@@ -17,6 +19,8 @@ class Routes {
   static const String map = '/map';
   static const String userDetails = '/userdetails';
   static const String welcome = '/welcome';
+  static const String login = '/login';
+  static const String register = '/register';
 
   // static const String music = '/music';
   // static const String games = '/games';
@@ -29,6 +33,8 @@ class Routes {
     map: (BuildContext context) => const MapPage(),
     userDetails: (BuildContext context) => const UserDetailsPage(),
     welcome: (BuildContext context) => const WelcomePage(),
+    login: (BuildContext context) => const LoginPage(),
+    register: (BuildContext context) => const RegisterPage(),
 
     // music: (BuildContext context) => const MusicPage(),
     // games: (BuildContext context) => const GamesPage(),

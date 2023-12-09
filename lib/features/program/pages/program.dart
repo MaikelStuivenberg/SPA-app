@@ -43,13 +43,8 @@ class ProgramPageState extends State<ProgramPage> {
       }
     });
 
-    return Scaffold(
-      body: _buildBody(),
-    );
-  }
-
-  Widget _buildBody() {
-    return DefaultBodyWidget(
+    return DefaultScaffoldWidget(
+      AppLocalizations.of(context)!.programTitle,
       Stack(
         children: [
           Column(
@@ -97,12 +92,6 @@ class ProgramPageState extends State<ProgramPage> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Center(
-            child: Text(
-              AppLocalizations.of(context)!.programTitle,
-              style: Styles.pageTitle,
-            ),
-          ),
           Center(
             child: Text(
               DateFormatter(dateTime, context).formatAsDayname(),

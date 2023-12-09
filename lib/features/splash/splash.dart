@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:spa_app/routes.dart';
@@ -24,16 +25,23 @@ class SplashPageState extends State<SplashPage> {
       });
     });
 
-    // After 1000ms, go to program page
+    // After 1000ms, go to login/program page
     Future.delayed(const Duration(milliseconds: 1000), () {
-      SharedPreferences.getInstance().then((prefs) {
-        if (prefs.getBool('isFirstTime') == null) {
-          prefs.setBool('isFirstTime', false);
-          Navigator.of(context).pushReplacementNamed(Routes.userDetails);
-        } else {
-          Navigator.of(context).pushReplacementNamed(Routes.program);
-        }
-      });
+      final user = FirebaseAuth.instance.currentUser;
+      if (user != null) {
+        Navigator.of(context).pushReplacementNamed(Routes.program);
+      } else {
+        Navigator.of(context).pushReplacementNamed(Routes.login);
+      }
+
+      // SharedPreferences.getInstance().then((prefs) {
+      // if (prefs.getBool('isFirstTime') == null) {
+      //   prefs.setBool('isFirstTime', false);
+      //   Navigator.of(context).pushReplacementNamed(Routes.userDetails);
+      // } else {
+      //   Navigator.of(context).pushReplacementNamed(Routes.program);
+      // }
+      // });
     });
   }
 

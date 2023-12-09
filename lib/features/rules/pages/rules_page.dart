@@ -19,21 +19,12 @@ class RulesPageState extends State<RulesPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: _buildBody(),
-    );
-  }
-
-  Widget _buildBody() {
-    return DefaultBodyWidget(
+    return DefaultScaffoldWidget(
+      AppLocalizations.of(context)!.rulesTitle,
       SafeArea(
         child: SingleChildScrollView(
           child: Column(
             children: [
-              Text(
-                AppLocalizations.of(context)!.rulesTitle,
-                style: Styles.pageTitle,
-              ),
               RuleContainerWidget(
                 AppLocalizations.of(context)!.rulesRespect.toUpperCase(),
                 AppLocalizations.of(context)!.rulesRespectText,

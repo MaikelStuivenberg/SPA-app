@@ -7,6 +7,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:spa_app/features/splash/splash.dart';
 import 'package:spa_app/routes.dart';
+import 'package:spa_app/utils/app_colors.dart';
 import 'package:spa_app/utils/unanimated_page_route.dart';
 
 Future<void> main() async {
@@ -65,7 +66,7 @@ class SpaApp extends StatelessWidget {
       title: 'SPA',
       home: const SplashPage(),
       navigatorKey: navigatorKey,
-      theme: ThemeData(useMaterial3: true),
+      theme: ThemeData(colorScheme: const ColorScheme.light(primary: AppColors.mainColor)),
       localizationsDelegates: AppLocalizations.localizationsDelegates,
       supportedLocales: AppLocalizations.supportedLocales,
       onGenerateRoute: (settings) {

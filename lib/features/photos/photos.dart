@@ -58,20 +58,11 @@ class PhotosPageState extends State<PhotosPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: _buildBody(),
-    );
-  }
-
-  Widget _buildBody() {
-    return DefaultBodyWidget(
+    return DefaultScaffoldWidget(
+      AppLocalizations.of(context)!.photoTitle,
       SafeArea(
         child: Column(
           children: [
-            Text(
-              AppLocalizations.of(context)!.photoTitle,
-              style: Styles.pageTitle,
-            ),
             Expanded(child: _buildPhotoGrid()),
             ElevatedButton(
               onPressed: () async {
