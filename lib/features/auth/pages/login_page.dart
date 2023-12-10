@@ -141,8 +141,20 @@ class LoginPageState extends State<LoginPage> {
             const SizedBox(width: 16),
             IconButton(
               onPressed: () async {
-                final appleProvider = AppleAuthProvider();
-                await FirebaseAuth.instance.signInWithProvider(appleProvider);
+                try {
+                  final appleProvider = AppleAuthProvider();
+                  await FirebaseAuth.instance
+                      .signInWithProvider(appleProvider)
+                      .then((value) {
+                    Navigator.pushNamedAndRemoveUntil(
+                      context,
+                      Routes.program,
+                      (route) => false,
+                    );
+                  });
+                } on Exception catch (e) {
+                  print('exception->$e');
+                }
               },
               icon: const Icon(
                 FontAwesomeIcons.apple,
