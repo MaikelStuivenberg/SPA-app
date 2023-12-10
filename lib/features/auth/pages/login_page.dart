@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import 'package:spa_app/routes.dart';
 import 'package:spa_app/shared/widgets/default_body.dart';
 import 'package:spa_app/utils/app_colors.dart';
@@ -79,45 +80,73 @@ class LoginPageState extends State<LoginPage> {
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Container(
-              width: 50,
-              height: 50,
-              decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.circular(8),
-              ),
-              child: const Icon(
+            IconButton(
+              onPressed: () {},
+              icon: const Icon(
                 FontAwesomeIcons.facebook,
                 color: AppColors.mainColor,
-                size: 30,
+                size: 40,
+              ),
+              style: ButtonStyle(
+                backgroundColor: MaterialStateProperty.all(Colors.white),
+                shape: MaterialStateProperty.all(
+                  RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(8),
+                  ),
+                ),
               ),
             ),
             const SizedBox(width: 16),
-            Container(
-              width: 50,
-              height: 50,
-              decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.circular(8),
-              ),
-              child: const Icon(
+            IconButton(
+              padding: const EdgeInsets.all(11),
+              onPressed: () {
+                GoogleSignIn().signIn().then((user) {
+                  var awef = "123";
+                });
+                // try {
+                //   final googleUser = await GoogleSignIn().signIn();
+
+                //   final googleAuth = await googleUser?.authentication;
+
+                //   final credential = GoogleAuthProvider.credential(
+                //     accessToken: googleAuth?.accessToken,
+                //     idToken: googleAuth?.idToken,
+                //   );
+
+                //   await FirebaseAuth.instance.signInWithCredential(credential);
+                // } on Exception catch (e) {
+                //   print('exception->$e');
+                // }
+              },
+              icon: const Icon(
                 FontAwesomeIcons.google,
                 color: AppColors.mainColor,
-                size: 25,
+                size: 34,
+              ),
+              style: ButtonStyle(
+                backgroundColor: MaterialStateProperty.all(Colors.white),
+                shape: MaterialStateProperty.all(
+                  RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(8),
+                  ),
+                ),
               ),
             ),
             const SizedBox(width: 16),
-            Container(
-              width: 50,
-              height: 50,
-              decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.circular(8),
-              ),
-              child: const Icon(
+            IconButton(
+              onPressed: () {},
+              icon: const Icon(
                 FontAwesomeIcons.apple,
                 color: AppColors.mainColor,
-                size: 30,
+                size: 40,
+              ),
+              style: ButtonStyle(
+                backgroundColor: MaterialStateProperty.all(Colors.white),
+                shape: MaterialStateProperty.all(
+                  RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(8),
+                  ),
+                ),
               ),
             ),
           ],

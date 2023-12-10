@@ -8,7 +8,6 @@ import 'package:http/http.dart' as http;
 import 'package:path_provider/path_provider.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:spa_app/shared/widgets/default_body.dart';
-import 'package:spa_app/utils/styles.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class PhotosPage extends StatefulWidget {
@@ -61,28 +60,39 @@ class PhotosPageState extends State<PhotosPage> {
     return DefaultScaffoldWidget(
       AppLocalizations.of(context)!.photoTitle,
       SafeArea(
-        child: Column(
-          children: [
-            Expanded(child: _buildPhotoGrid()),
-            ElevatedButton(
-              onPressed: () async {
-                final albumId = FirebaseRemoteConfig.instance.getString('flickr_album_id');
-                final url = 'https://www.flickr.com/photos/salvationarmyyouthnl/albums/$albumId/';
-                final uri = Uri.parse(url);
-                if (await canLaunchUrl(uri)) {
-                  await launchUrl(uri);
-                }
-              },
-              style: Styles.buttonStyle,
-              child: Text(
-                AppLocalizations.of(context)!.photoSeeAll,
-                style: Styles.buttonText,
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 16),
+          child: Column(
+            children: [
+              Expanded(child: _buildPhotoGrid()),
+              SizedBox(
+                width: double.infinity,
+                child: ElevatedButton(
+                  onPressed: () async {
+                    final albumId = FirebaseRemoteConfig.instance
+                        .getString('flickr_album_id');
+                    final url =
+                        'https://www.flickr.com/photos/salvationarmyyouthnl/albums/$albumId/';
+                    final uri = Uri.parse(url);
+                    if (await canLaunchUrl(uri)) {
+                      await launchUrl(uri);
+                    }
+                  },
+                  style: ElevatedButton.styleFrom(
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(8),
+                    ),
+                  ),
+                  child: Text(
+                    AppLocalizations.of(context)!.photoSeeAll,
+                  ),
+                ),
               ),
-            ),
-            Container(
-              height: 30,
-            )
-          ],
+              Container(
+                height: 30,
+              )
+            ],
+          ),
         ),
       ),
     );
@@ -90,7 +100,7 @@ class PhotosPageState extends State<PhotosPage> {
 
   Widget _buildPhotoGrid() {
     return Padding(
-      padding: const EdgeInsets.fromLTRB(10, 25, 10, 10),
+      padding: const EdgeInsets.fromLTRB(0, 25, 0, 10),
       child: _photos.isNotEmpty
           ? SingleChildScrollView(
               child: Column(
@@ -104,7 +114,13 @@ class PhotosPageState extends State<PhotosPage> {
                 ],
               ),
             )
-          : Text(loading ? "Even geduld.." : "We zijn druk bezig met het maken van foto's van dit jaar! Check later nog eens. :)", textAlign: TextAlign.center, style: TextStyle(fontSize: 16, color: Colors.white),),
+          : Text(
+              loading
+                  ? "Even geduld.."
+                  : "We zijn druk bezig met het maken van foto's van dit jaar! Check later nog eens. :)",
+              textAlign: TextAlign.center,
+              style: TextStyle(fontSize: 16, color: Colors.white),
+            ),
     );
   }
 
@@ -114,7 +130,7 @@ class PhotosPageState extends State<PhotosPage> {
         children: [
           for (var i = 0; i < 10; i++)
             Padding(
-              padding: const EdgeInsets.all(4),
+              padding: const EdgeInsets.symmetric(vertical: 8),
               child: Stack(
                 children: [
                   ClipRRect(

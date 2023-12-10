@@ -16,13 +16,12 @@ dependencies:
   firebase_core: ^2.24.2
   firebase_messaging: ^14.7.8
   firebase_remote_config: ^4.3.8
-  firebase_ui_auth: ^1.11.0
-  firebase_ui_oauth_google: ^1.2.15
-  font_awesome_flutter: ^10.6.0
   flutter:
     sdk: flutter
   flutter_localizations:
     sdk: flutter
+  font_awesome_flutter: ^10.6.0
+  google_sign_in: ^6.2.0
   http: ^1.1.2
   image_picker: ^1.0.4
   intl: any

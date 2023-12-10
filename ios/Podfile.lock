@@ -645,16 +645,11 @@ PODS:
     - firebase_core
     - Flutter
     - nanopb (< 2.30910.0, >= 2.30908.0)
-  - desktop_webview_auth (0.0.1):
-    - Flutter
   - Firebase/Auth (10.18.0):
     - Firebase/CoreOnly
     - FirebaseAuth (~> 10.18.0)
   - Firebase/CoreOnly (10.18.0):
     - FirebaseCore (= 10.18.0)
-  - Firebase/DynamicLinks (10.18.0):
-    - Firebase/CoreOnly
-    - FirebaseDynamicLinks (~> 10.18.0)
   - Firebase/Firestore (10.18.0):
     - Firebase/CoreOnly
     - FirebaseFirestore (~> 10.18.0)
@@ -670,10 +665,6 @@ PODS:
     - Flutter
   - firebase_core (2.24.2):
     - Firebase/CoreOnly (= 10.18.0)
-    - Flutter
-  - firebase_dynamic_links (5.4.8):
-    - Firebase/DynamicLinks (= 10.18.0)
-    - firebase_core
     - Flutter
   - firebase_messaging (14.7.8):
     - Firebase/Messaging (= 10.18.0)
@@ -701,8 +692,6 @@ PODS:
     - FirebaseCore (~> 10.0)
   - FirebaseCoreInternal (10.19.0):
     - "GoogleUtilities/NSData+zlib (~> 7.8)"
-  - FirebaseDynamicLinks (10.18.0):
-    - FirebaseCore (~> 10.0)
   - FirebaseFirestore (10.18.0):
     - FirebaseCore (~> 10.0)
     - FirebaseCoreExtension (~> 10.0)
@@ -862,10 +851,8 @@ PODS:
 
 DEPENDENCIES:
   - cloud_firestore (from `.symlinks/plugins/cloud_firestore/ios`)
-  - desktop_webview_auth (from `.symlinks/plugins/desktop_webview_auth/ios`)
   - firebase_auth (from `.symlinks/plugins/firebase_auth/ios`)
   - firebase_core (from `.symlinks/plugins/firebase_core/ios`)
-  - firebase_dynamic_links (from `.symlinks/plugins/firebase_dynamic_links/ios`)
   - firebase_messaging (from `.symlinks/plugins/firebase_messaging/ios`)
   - firebase_remote_config (from `.symlinks/plugins/firebase_remote_config/ios`)
   - Flutter (from `Flutter`)
@@ -888,7 +875,6 @@ SPEC REPOS:
     - FirebaseCore
     - FirebaseCoreExtension
     - FirebaseCoreInternal
-    - FirebaseDynamicLinks
     - FirebaseFirestore
     - FirebaseFirestoreInternal
     - FirebaseInstallations
@@ -910,14 +896,10 @@ SPEC REPOS:
 EXTERNAL SOURCES:
   cloud_firestore:
     :path: ".symlinks/plugins/cloud_firestore/ios"
-  desktop_webview_auth:
-    :path: ".symlinks/plugins/desktop_webview_auth/ios"
   firebase_auth:
     :path: ".symlinks/plugins/firebase_auth/ios"
   firebase_core:
     :path: ".symlinks/plugins/firebase_core/ios"
-  firebase_dynamic_links:
-    :path: ".symlinks/plugins/firebase_dynamic_links/ios"
   firebase_messaging:
     :path: ".symlinks/plugins/firebase_messaging/ios"
   firebase_remote_config:
@@ -942,11 +924,9 @@ SPEC CHECKSUMS:
   AppAuth: 3bb1d1cd9340bd09f5ed189fb00b1cc28e1e8570
   BoringSSL-GRPC: 3175b25143e648463a56daeaaa499c6cb86dad33
   cloud_firestore: d2707a9ead952efd2a89e82347e46dc4b9c32e8d
-  desktop_webview_auth: d645139460ef203d50bd0cdb33356785dd939cce
   Firebase: 414ad272f8d02dfbf12662a9d43f4bba9bec2a06
   firebase_auth: 0099901926d85bda1688f6e451755b413c16154d
   firebase_core: 0af4a2b24f62071f9bf283691c0ee41556dcb3f5
-  firebase_dynamic_links: b626a11f5eb02033981ae377377c3f297eb4c1b0
   firebase_messaging: d4e4603f091c7b716b3f6c55550b2fa5dbf62ffd
   firebase_remote_config: 14ad7a3c99810d373ba1ad4a754a8cf26c91d476
   FirebaseABTesting: bfa3b384b68cee10a89183649c64cd7998a37a12
@@ -955,7 +935,6 @@ SPEC CHECKSUMS:
   FirebaseCore: 2322423314d92f946219c8791674d2f3345b598f
   FirebaseCoreExtension: c08d14c7b22e07994e876d837e6f58642f340087
   FirebaseCoreInternal: b444828ea7cfd594fca83046b95db98a2be4f290
-  FirebaseDynamicLinks: c37307441c53838d66a9650dabca9e0459502527
   FirebaseFirestore: 171bcbb57a1a348dd171a0d5e382c03ef85a77bb
   FirebaseFirestoreInternal: a15405fb607dfd14edd568bba77028f4c7a69688
   FirebaseInstallations: 033d199474164db20c8350736842a94fe717b960

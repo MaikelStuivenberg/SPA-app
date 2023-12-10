@@ -32,9 +32,9 @@ Future<void> main() async {
   });
 
   await remoteConfig.setDefaults(const {
-    'flickr_album_id': '72177720300776159',  //
-    'flickr_min_upload_date': 1689804000,   // Unix timestamp (2023-07-20)
-    'flickr_max_upload_date': 1690840800,   // Unix timestamp (2023-08-01)
+    'flickr_album_id': '72177720300776159', //
+    'flickr_min_upload_date': 1689804000, // Unix timestamp (2023-07-20)
+    'flickr_max_upload_date': 1690840800, // Unix timestamp (2023-08-01)
     'show_photos_per_page': 10,
   });
 
@@ -66,7 +66,8 @@ class SpaApp extends StatelessWidget {
       title: 'SPA',
       home: const SplashPage(),
       navigatorKey: navigatorKey,
-      theme: ThemeData(colorScheme: const ColorScheme.light(primary: AppColors.mainColor)),
+      theme: ThemeData(
+          colorScheme: const ColorScheme.light(primary: AppColors.mainColor)),
       localizationsDelegates: AppLocalizations.localizationsDelegates,
       supportedLocales: AppLocalizations.supportedLocales,
       onGenerateRoute: (settings) {

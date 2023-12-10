@@ -7,17 +7,17 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:497946122788:android:81dbcb468b1ec97eb9d6b1",
+        "mobilesdk_app_id": "1:497946122788:android:7d358c959cfa4762b9d6b1",
         "android_client_info": {
           "package_name": "nl.schoolofperformingarts.app"
         }
       },
       "oauth_client": [
         {
-          "client_id": "497946122788-levdd18vjc781h85clj41307dtkfeova.apps.googleusercontent.com",
+          "client_id": "497946122788-n9htd9cajr0a9sriajn66iojv3021n1c.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
-            "package_name": "nl.maikelstuivenberg.spa",
+            "package_name": "nl.schoolofperformingarts.app",
             "certificate_hash": "69994c9bb3b28a1fcaee1ed2afbd32a6121d4dd2"
           }
         },
@@ -35,14 +35,14 @@
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "497946122788-tpne74cvvq0q1ckgmhdbnasfj718ttnf.apps.googleusercontent.com",
+              "client_id": "497946122788-g5q00d0pm4h2gjocbqe1drhiuie317dl.apps.googleusercontent.com",
               "client_type": 3
             },
             {
               "client_id": "497946122788-c9eaomrf6iucfflafrc8anpg413ka60s.apps.googleusercontent.com",
               "client_type": 2,
               "ios_info": {
-                "bundle_id": "nl.schoolofperformingarts.appApp"
+                "bundle_id": "nl.maikelstuivenberg.spaApp"
               }
             }
           ]
