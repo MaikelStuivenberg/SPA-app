@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:sign_in_with_apple/sign_in_with_apple.dart';
 import 'package:spa_app/routes.dart';
 import 'package:spa_app/shared/widgets/default_body.dart';
 import 'package:spa_app/utils/app_colors.dart';
@@ -80,43 +81,48 @@ class LoginPageState extends State<LoginPage> {
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            IconButton(
-              onPressed: () {},
-              icon: const Icon(
-                FontAwesomeIcons.facebook,
-                color: AppColors.mainColor,
-                size: 40,
-              ),
-              style: ButtonStyle(
-                backgroundColor: MaterialStateProperty.all(Colors.white),
-                shape: MaterialStateProperty.all(
-                  RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(8),
-                  ),
-                ),
-              ),
-            ),
-            const SizedBox(width: 16),
+            // IconButton(
+            //   onPressed: () {},
+            //   icon: const Icon(
+            //     FontAwesomeIcons.facebook,
+            //     color: AppColors.mainColor,
+            //     size: 40,
+            //   ),
+            //   style: ButtonStyle(
+            //     backgroundColor: MaterialStateProperty.all(Colors.white),
+            //     shape: MaterialStateProperty.all(
+            //       RoundedRectangleBorder(
+            //         borderRadius: BorderRadius.circular(8),
+            //       ),
+            //     ),
+            //   ),
+            // ),
+            // const SizedBox(width: 16),
             IconButton(
               padding: const EdgeInsets.all(11),
               onPressed: () {
-                GoogleSignIn().signIn().then((user) {
-                  var awef = "123";
-                });
-                // try {
-                //   final googleUser = await GoogleSignIn().signIn();
+                try {
+                  GoogleSignIn().signIn().then((googleUser) async {
+                    final googleAuth = await googleUser?.authentication;
 
-                //   final googleAuth = await googleUser?.authentication;
+                    final credential = GoogleAuthProvider.credential(
+                      accessToken: googleAuth?.accessToken,
+                      idToken: googleAuth?.idToken,
+                    );
 
-                //   final credential = GoogleAuthProvider.credential(
-                //     accessToken: googleAuth?.accessToken,
-                //     idToken: googleAuth?.idToken,
-                //   );
-
-                //   await FirebaseAuth.instance.signInWithCredential(credential);
-                // } on Exception catch (e) {
-                //   print('exception->$e');
-                // }
+                    await FirebaseAuth.instance
+                        .signInWithCredential(credential)
+                        .then((value) {
+                      Navigator.pushNamedAndRemoveUntil(
+                        context,
+                        Routes.program,
+                        (route) => false,
+                      );
+                    });
+                  });
+                } on Exception catch (e) {
+                  print('exception->$e');
+                }
               },
               icon: const Icon(
                 FontAwesomeIcons.google,
@@ -134,7 +140,10 @@ class LoginPageState extends State<LoginPage> {
             ),
             const SizedBox(width: 16),
             IconButton(
-              onPressed: () {},
+              onPressed: () async {
+                final appleProvider = AppleAuthProvider();
+                await FirebaseAuth.instance.signInWithProvider(appleProvider);
+              },
               icon: const Icon(
                 FontAwesomeIcons.apple,
                 color: AppColors.mainColor,

@@ -44,6 +44,7 @@ class DefaultScaffoldWidget extends StatelessWidget {
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         iconTheme: const IconThemeData(color: Colors.white),
+        centerTitle: true,
         title: Text(
           _title,
           style: Styles.pageTitle,
