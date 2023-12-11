@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:spa_app/routes.dart';
 import 'package:spa_app/utils/app_colors.dart';
 import 'package:spa_app/utils/styles.dart';
@@ -56,47 +57,45 @@ class DefaultScaffoldWidget extends StatelessWidget {
   Widget _buildNavigationBar(BuildContext context) {
     return Hero(
       tag: 'bottombar',
-      child: Material(
+      child: ColoredBox(
         color: Colors.white,
-        child: SafeArea(
-          child: Stack(
-            children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: <Widget>[
-                  IconButton(
-                    icon: const Icon(Icons.checklist),
-                    onPressed: () {
-                      Navigator.pushNamed(context, Routes.rules);
-                    },
-                    color: AppColors.mainColor,
-                  ),
-                  IconButton(
-                    icon: const Icon(Icons.image),
-                    onPressed: () {
-                      Navigator.pushNamed(context, Routes.photos);
-                    },
-                    color: AppColors.mainColor,
-                  ),
-                  const SizedBox(width: 32, height: 32),
-                  IconButton(
-                    icon: const Icon(Icons.map),
-                    onPressed: () {
-                      Navigator.pushNamed(context, Routes.map);
-                    },
-                    color: AppColors.mainColor,
-                  ),
-                  IconButton(
-                    icon: const Icon(Icons.person),
-                    onPressed: () {
-                      Navigator.pushNamed(context, Routes.userDetails);
-                    },
-                    color: AppColors.mainColor,
-                  ),
-                ],
-              ),
-            ],
-          ),
+        child: Stack(
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: <Widget>[
+                IconButton(
+                  icon: const Icon(FontAwesomeIcons.listOl, size: 20),
+                  onPressed: () {
+                    Navigator.pushNamed(context, Routes.rules);
+                  },
+                  color: AppColors.mainColor,
+                ),
+                IconButton(
+                  icon: const Icon(FontAwesomeIcons.solidImage, size: 20),
+                  onPressed: () {
+                    Navigator.pushNamed(context, Routes.photos);
+                  },
+                  color: AppColors.mainColor,
+                ),
+                const SizedBox(width: 32, height: 32),
+                IconButton(
+                  icon: const Icon(Icons.map),
+                  onPressed: () {
+                    Navigator.pushNamed(context, Routes.map);
+                  },
+                  color: AppColors.mainColor,
+                ),
+                IconButton(
+                  icon: const Icon(FontAwesomeIcons.userLarge, size: 18),
+                  onPressed: () {
+                    Navigator.pushNamed(context, Routes.userDetails);
+                  },
+                  color: AppColors.mainColor,
+                ),
+              ],
+            ),
+          ],
         ),
       ),
     );
