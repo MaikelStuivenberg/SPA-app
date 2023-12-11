@@ -1,7 +1,12 @@
-import 'package:firebase_auth/firebase_auth.dart';
+import 'dart:async';
+
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart' hide User;
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:spa_app/features/user/models/user.dart';
 import 'package:spa_app/routes.dart';
 import 'package:spa_app/shared/repositories/user_data.dart';
 import 'package:spa_app/shared/widgets/default_body.dart';
@@ -17,6 +22,14 @@ class UserDetailsPage extends StatefulWidget {
 
 class UserDetailsPageState extends State<UserDetailsPage> {
   final UserDataRepository _userDataRepository = UserDataRepository();
+  final _firstnameController = TextEditingController();
+  final _lastnameController = TextEditingController();
+  final _ageController = TextEditingController();
+  var _majorValue = '';
+  var _minorValue = '';
+
+  bool _isSaving = false;
+  bool _doneSaving = false;
 
   @override
   void initState() {
@@ -34,201 +47,238 @@ class UserDetailsPageState extends State<UserDetailsPage> {
             future: _userDataRepository.getUser(),
             builder: (context, snapshot) {
               if (snapshot.hasData) {
-                return SingleChildScrollView(
-                  child: Column(
-                    children: [
-                      SizedBox(
-                        height: 150,
-                        width: 150,
-                        child: Stack(
-                          clipBehavior: Clip.none,
-                          fit: StackFit.expand,
-                          children: [
-                            CircleAvatar(
-                              backgroundColor: Colors.transparent,
-                              foregroundImage: ((snapshot.data?.image != null)
-                                  ? MemoryImage(snapshot.data!.image!)
-                                  : const AssetImage(
-                                      'assets/profile_default.jpg',
-                                    )) as ImageProvider<Object>,
-                            ),
-                            Positioned(
-                              bottom: 0,
-                              right: -25,
-                              child: RawMaterialButton(
-                                onPressed: () {
-                                  ImagePicker()
-                                      .pickImage(source: ImageSource.gallery)
-                                      .then((value) async {
-                                    if (value != null) {
-                                      await _userDataRepository.setImage(
-                                        await value.readAsBytes(),
-                                      );
+                _firstnameController.text = snapshot.data!.firstname!;
+                _lastnameController.text = snapshot.data!.lastname!;
+                _ageController.text = snapshot.data!.age!;
+                _majorValue = snapshot.data!.major!;
+                _minorValue = snapshot.data!.minor!;
 
-                                      setState(() {});
-                                    }
-                                  });
-                                },
-                                fillColor: AppColors.buttonColor,
-                                shape: const CircleBorder(),
-                                child: const Icon(
-                                  Icons.camera_alt_outlined,
-                                  color: Colors.white,
-                                  size: 20,
+                return SingleChildScrollView(
+                  child: Form(
+                    child: Column(
+                      children: [
+                        SizedBox(
+                          height: 160,
+                          width: 160,
+                          child: Stack(
+                            clipBehavior: Clip.none,
+                            fit: StackFit.expand,
+                            children: [
+                              CircleAvatar(
+                                backgroundColor: Colors.transparent,
+                                foregroundImage: ((snapshot.data?.image != null)
+                                    ? MemoryImage(snapshot.data!.image!)
+                                    : const AssetImage(
+                                        'assets/profile_default.jpg',
+                                      )) as ImageProvider<Object>,
+                              ),
+                              Positioned(
+                                bottom: 0,
+                                right: -25,
+                                child: RawMaterialButton(
+                                  onPressed: () {
+                                    ImagePicker()
+                                        .pickImage(source: ImageSource.gallery)
+                                        .then((value) async {
+                                      if (value != null) {
+                                        await _userDataRepository.setImage(
+                                          await value.readAsBytes(),
+                                        );
+
+                                        setState(() {});
+                                      }
+                                    });
+                                  },
+                                  fillColor: AppColors.buttonColor,
+                                  shape: const CircleBorder(),
+                                  child: const Icon(
+                                    Icons.camera_alt_outlined,
+                                    color: Colors.white,
+                                    size: 20,
+                                  ),
                                 ),
                               ),
+                            ],
+                          ),
+                        ),
+                        Container(height: 20),
+                        TextFormField(
+                          controller: _firstnameController,
+                          decoration: Styles.textInputDecoration.copyWith(
+                            labelText:
+                                AppLocalizations.of(context)!.profileFirstname,
+                          ),
+                          style: Styles.textInput,
+                        ),
+                        TextFormField(
+                          controller: _lastnameController,
+                          decoration: Styles.textInputDecoration.copyWith(
+                            labelText:
+                                AppLocalizations.of(context)!.profileLastname,
+                          ),
+                          style: Styles.textInput,
+                        ),
+                        TextFormField(
+                          controller: _ageController,
+                          decoration: Styles.textInputDecoration.copyWith(
+                            labelText: AppLocalizations.of(context)!.profileAge,
+                          ),
+                          style: Styles.textInput,
+                        ),
+                        DropdownButtonFormField(
+                          value: _majorValue.isEmpty ? null : _majorValue,
+                          dropdownColor: const Color.fromARGB(135, 0, 0, 0),
+                          decoration: Styles.textInputDecoration.copyWith(
+                            labelText:
+                                AppLocalizations.of(context)!.profileMajor,
+                          ),
+                          style: Styles.textInput,
+                          items: const [
+                            DropdownMenuItem(
+                              value: 'Brass',
+                              child: Text('Brass'),
+                            ),
+                            DropdownMenuItem(
+                              value: 'Choir',
+                              child: Text('Choir'),
+                            ),
+                            DropdownMenuItem(
+                              value: 'Dance',
+                              child: Text('Dance'),
+                            ),
+                            DropdownMenuItem(
+                              value: 'MMS',
+                              child: Text('MMS'),
+                            ),
+                            DropdownMenuItem(
+                              value: 'Theatre',
+                              child: Text('Theatre'),
                             ),
                           ],
-                        ),
-                      ),
-                      Container(height: 20),
-                      TextFormField(
-                        controller: TextEditingController(
-                          text: snapshot.data!.firstname,
-                        ),
-                        decoration: Styles.textInputDecoration.copyWith(
-                          labelText:
-                              AppLocalizations.of(context)!.profileFirstname,
-                        ),
-                        style: Styles.textInput,
-                        onChanged: (value) async {
-                          snapshot.data!.firstname = value;
-                          await _userDataRepository.setUser(snapshot.data!);
-                        },
-                      ),
-                      TextFormField(
-                        controller: TextEditingController(
-                          text: snapshot.data!.lastname,
-                        ),
-                        decoration: Styles.textInputDecoration.copyWith(
-                          labelText:
-                              AppLocalizations.of(context)!.profileLastname,
-                        ),
-                        style: Styles.textInput,
-                        onChanged: (value) async {
-                          snapshot.data!.lastname = value;
-                          await _userDataRepository.setUser(snapshot.data!);
-                        },
-                      ),
-                      TextFormField(
-                        controller: TextEditingController(
-                          text: snapshot.data!.age,
-                        ),
-                        decoration: Styles.textInputDecoration.copyWith(
-                          labelText: AppLocalizations.of(context)!.profileAge,
-                        ),
-                        style: Styles.textInput,
-                        onChanged: (value) async {
-                          snapshot.data!.age = value;
-                          await _userDataRepository.setUser(snapshot.data!);
-                        },
-                      ),
-                      DropdownButtonFormField(
-                        value: snapshot.data!.major,
-                        dropdownColor: const Color.fromARGB(135, 0, 0, 0),
-                        decoration: Styles.textInputDecoration.copyWith(
-                          labelText: AppLocalizations.of(context)!.profileMajor,
-                        ),
-                        style: Styles.textInput,
-                        items: const [
-                          DropdownMenuItem(
-                            value: 'Brass',
-                            child: Text('Brass'),
-                          ),
-                          DropdownMenuItem(
-                            value: 'Choir',
-                            child: Text('Choir'),
-                          ),
-                          DropdownMenuItem(
-                            value: 'Dance',
-                            child: Text('Dance'),
-                          ),
-                          DropdownMenuItem(
-                            value: 'MMS',
-                            child: Text('MMS'),
-                          ),
-                          DropdownMenuItem(
-                            value: 'Theatre',
-                            child: Text('Theatre'),
-                          ),
-                        ],
-                        onChanged: (String? value) async {
-                          snapshot.data!.major = value;
-                          await _userDataRepository.setUser(snapshot.data!);
-                        },
-                      ),
-                      DropdownButtonFormField(
-                        value: snapshot.data!.minor,
-                        dropdownColor: const Color.fromARGB(135, 0, 0, 0),
-                        decoration: Styles.textInputDecoration.copyWith(
-                          labelText: AppLocalizations.of(context)!.profileMinor,
-                        ),
-                        style: Styles.textInput,
-                        items: const [
-                          DropdownMenuItem(
-                            value: 'Brass Class',
-                            child: Text('Brass Class'),
-                          ),
-                          DropdownMenuItem(
-                            value: 'Gospel',
-                            child: Text('Gospel'),
-                          ),
-                          DropdownMenuItem(
-                            value: 'Sport & Ministries',
-                            child: Text('Sport & Ministries'),
-                          ),
-                          DropdownMenuItem(
-                            value: 'Ritme',
-                            child: Text('Ritme'),
-                          ),
-                          DropdownMenuItem(
-                            value: 'Media',
-                            child: Text('Media'),
-                          ),
-                          DropdownMenuItem(
-                            value: 'Compositie',
-                            child: Text('Compositie'),
-                          ),
-                          DropdownMenuItem(
-                            value: 'Timbrels',
-                            child: Text('Timbrels'),
-                          ),
-                          DropdownMenuItem(
-                            value: 'Improvisatie',
-                            child: Text('Improvisatie'),
-                          ),
-                        ],
-                        onChanged: (String? value) async {
-                          snapshot.data!.minor = value;
-                          await _userDataRepository.setUser(snapshot.data!);
-                        },
-                      ),
-                      const SizedBox(
-                        height: 16,
-                      ),
-                      SizedBox(
-                        width: double.infinity,
-                        child: ElevatedButton.icon(
-                          icon: const Icon(
-                            Icons.logout,
-                          ),
-                          onPressed: () {
-                            FirebaseAuth.instance.signOut();
-                            Navigator.pushNamedAndRemoveUntil(
-                              context,
-                              Routes.login,
-                              (route) => false,
-                            );
+                          onChanged: (value) {
+                            if (value != null) {
+                              _majorValue = value;
+                            }
                           },
-                          style: ElevatedButton.styleFrom(
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(8),
-                            ),
-                          ),
-                          label: const Text('Logout'),
                         ),
-                      ),
-                    ],
+                        DropdownButtonFormField(
+                          value: _minorValue.isEmpty ? null : _minorValue,
+                          dropdownColor: const Color.fromARGB(135, 0, 0, 0),
+                          decoration: Styles.textInputDecoration.copyWith(
+                            labelText:
+                                AppLocalizations.of(context)!.profileMinor,
+                          ),
+                          style: Styles.textInput,
+                          items: const [
+                            DropdownMenuItem(
+                              value: 'Brass Class',
+                              child: Text('Brass Class'),
+                            ),
+                            DropdownMenuItem(
+                              value: 'Gospel',
+                              child: Text('Gospel'),
+                            ),
+                            DropdownMenuItem(
+                              value: 'Sport & Ministries',
+                              child: Text('Sport & Ministries'),
+                            ),
+                            DropdownMenuItem(
+                              value: 'Ritme',
+                              child: Text('Ritme'),
+                            ),
+                            DropdownMenuItem(
+                              value: 'Media',
+                              child: Text('Media'),
+                            ),
+                            DropdownMenuItem(
+                              value: 'Compositie',
+                              child: Text('Compositie'),
+                            ),
+                            DropdownMenuItem(
+                              value: 'Timbrels',
+                              child: Text('Timbrels'),
+                            ),
+                            DropdownMenuItem(
+                              value: 'Improvisatie',
+                              child: Text('Improvisatie'),
+                            ),
+                          ],
+                          onChanged: (value) {
+                            if (value != null) {
+                              _minorValue = value;
+                            }
+                          },
+                        ),
+                        const SizedBox(
+                          height: 24,
+                        ),
+                        SizedBox(
+                          width: double.infinity,
+                          child: ElevatedButton(
+                            onPressed: () async {
+                              if (_isSaving) return;
+                              setState(() {
+                                _isSaving = true;
+                                _doneSaving = false;
+                              });
+                              await _userDataRepository.updateUser(
+                                User(
+                                  firstname: _firstnameController.text,
+                                  lastname: _lastnameController.text,
+                                  age: _ageController.text,
+                                  major: _majorValue,
+                                  minor: _minorValue,
+                                ),
+                              );
+
+                              setState(() {
+                                _isSaving = false;
+                                _doneSaving = true;
+                                Timer(const Duration(seconds: 2), () {
+                                  setState(() {
+                                    _doneSaving = false;
+                                  });
+                                });
+                              });
+                            },
+                            style: ElevatedButton.styleFrom(
+                              backgroundColor: AppColors.buttonColor,
+                              foregroundColor: Colors.white,
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(8),
+                              ),
+                            ),
+                            child: _doneSaving
+                                ? const Icon(FontAwesomeIcons.check)
+                                : _isSaving
+                                    ? const CircularProgressIndicator()
+                                    : const Text('Save'),
+                          ),
+                        ),
+                        SizedBox(
+                          width: double.infinity,
+                          child: ElevatedButton.icon(
+                            icon: const Icon(
+                              Icons.logout,
+                            ),
+                            onPressed: () {
+                              FirebaseAuth.instance.signOut();
+                              Navigator.pushNamedAndRemoveUntil(
+                                context,
+                                Routes.login,
+                                (route) => false,
+                              );
+                            },
+                            style: ElevatedButton.styleFrom(
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(8),
+                              ),
+                            ),
+                            label: const Text('Logout'),
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
                 );
               } else {

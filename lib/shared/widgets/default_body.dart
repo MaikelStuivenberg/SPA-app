@@ -54,6 +54,22 @@ class DefaultScaffoldWidget extends StatelessWidget {
           _title,
           style: Styles.pageTitle,
         ),
+        actions: [
+          // IconButton(
+          //   icon: const Icon(Icons.notifications),
+          //   onPressed: () {
+          //     Navigator.pushNamed(context, Routes.program);
+          //   },
+          //   color: Colors.white,
+          // ),
+          // IconButton(
+          //   icon: const Icon(FontAwesomeIcons.userLarge, size: 18),
+          //   onPressed: () {
+          //     Navigator.pushNamed(context, Routes.program);
+          //   },
+          //   color: Colors.white,
+          // ),
+        ],
       ),
     );
   }
