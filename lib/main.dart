@@ -67,7 +67,8 @@ class SpaApp extends StatelessWidget {
       home: const SplashPage(),
       navigatorKey: navigatorKey,
       theme: ThemeData(
-          colorScheme: const ColorScheme.light(primary: AppColors.mainColor)),
+        colorScheme: const ColorScheme.light(primary: AppColors.mainColor),
+      ),
       localizationsDelegates: AppLocalizations.localizationsDelegates,
       supportedLocales: AppLocalizations.supportedLocales,
       onGenerateRoute: (settings) {

@@ -1,9 +1,6 @@
-import 'dart:ffi';
-
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:spa_app/routes.dart';
 import 'package:spa_app/shared/repositories/user_data.dart';
@@ -50,35 +47,37 @@ class UserDetailsPageState extends State<UserDetailsPage> {
                             CircleAvatar(
                               backgroundColor: Colors.transparent,
                               foregroundImage: ((snapshot.data?.image != null)
-                                      ? MemoryImage(snapshot.data!.image!)
-                                      : const AssetImage(
-                                          'assets/profile_default.jpg'))
-                                  as ImageProvider<Object>,
+                                  ? MemoryImage(snapshot.data!.image!)
+                                  : const AssetImage(
+                                      'assets/profile_default.jpg',
+                                    )) as ImageProvider<Object>,
                             ),
                             Positioned(
-                                bottom: 0,
-                                right: -25,
-                                child: RawMaterialButton(
-                                  onPressed: () {
-                                    ImagePicker()
-                                        .pickImage(source: ImageSource.gallery)
-                                        .then((value) async {
-                                      if (value != null) {
-                                        await _userDataRepository.setImage(
-                                            await value.readAsBytes());
+                              bottom: 0,
+                              right: -25,
+                              child: RawMaterialButton(
+                                onPressed: () {
+                                  ImagePicker()
+                                      .pickImage(source: ImageSource.gallery)
+                                      .then((value) async {
+                                    if (value != null) {
+                                      await _userDataRepository.setImage(
+                                        await value.readAsBytes(),
+                                      );
 
-                                        setState(() {});
-                                      }
-                                    });
-                                  },
-                                  fillColor: AppColors.buttonColor,
-                                  shape: const CircleBorder(),
-                                  child: const Icon(
-                                    Icons.camera_alt_outlined,
-                                    color: Colors.white,
-                                    size: 20,
-                                  ),
-                                )),
+                                      setState(() {});
+                                    }
+                                  });
+                                },
+                                fillColor: AppColors.buttonColor,
+                                shape: const CircleBorder(),
+                                child: const Icon(
+                                  Icons.camera_alt_outlined,
+                                  color: Colors.white,
+                                  size: 20,
+                                ),
+                              ),
+                            ),
                           ],
                         ),
                       ),

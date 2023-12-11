@@ -36,8 +36,9 @@ class ProgramPageState extends State<ProgramPage> {
 
   @override
   Widget build(BuildContext context) {
-    // Wait till pageController has clients and then move to page with current date
-    WidgetsBinding.instance!.addPostFrameCallback((_) {
+    // Wait till pageController has clients
+    // and then move to page with current date
+    WidgetsBinding.instance.addPostFrameCallback((_) {
       if (_pageController.hasClients) {
         _pageController.jumpToPage(DateTime.now().day - 22);
       }
@@ -77,7 +78,7 @@ class ProgramPageState extends State<ProgramPage> {
                 ),
               ),
             ],
-          )
+          ),
           // _buildWeatherWidget(),
         ],
       ),
@@ -254,7 +255,6 @@ class ProgramPageState extends State<ProgramPage> {
                                 Padding(
                                   padding: const EdgeInsets.only(
                                     bottom: 2,
-                                    top: 0,
                                   ),
                                   child: Row(
                                     children: [
@@ -301,6 +301,6 @@ class ProgramPageState extends State<ProgramPage> {
   ) {
     return activity.date!.toDate().isBefore(currentTime) &&
         nextActivity != null &&
-        nextActivity!.date!.toDate().isAfter(currentTime);
+        nextActivity.date!.toDate().isAfter(currentTime);
   }
 }

@@ -5,8 +5,12 @@ import 'package:spa_app/utils/app_colors.dart';
 import 'package:spa_app/utils/styles.dart';
 
 class DefaultScaffoldWidget extends StatelessWidget {
-  const DefaultScaffoldWidget(this._title, this._childWidget,
-      {this.showMenu = true, super.key});
+  const DefaultScaffoldWidget(
+    this._title,
+    this._childWidget, {
+    this.showMenu = true,
+    super.key,
+  });
 
   final Widget _childWidget;
   final String _title;

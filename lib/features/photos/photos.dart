@@ -90,7 +90,7 @@ class PhotosPageState extends State<PhotosPage> {
               ),
               Container(
                 height: 30,
-              )
+              ),
             ],
           ),
         ),
@@ -116,10 +116,10 @@ class PhotosPageState extends State<PhotosPage> {
             )
           : Text(
               loading
-                  ? "Even geduld.."
+                  ? 'Even geduld..'
                   : "We zijn druk bezig met het maken van foto's van dit jaar! Check later nog eens. :)",
               textAlign: TextAlign.center,
-              style: TextStyle(fontSize: 16, color: Colors.white),
+              style: const TextStyle(fontSize: 16, color: Colors.white),
             ),
     );
   }

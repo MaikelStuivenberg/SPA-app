@@ -157,5 +157,7 @@ class Styles {
   );
 
   static ButtonStyle buttonStyle = ElevatedButton.styleFrom(
-      backgroundColor: AppColors.buttonColor, foregroundColor: Colors.white);
+    backgroundColor: AppColors.buttonColor,
+    foregroundColor: Colors.white,
+  );
 }

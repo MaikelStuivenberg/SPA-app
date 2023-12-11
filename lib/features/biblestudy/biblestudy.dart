@@ -100,7 +100,7 @@ class BibleStudyPageState extends State<BibleStudyPage> {
                     child: Column(
                       children: [
                         for (var i = 0; i < biblestudies.length; i++)
-                          _buildElement(i)
+                          _buildElement(i),
                       ],
                     ),
                   );
@@ -160,7 +160,7 @@ class BibleStudyPageState extends State<BibleStudyPage> {
                     style: Styles.textSubTitleStyle,
                   ),
                 ],
-              )
+              ),
             ],
           ),
           // Content
