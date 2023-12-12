@@ -65,7 +65,7 @@ class ProgramPageState extends State<ProgramPage> {
                 ),
               ),
               Container(
-                margin: const EdgeInsets.fromLTRB(0, 0, 0, 40),
+                margin: const EdgeInsets.fromLTRB(0, 0, 0, 36),
                 child: SmoothPageIndicator(
                   controller: _pageController, // PageController
                   count: 7,
@@ -90,6 +90,7 @@ class ProgramPageState extends State<ProgramPage> {
     var user = User();
 
     return SafeArea(
+      bottom: false,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -102,7 +103,7 @@ class ProgramPageState extends State<ProgramPage> {
           Container(height: 10),
           Expanded(
             child: Container(
-              margin: const EdgeInsets.fromLTRB(16, 16, 16, 16),
+              margin: const EdgeInsets.fromLTRB(16, 0, 16, 0),
               child: FutureBuilder(
                 future: Future.wait([
                   programDocsFuture,

@@ -77,7 +77,8 @@ class DefaultScaffoldWidget extends StatelessWidget {
   Widget _buildNavigationBar(BuildContext context) {
     return Hero(
       tag: 'bottombar',
-      child: ColoredBox(
+      child: Container(
+        padding: EdgeInsets.symmetric(vertical: 4),
         color: Colors.white,
         child: Stack(
           children: [

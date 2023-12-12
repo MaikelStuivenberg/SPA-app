@@ -21,6 +21,7 @@ class UserDataRepository {
         : null;
 
     return User(
+      id: FirebaseAuth.instance.currentUser!.uid,
       firstname: user.data()!['firstname'] as String,
       lastname: user.data()!['lastname'] as String,
       age: user.data()!['age'] as String,
@@ -31,23 +32,6 @@ class UserDataRepository {
   }
 
   Future<void> updateUser(User user) async {
-    // final prefs = await SharedPreferences.getInstance();
-    // if (user.firstname != null) {
-    //   await prefs.setString('user_firstname', user.firstname!);
-    // }
-    // if (user.lastname != null) {
-    //   await prefs.setString('user_lastname', user.lastname!);
-    // }
-    // if (user.age != null) {
-    //   await prefs.setString('user_age', user.age!);
-    // }
-    // if (user.major != null) {
-    //   await prefs.setString('user_major', user.major!);
-    // }
-    // if (user.minor != null) {
-    //   await prefs.setString('user_minor', user.minor!);
-    // }
-
     await FirebaseFirestore.instance
         .collection('users')
         .doc(FirebaseAuth.instance.currentUser!.uid)
@@ -61,6 +45,7 @@ class UserDataRepository {
   }
 
   Future<void> setImage(Uint8List imageBytes) async {
+    // TODO: Save image to firebase storage
     final prefs = await SharedPreferences.getInstance();
     await prefs.setString('user_image', base64Encode(imageBytes));
   }
