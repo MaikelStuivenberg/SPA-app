@@ -10,16 +10,15 @@ class PhotoDataRepository {
   final CollectionReference<Map<String, dynamic>> photosCollection =
       FirebaseFirestore.instance.collection('photos');
 
+  final apiKey = '639f377344ffa79f1f0ebc8349dbae6f';
+  final userId = '195851792@N04';
+
   Future<List<Photo>> getRecentImages() async {
-    final photos = <Photo>[];
+    final photoResult = <Photo>[];
     final remoteConfig = FirebaseRemoteConfig.instance;
     final minUploadDate = remoteConfig.getInt('flickr_min_upload_date');
     final maxUploadDate = remoteConfig.getInt('flickr_max_upload_date');
     final photosPerPage = remoteConfig.getInt('show_photos_per_page');
-
-    const apiKey = '639f377344ffa79f1f0ebc8349dbae6f';
-    const userId = '195851792@N04';
-
     var url = 'https://www.flickr.com/services/rest/';
     url += '?method=flickr.people.getPhotos&api_key=$apiKey';
     url += '&user_id=$userId&extras=url_m,date_taken';
@@ -36,30 +35,37 @@ class PhotoDataRepository {
 
       for (final photo in photos) {
         final photoId = photo['id'] as String;
-        final photoUrl = photo['url_m'] as String;
-        final thumbnailUrl = photo['url_k'] as String;
+        final photoUrl = photo['url_k'] as String;
+        final thumbnailUrl = photo['url_m'] as String;
 
         final photoData = Photo(
           id: photoId,
           url: photoUrl,
           thumbnailUrl: thumbnailUrl,
           likes: await getLikes(photoId),
-          likedBy: [],
+          likedBy: await getLikedBy(photoId),
         );
 
-        photos.add(photoData);
-        // 'likedBy': await getLikedBy(photoId),
+        photoResult.add(photoData);
       }
     }
 
-    return photos;
+    return photoResult;
   }
 
   Future<void> addLike(String photoId) async {
     final userId = (await UserDataRepository().getFirebaseUser()).id;
 
+    // Check if doc exists
+    final doc = await photosCollection.doc(photoId).get();
+    if (!doc.exists) {
+      await photosCollection.doc(photoId).set({
+        'likedBy': [userId],
+      });
+      return;
+    }
+
     await photosCollection.doc(photoId).update({
-      'likes': FieldValue.increment(1),
       'likedBy': FieldValue.arrayUnion([userId]),
     });
   }
@@ -68,7 +74,6 @@ class PhotoDataRepository {
     final userId = (await UserDataRepository().getFirebaseUser()).id;
 
     await photosCollection.doc(photoId).update({
-      'likes': FieldValue.increment(-1),
       'likedBy': FieldValue.arrayRemove([userId]),
     });
   }
@@ -76,21 +81,69 @@ class PhotoDataRepository {
   Future<int> getLikes(String photoId) async {
     final snapshot = await photosCollection.doc(photoId).get();
     final data = snapshot.data();
-    return data!['likes'] as int;
+
+    if (data == null || data['likedBy'] == null) {
+      return 0;
+    }
+
+    return data['likedBy'].length as int;
   }
 
   Future<List<String>> getLikedBy(String photoId) async {
     final snapshot = await photosCollection.doc(photoId).get();
     final data = snapshot.data();
-    return List<String>.from(data!['likedBy'] as List<String>);
+
+    if (data == null) {
+      return [];
+    }
+
+    var result = data['likedBy'] as List<dynamic>;
+    return result.map((e) => e.toString()).toList();
   }
 
-  Future<List<String>> getMyLikedPhotos() async {
+  Future<List<Photo>> getMyLikedPhotos() async {
     final userId = (await UserDataRepository().getFirebaseUser()).id;
-    
+
     final querySnapshot =
         await photosCollection.where('likedBy', arrayContains: userId).get();
-    final likedPhotos = querySnapshot.docs.map((doc) => doc.id).toList();
+    final myPhotos = querySnapshot.docs.map((doc) => doc.id).toList();
+
+    final likedPhotos = <Photo>[];
+
+    for (final photoId in myPhotos) {
+      // final photo = await photosCollection.doc(photoId).get();
+      // final snapshotData = photo.data();
+
+      // if (snapshotData == null) {
+      //   continue;
+      // }
+
+      // get data from flickr
+      var url = 'https://www.flickr.com/services/rest/';
+      url += '?method=flickr.photos.getSizes&api_key=$apiKey';
+      url += '&photo_id=$photoId&format=json&nojsoncallback=1&extras=url_m,url_k';
+      final response = await http.get(Uri.parse(url));
+
+      if (response.statusCode != 200) {
+        continue;
+      }
+
+      final data = json.decode(response.body);
+      final sizes = data['sizes']['size'] as List<dynamic>;
+
+      final photoData = Photo(
+        id: photoId,
+        url: sizes.firstWhere((element) => element['label'].toString() == 'Large 2048')['source'] as String,
+        thumbnailUrl: sizes.firstWhere((element) => element['label'].toString() == 'Medium')['source'] as String,
+        likes: 0,
+        // likes: data['likedBy'].length as int,
+        likedBy: [],
+        // likedBy: data['likedBy'].map((e) => e.toString()).toList(),
+      );
+
+      likedPhotos.add(photoData);
+    }
+
     return likedPhotos;
   }
 }
