@@ -22,31 +22,31 @@ class MapPageState extends State<MapPage> {
     return DefaultScaffoldWidget(
       AppLocalizations.of(context)!.mapTitle,
       SafeArea(
-        child: Column(
-          children: [
-            Container(
-              margin: const EdgeInsets.fromLTRB(16, 16, 16, 16),
-              padding: const EdgeInsets.all(16),
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(6),
-                color: Colors.white,
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.grey.withOpacity(0.5),
-                    blurRadius: 5,
-                    offset: const Offset(0, 3),
+        child: Expanded(
+          child: SingleChildScrollView(
+            child: Column(
+              children: [
+                Container(
+                  margin: const EdgeInsets.fromLTRB(16, 16, 16, 16),
+                  padding: const EdgeInsets.all(16),
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(6),
+                    color: Colors.white,
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.grey.withOpacity(0.5),
+                        blurRadius: 5,
+                        offset: const Offset(0, 3),
+                      ),
+                    ],
                   ),
-                ],
-              ),
-              child: InteractiveViewer(
-                minScale: 0.5,
-                maxScale: 5,
-                child: Image.asset('assets/map.png'),
-              ),
-            ),
-            const Expanded(
-              child: SingleChildScrollView(
-                child: Column(
+                  child: InteractiveViewer(
+                    minScale: 0.5,
+                    maxScale: 5,
+                    child: Image.asset('assets/map.png'),
+                  ),
+                ),
+                Column(
                   children: [
                     Text('Major', style: Styles.pageSubTitle),
                     MapItemWidget('A', 'Dance 13+'),
@@ -73,9 +73,9 @@ class MapPageState extends State<MapPage> {
                     Padding(padding: EdgeInsets.all(16)),
                   ],
                 ),
-              ),
+              ],
             ),
-          ],
+          ),
         ),
       ),
     );

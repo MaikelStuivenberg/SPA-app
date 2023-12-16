@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:spa_app/shared/models/photo.dart';
 import 'package:spa_app/shared/repositories/photo_data.dart';
@@ -25,7 +26,7 @@ class LikesOverview extends StatelessWidget {
     return GridView.builder(
         itemCount: photos.length,
         gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-            crossAxisCount: 2, childAspectRatio: 1),
+            crossAxisCount: 3, childAspectRatio: 1,),
         itemBuilder: (context, index) {
           return _buildGridItem(photos[index]);
         });
@@ -38,12 +39,16 @@ class LikesOverview extends StatelessWidget {
         children: [
           Expanded(
             child: Container(
-              decoration: BoxDecoration(
-                  image: DecorationImage(
-                    image: NetworkImage(photo.thumbnailUrl),
-                    fit: BoxFit.cover,
-                  ),
-                  borderRadius: BorderRadius.circular(10)),
+              decoration:
+                  BoxDecoration(borderRadius: BorderRadius.circular(10)),
+              child: CachedNetworkImage(
+                imageUrl: photo.thumbnailUrl,
+                fit: BoxFit.cover,
+                height: 400,
+                errorListener: (error) => const Center(
+                  child: Icon(Icons.error_outline),
+                ),
+              ),
             ),
           ),
         ],

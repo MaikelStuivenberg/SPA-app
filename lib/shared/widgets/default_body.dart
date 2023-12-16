@@ -9,12 +9,14 @@ class DefaultScaffoldWidget extends StatelessWidget {
     this._title,
     this._childWidget, {
     this.showMenu = true,
+    this.actions = const [],
     super.key,
   });
 
   final Widget _childWidget;
   final String _title;
   final bool showMenu;
+  final List<Widget> actions;
 
   @override
   Widget build(BuildContext context) {
@@ -47,6 +49,21 @@ class DefaultScaffoldWidget extends StatelessWidget {
       extendBodyBehindAppBar: true,
       extendBody: true,
       appBar: AppBar(
+        leading: Builder(
+          builder: (BuildContext context) {
+            if (Navigator.canPop(context)) {
+              return IconButton(
+                icon: const Icon(
+                    FontAwesomeIcons.arrowLeft), // Put icon of your preference.
+                onPressed: () {
+                  Navigator.pop(context);
+                },
+              );
+            } else {
+              return Container();
+            }
+          },
+        ),
         backgroundColor: Colors.transparent,
         iconTheme: const IconThemeData(color: Colors.white),
         centerTitle: true,
@@ -55,8 +72,9 @@ class DefaultScaffoldWidget extends StatelessWidget {
           style: Styles.pageTitle,
         ),
         actions: [
+          ...actions,
           // IconButton(
-          //   icon: const Icon(Icons.notifications),
+          //   icon: const Icon(FontAwesomeIcons.bell),
           //   onPressed: () {
           //     Navigator.pushNamed(context, Routes.program);
           //   },
@@ -78,8 +96,17 @@ class DefaultScaffoldWidget extends StatelessWidget {
     return Hero(
       tag: 'bottombar',
       child: Container(
-        padding: EdgeInsets.symmetric(vertical: 4),
-        color: Colors.white,
+        padding: const EdgeInsets.symmetric(vertical: 4),
+        decoration: const BoxDecoration(
+          color: Color.fromARGB(255, 245, 245, 245),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black12,
+              blurRadius: 5,
+              offset: Offset(0, -5),
+            ),
+          ],
+        ),
         child: Stack(
           children: [
             Row(

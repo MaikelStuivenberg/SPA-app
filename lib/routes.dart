@@ -6,6 +6,7 @@ import 'package:spa_app/features/map/pages/map_page.dart';
 import 'package:spa_app/features/photos/photos.dart';
 import 'package:spa_app/features/program/pages/program.dart';
 import 'package:spa_app/features/rules/pages/rules_page.dart';
+import 'package:spa_app/features/user/pages/edit_profile_page.dart';
 import 'package:spa_app/features/user/pages/user_details_page.dart';
 import 'package:spa_app/features/welcome/pages/welcome_page.dart';
 
@@ -17,7 +18,8 @@ class Routes {
   static const String photos = '/photos';
   static const String rules = '/rules';
   static const String map = '/map';
-  static const String userDetails = '/userdetails';
+  static const String userDetails = '/user';
+  static const String editUser = '/user/edit';
   static const String welcome = '/welcome';
   static const String login = '/login';
   static const String register = '/register';
@@ -32,6 +34,7 @@ class Routes {
     rules: (BuildContext context) => const RulesPage(),
     map: (BuildContext context) => const MapPage(),
     userDetails: (BuildContext context) => const UserDetailsPage(),
+    editUser: (BuildContext context) => const EditProfilePage(),
     welcome: (BuildContext context) => const WelcomePage(),
     login: (BuildContext context) => const LoginPage(),
     register: (BuildContext context) => const RegisterPage(),
