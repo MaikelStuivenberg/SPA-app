@@ -173,7 +173,7 @@ class RegisterPageState extends State<RegisterPage> {
                             .then(
                               (value) => Navigator.pushNamedAndRemoveUntil(
                                 context,
-                                Routes.userDetails,
+                                Routes.editUser,
                                 (route) => false,
                               ),
                             );

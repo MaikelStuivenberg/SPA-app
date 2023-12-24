@@ -1,8 +1,8 @@
-import 'dart:convert';
 import 'dart:typed_data';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart' hide User;
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:spa_app/features/user/models/user.dart';
 
@@ -16,9 +16,9 @@ class UserDataRepository {
     // final age = prefs.getString('user_age');
     // final major = prefs.getString('user_major');
     // final minor = prefs.getString('user_minor');
-    final image = prefs.getString('user_image') != null
-        ? base64Decode(prefs.getString('user_image')!)
-        : null;
+    // final image = prefs.getString('user_image') != null
+    //     ? base64Decode(prefs.getString('user_image')!)
+    //     : null;
 
     return User(
       id: FirebaseAuth.instance.currentUser!.uid,
@@ -27,7 +27,7 @@ class UserDataRepository {
       age: user.data()!['age'] as String,
       major: user.data()!['major'] as String,
       minor: user.data()!['minor'] as String,
-      image: image,
+      image: user.data()!['image'] as String,
     );
   }
 
@@ -44,10 +44,29 @@ class UserDataRepository {
     });
   }
 
-  Future<void> setImage(Uint8List imageBytes) async {
-    // TODO: Save image to firebase storage
-    final prefs = await SharedPreferences.getInstance();
-    await prefs.setString('user_image', base64Encode(imageBytes));
+  Future<void> setProfileImage(Uint8List imageBytes) async {
+    var datestamp = DateTime.now().year.toString() +
+        DateTime.now().month.toString() +
+        DateTime.now().day.toString() +
+        DateTime.now().hour.toString() +
+        DateTime.now().minute.toString() +
+        DateTime.now().second.toString() +
+        DateTime.now().millisecond.toString();
+
+    var upload = await FirebaseStorage.instance
+        .ref()
+        .child('users')
+        .child(FirebaseAuth.instance.currentUser!.uid)
+        .child('profile')
+        .child('$datestamp')
+        .putData(imageBytes, SettableMetadata(contentType: 'image/jpeg'));
+
+    await FirebaseFirestore.instance
+        .collection('users')
+        .doc(FirebaseAuth.instance.currentUser!.uid)
+        .update({
+      'image': '$datestamp',
+    });
   }
 
   Future<DocumentSnapshot<Map<String, dynamic>>> getFirebaseUser() async {

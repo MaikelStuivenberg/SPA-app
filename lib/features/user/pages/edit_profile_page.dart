@@ -1,8 +1,10 @@
 import 'dart:async';
 
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:firebase_auth/firebase_auth.dart' hide User;
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:flutter_image_compress/flutter_image_compress.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:spa_app/features/user/models/user.dart';
@@ -66,8 +68,11 @@ class EditProfilePageState extends State<EditProfilePage> {
                             tag: 'tag',
                             child: CircleAvatar(
                               backgroundColor: Colors.transparent,
-                              foregroundImage: ((snapshot.data?.image != null)
-                                  ? MemoryImage(snapshot.data!.image!)
+                              foregroundImage: ((snapshot.data?.image != null &&
+                                      snapshot.data?.image != '')
+                                  ? CachedNetworkImageProvider(
+                                      snapshot.data!.imageUrl!,
+                                    )
                                   : const AssetImage(
                                       'assets/profile_default.jpg',
                                     )) as ImageProvider<Object>,
@@ -82,9 +87,18 @@ class EditProfilePageState extends State<EditProfilePage> {
                                     .pickImage(source: ImageSource.gallery)
                                     .then((value) async {
                                   if (value != null) {
-                                    await _userDataRepository.setImage(
-                                      await value.readAsBytes(),
+                                    final file = await FlutterImageCompress
+                                        .compressWithFile(
+                                      value.path,
+                                      quality: 80,
+                                      minWidth: 1440,
+                                      minHeight: 810,
                                     );
+
+                                    if (file == null) return;
+
+                                    await _userDataRepository
+                                        .setProfileImage(file);
 
                                     setState(() {});
                                   }
@@ -103,41 +117,6 @@ class EditProfilePageState extends State<EditProfilePage> {
                       ),
                     ),
                     Container(height: 16),
-                    // Expanded(
-                    //   child: Container(
-                    //     width: double.infinity,
-                    //     decoration: const BoxDecoration(
-                    //       color: Colors.white,
-                    //       borderRadius: BorderRadius.only(
-                    //         topLeft: Radius.circular(16),
-                    //         topRight: Radius.circular(16),
-                    //       ),
-                    //     ),
-                    //     child: Column(
-                    //       children: [
-                    // Container(
-                    //   height: 50,
-                    //   width: 150,
-                    //   child: AppBar(
-                    //       backgroundColor: Colors.transparent,
-                    //       elevation: 0,
-                    //       // bottom: const TabBar(
-                    //       //   indicatorColor: AppColors.buttonColor,
-                    //       //   dividerColor: Colors.transparent,
-                    //       //   labelColor: AppColors.buttonColor,
-                    //       //   unselectedLabelColor: Colors.black,
-                    //       //   tabs: [
-                    //       //     Tab(
-                    //       //       icon: Icon(
-                    //       //         FontAwesomeIcons.heart,
-                    //       //       ),
-                    //       //     ),
-                    //       //     Tab(
-                    //       //       icon: Icon(FontAwesomeIcons.circleUser),
-                    //       //     ),
-                    //       //   ],
-                    //       // )),
-                    // ),
                     Expanded(
                       child: SingleChildScrollView(
                         child: Form(
@@ -350,15 +329,15 @@ class EditProfilePageState extends State<EditProfilePage> {
           ),
         ),
       ),
-      actions: [
-        IconButton(
-          icon: const Icon(FontAwesomeIcons.penToSquare),
-          onPressed: () {
-            // Navigator.pushNamed(context, Routes.likes);
-          },
-          color: Colors.white,
-        ),
-      ],
+      // actions: [
+      //   IconButton(
+      //     icon: const Icon(FontAwesomeIcons.save),
+      //     onPressed: () {
+      //       // Navigator.pushNamed(context, Routes.likes);
+      //     },
+      //     color: Colors.white,
+      //   ),
+      // ],
     );
   }
 }

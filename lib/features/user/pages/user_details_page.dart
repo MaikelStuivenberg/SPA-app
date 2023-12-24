@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -52,8 +53,11 @@ class UserDetailsPageState extends State<UserDetailsPage> {
                             tag: 'tag',
                             child: CircleAvatar(
                               backgroundColor: Colors.transparent,
-                              foregroundImage: ((snapshot.data?.image != null)
-                                  ? MemoryImage(snapshot.data!.image!)
+                              foregroundImage: ((snapshot.data?.image != null &&
+                                      snapshot.data?.image != '')
+                                  ? CachedNetworkImageProvider(
+                                      snapshot.data!.imageUrl!,
+                                    )
                                   : const AssetImage(
                                       'assets/profile_default.jpg',
                                     )) as ImageProvider<Object>,
@@ -76,17 +80,25 @@ class UserDetailsPageState extends State<UserDetailsPage> {
                           color: Colors.red,
                         ),
                         Container(width: 4),
-                        const Text('Photo\'s you liked',
-                            style: Styles.textStyleLight),
+                        const Text(
+                          "Photo's you liked",
+                          style: Styles.textStyleLight,
+                        ),
                       ],
                     ),
-                    Container(height: 8),
+                    Container(height: 16),
                     Expanded(child: LikesOverview()),
                   ],
                 );
               } else {
                 return const Center(
-                  child: CircularProgressIndicator(),
+                  child: SizedBox(
+                    width: 64,
+                    height: 64,
+                    child: CircularProgressIndicator(
+                      color: Colors.white,
+                    ),
+                  ),
                 );
               }
             },

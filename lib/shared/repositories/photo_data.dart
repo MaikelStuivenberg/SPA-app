@@ -121,7 +121,8 @@ class PhotoDataRepository {
       // get data from flickr
       var url = 'https://www.flickr.com/services/rest/';
       url += '?method=flickr.photos.getSizes&api_key=$apiKey';
-      url += '&photo_id=$photoId&format=json&nojsoncallback=1&extras=url_m,url_k';
+      url +=
+          '&photo_id=$photoId&format=json&nojsoncallback=1&extras=url_m,url_k';
       final response = await http.get(Uri.parse(url));
 
       if (response.statusCode != 200) {
@@ -133,8 +134,11 @@ class PhotoDataRepository {
 
       final photoData = Photo(
         id: photoId,
-        url: sizes.firstWhere((element) => element['label'].toString() == 'Large 2048')['source'] as String,
-        thumbnailUrl: sizes.firstWhere((element) => element['label'].toString() == 'Medium')['source'] as String,
+        url: sizes.firstWhere((element) =>
+            element['label'].toString() == 'Large 2048')['source'] as String,
+        thumbnailUrl: sizes.firstWhere(
+                (element) => element['label'].toString() == 'Medium')['source']
+            as String,
         likes: 0,
         // likes: data['likedBy'].length as int,
         likedBy: [],

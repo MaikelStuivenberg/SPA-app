@@ -16,6 +16,8 @@ class SplashPageState extends State<SplashPage> {
 
   @override
   void initState() {
+    super.initState();
+
     // Change state of background and logo
     Future.delayed(const Duration(milliseconds: 800), () {
       setState(() {

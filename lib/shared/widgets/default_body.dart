@@ -54,7 +54,8 @@ class DefaultScaffoldWidget extends StatelessWidget {
             if (Navigator.canPop(context)) {
               return IconButton(
                 icon: const Icon(
-                    FontAwesomeIcons.arrowLeft), // Put icon of your preference.
+                  FontAwesomeIcons.arrowLeft,
+                ), // Put icon of your preference.
                 onPressed: () {
                   Navigator.pop(context);
                 },

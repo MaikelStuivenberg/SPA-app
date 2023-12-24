@@ -62,13 +62,15 @@ class _PhotoStateWidgetState extends State<PhotoStateWidget> {
                           .contains(widget.currentUser.id)) {
                         await photoDataRepository.addLike(widget.photo.id);
                         setState(() {
-                          widget.photo.likedBy.add(widget.currentUser.id.toString());
+                          widget.photo.likedBy
+                              .add(widget.currentUser.id.toString());
                           widget.photo.likes++;
                         });
                       } else {
                         await photoDataRepository.removeLike(widget.photo.id);
                         setState(() {
-                          widget.photo.likedBy.remove(widget.currentUser.id.toString());
+                          widget.photo.likedBy
+                              .remove(widget.currentUser.id.toString());
                           widget.photo.likes--;
                         });
                       }

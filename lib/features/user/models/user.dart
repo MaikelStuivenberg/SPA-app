@@ -18,7 +18,7 @@ class User {
     age = json['age'] as String;
     major = json['major'] as String;
     minor = json['minor'] as String;
-    image = json['image'] as Uint8List;
+    image = json['image'] as String;
   }
 
   String? id;
@@ -27,7 +27,8 @@ class User {
   String? age;
   String? major;
   String? minor;
-  Uint8List? image;
+  String? image;
+  String? get imageUrl => image != null ? 'https://firebasestorage.googleapis.com/v0/b/school-of-performing-arts.appspot.com/o/users%2F$id%2Fprofile%2F$image?alt=media' : null;
 
   Map<String, dynamic> toJson() {
     return {

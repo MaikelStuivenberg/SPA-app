@@ -4,6 +4,8 @@ import 'package:spa_app/shared/models/photo.dart';
 import 'package:spa_app/shared/repositories/photo_data.dart';
 
 class LikesOverview extends StatelessWidget {
+  LikesOverview({super.key});
+
   late Future<List<Photo>> photos;
   @override
   Widget build(BuildContext context) {
@@ -16,7 +18,15 @@ class LikesOverview extends StatelessWidget {
         } else if (snapshot.hasError) {
           return Text('${snapshot.error}');
         }
-        return const CircularProgressIndicator();
+        return const Center(
+          child: SizedBox(
+            width: 64,
+            height: 64,
+            child: CircularProgressIndicator(
+              color: Colors.white,
+            ),
+          ),
+        );
       },
       future: photos,
     );
@@ -24,12 +34,14 @@ class LikesOverview extends StatelessWidget {
 
   Widget _buildGridView(List<Photo> photos) {
     return GridView.builder(
-        itemCount: photos.length,
-        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-            crossAxisCount: 3, childAspectRatio: 1,),
-        itemBuilder: (context, index) {
-          return _buildGridItem(photos[index]);
-        });
+      itemCount: photos.length,
+      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+        crossAxisCount: 3,
+      ),
+      itemBuilder: (context, index) {
+        return _buildGridItem(photos[index]);
+      },
+    );
   }
 
   Widget _buildGridItem(Photo photo) {

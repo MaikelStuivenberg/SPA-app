@@ -16,7 +16,6 @@ class PhotosPage extends StatefulWidget {
 
 class PhotosPageState extends State<PhotosPage> {
   final photoDataRepository = PhotoDataRepository();
-  final List<Photo> _photos = [];
 
   final _userFuture = UserDataRepository().getUser();
   final _photosFuture = PhotoDataRepository().getRecentImages();
@@ -38,8 +37,10 @@ class PhotosPageState extends State<PhotosPage> {
             future: Future.wait([_userFuture, _photosFuture]),
             builder: (context, snapshot) {
               if (snapshot.connectionState == ConnectionState.done) {
-                return _buildPhotoGrid(snapshot.data![0] as User,
-                    snapshot.data![1] as List<Photo>?);
+                return _buildPhotoGrid(
+                  snapshot.data![0] as User,
+                  snapshot.data![1] as List<Photo>?,
+                );
               } else {
                 return const Center(
                   child: SizedBox(
