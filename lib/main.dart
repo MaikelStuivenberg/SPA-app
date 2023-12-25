@@ -28,17 +28,18 @@ Future<void> main() async {
     if (kDebugMode) {
       print('Remote config updated!');
     }
-    await remoteConfig.activate();
   });
 
   await remoteConfig.setDefaults(const {
-    'flickr_album_id': '72177720300776159', //
+    'flickr_album_id': '72177720309943266', //
     'flickr_min_upload_date': 1689804000, // Unix timestamp (2023-07-20)
     'flickr_max_upload_date': 1690840800, // Unix timestamp (2023-08-01)
-    'show_photos_per_page': 10,
-    'start_date': '2023-07-22T00:00:00+01:00',
-    'end_date': '2023-07-28T00:00:00+01:00'
+    'show_photos_per_page': 5,
+    'start_date': '2023-07-22T10:00:00+01:00',
+    'end_date': '2023-07-28T22:00:00+01:00'
   });
+
+  await remoteConfig.fetchAndActivate();
 
   runApp(const SpaApp());
 }
