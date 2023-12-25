@@ -75,12 +75,25 @@ class UserDetailsPageState extends State<UserDetailsPage> {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                      Text("Major: ", style: Styles.textStyleMediumDarkBold),
-                      Text("${snapshot.data!.major}", style: Styles.textStyleLight),
-                      Container(width: 16),
-                      Text("Minor: ", style: Styles.textStyleMediumDarkBold),
-                      Text("${snapshot.data!.minor}", style: Styles.textStyleLight),
-                    ],),
+                        const Text(
+                          'Major: ',
+                          style: Styles.textStyleMediumDarkBold,
+                        ),
+                        Text(
+                          '${snapshot.data!.major}',
+                          style: Styles.textStyleLight,
+                        ),
+                        Container(width: 16),
+                        const Text(
+                          'Minor: ',
+                          style: Styles.textStyleMediumDarkBold,
+                        ),
+                        Text(
+                          '${snapshot.data!.minor}',
+                          style: Styles.textStyleLight,
+                        ),
+                      ],
+                    ),
                     Container(height: 16),
                     //draw line
                     Container(
