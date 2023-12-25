@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_remote_config/firebase_remote_config.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:intl/intl.dart';
@@ -26,12 +27,19 @@ class ProgramPageState extends State<ProgramPage> {
   late Future<QuerySnapshot<Map<String, dynamic>>> programDocsFuture;
   late Future<User> userDataFuture;
 
+  late DateTime minDate;
+  late DateTime maxDate;
+  late int amountOfDays;
+
   @override
   void initState() {
     super.initState();
 
     programDocsFuture = FirebaseFirestore.instance.collection('program').get();
     userDataFuture = UserDataRepository().getUser();
+    minDate = DateTime.parse(FirebaseRemoteConfig.instance.getString('start_date'));
+    maxDate = DateTime.parse(FirebaseRemoteConfig.instance.getString('end_date'));
+    amountOfDays = maxDate.difference(minDate).inDays + 1;
   }
 
   @override
@@ -39,7 +47,7 @@ class ProgramPageState extends State<ProgramPage> {
     // Wait till pageController has clients
     // and then move to page with current date
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      if (_pageController.hasClients) {
+      if (_pageController.hasClients && DateTime.now().isAfter(minDate) && DateTime.now().isBefore(maxDate)) {
         _pageController.jumpToPage(DateTime.now().day - 22);
       }
     });
@@ -54,13 +62,8 @@ class ProgramPageState extends State<ProgramPage> {
                 child: PageView(
                   controller: _pageController,
                   children: [
-                    _buildProgramWidget(DateTime(2023, 7, 22)),
-                    _buildProgramWidget(DateTime(2023, 7, 23)),
-                    _buildProgramWidget(DateTime(2023, 7, 24)),
-                    _buildProgramWidget(DateTime(2023, 7, 25)),
-                    _buildProgramWidget(DateTime(2023, 7, 26)),
-                    _buildProgramWidget(DateTime(2023, 7, 27)),
-                    _buildProgramWidget(DateTime(2023, 7, 28)),
+                    for (var i = 0; i < amountOfDays; i++)
+                      _buildProgramWidget(minDate.add(Duration(days: i))),
                   ],
                 ),
               ),

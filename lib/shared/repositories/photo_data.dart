@@ -13,7 +13,7 @@ class PhotoDataRepository {
   final apiKey = '639f377344ffa79f1f0ebc8349dbae6f';
   final userId = '195851792@N04';
 
-  Future<List<Photo>> getRecentImages() async {
+  Future<List<Photo>> getRecentImages(int page) async {
     final photoResult = <Photo>[];
     final remoteConfig = FirebaseRemoteConfig.instance;
     final minUploadDate = remoteConfig.getInt('flickr_min_upload_date');
@@ -24,7 +24,7 @@ class PhotoDataRepository {
     url += '&user_id=$userId&extras=url_m,date_taken';
     url += '&sort=date-taken-desc&min_upload_date=$minUploadDate';
     url += '&max_upload_date=$maxUploadDate';
-    url += '&per_page=$photosPerPage&format=json';
+    url += '&per_page=$photosPerPage&page=$page&format=json';
     url += '&nojsoncallback=1&extras=url_m,url_k';
 
     final response = await http.get(Uri.parse(url));
