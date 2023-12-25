@@ -71,7 +71,24 @@ class UserDetailsPageState extends State<UserDetailsPage> {
                       '${snapshot.data!.firstname} ${snapshot.data!.lastname}',
                       style: Styles.pageSubTitle,
                     ),
-                    Container(height: 8),
+                    Container(height: 4),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                      Text("Major: ", style: Styles.textStyleMediumDarkBold),
+                      Text("${snapshot.data!.major}", style: Styles.textStyleLight),
+                      Container(width: 16),
+                      Text("Minor: ", style: Styles.textStyleMediumDarkBold),
+                      Text("${snapshot.data!.minor}", style: Styles.textStyleLight),
+                    ],),
+                    Container(height: 16),
+                    //draw line
+                    Container(
+                      height: 1,
+                      margin: const EdgeInsets.symmetric(horizontal: 16),
+                      color: Colors.white.withAlpha(75),
+                    ),
+                    Container(height: 16),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [

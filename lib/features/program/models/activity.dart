@@ -13,7 +13,8 @@ class Activity {
       ..location = d.get('location') as String
       ..title = d.get('title') as String
       ..image = d.get('image') as String
-      ..requirements = d.data().containsKey('requirements')
+      ..requirements = d.data().containsKey('requirements') &&
+              d.get('requirements').toString().isNotEmpty
           ? d.get('requirements') as Map<String, dynamic>
           : null;
 

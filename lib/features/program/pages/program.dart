@@ -197,7 +197,6 @@ class ProgramPageState extends State<ProgramPage> {
                       return Container(
                         margin: const EdgeInsets.symmetric(vertical: 8),
                         padding: const EdgeInsets.all(8),
-                        height: 95,
                         decoration: BoxDecoration(
                           color: (nextActivity != null &&
                                       nextActivity.date!

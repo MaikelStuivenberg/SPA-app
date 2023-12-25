@@ -86,6 +86,14 @@ class Styles {
     decoration: TextDecoration.none,
   );
 
+  static const TextStyle textStyleMediumDarkBold = TextStyle(
+    color: Color.fromARGB(255, 255, 255, 255),
+    fontWeight: FontWeight.w600,
+    fontSize: 16,
+    fontFamily: 'Montserrat',
+    decoration: TextDecoration.none,
+  );
+
   static const TextStyle textStyleLarge = TextStyle(
     color: Color.fromARGB(255, 80, 80, 80),
     fontWeight: FontWeight.w600,
