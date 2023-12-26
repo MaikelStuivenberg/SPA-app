@@ -219,6 +219,7 @@ class LoginPageState extends State<LoginPage> {
               prefixIcon: Icon(Icons.alternate_email),
             ),
             keyboardType: TextInputType.emailAddress,
+            autofillHints: const [AutofillHints.username],
             validator: (value) {
               if (value!.isEmpty) {
                 // return AppLocalizations.of(context).emailRequired;
@@ -251,6 +252,7 @@ class LoginPageState extends State<LoginPage> {
               prefixIcon: Icon(Icons.password),
             ),
             keyboardType: TextInputType.visiblePassword,
+            autofillHints: const [AutofillHints.password],
             validator: (value) {
               if (value!.isEmpty) {
                 // return AppLocalizations.of(context).passwordRequired;

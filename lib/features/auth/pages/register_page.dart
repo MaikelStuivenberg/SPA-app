@@ -65,6 +65,7 @@ class RegisterPageState extends State<RegisterPage> {
               prefixIcon: Icon(Icons.alternate_email),
             ),
             keyboardType: TextInputType.emailAddress,
+            autofillHints: const [AutofillHints.newUsername],
             validator: (value) {
               if (value!.isEmpty) {
                 // return AppLocalizations.of(context).emailRequired;
@@ -97,6 +98,7 @@ class RegisterPageState extends State<RegisterPage> {
               prefixIcon: Icon(Icons.password),
             ),
             keyboardType: TextInputType.visiblePassword,
+            autofillHints: const [AutofillHints.newPassword],
             enableSuggestions: false,
             autocorrect: false,
             validator: (value) {
@@ -128,6 +130,7 @@ class RegisterPageState extends State<RegisterPage> {
               prefixIcon: Icon(Icons.password),
             ),
             keyboardType: TextInputType.visiblePassword,
+            autofillHints: const [AutofillHints.newPassword],
             validator: (value) {
               if (value!.isEmpty) {
                 // return AppLocalizations.of(context).passwordRequired;

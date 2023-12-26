@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:firebase_auth/firebase_auth.dart' hide User;
+import 'package:firebase_remote_config/firebase_remote_config.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_image_compress/flutter_image_compress.dart';
@@ -45,7 +46,7 @@ class EditProfilePageState extends State<EditProfilePage> {
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 16),
           child: FutureBuilder(
-            future: _userDataRepository.getUser(),
+            future: _userDataRepository.getUser(forceReload: true),
             builder: (context, snapshot) {
               if (snapshot.hasData) {
                 _firstnameController.text = snapshot.data!.firstname!;
@@ -183,6 +184,7 @@ class EditProfilePageState extends State<EditProfilePage> {
                                   }
                                 },
                               ),
+                              if(FirebaseRemoteConfig.instance.getBool('use_minor'))
                               DropdownButtonFormField(
                                 value: _minorValue.isEmpty ? null : _minorValue,
                                 dropdownColor:
@@ -257,6 +259,7 @@ class EditProfilePageState extends State<EditProfilePage> {
                                     setState(() {
                                       _isSaving = false;
                                       _doneSaving = true;
+
                                       Timer(const Duration(milliseconds: 1500),
                                           () {
                                         setState(() {

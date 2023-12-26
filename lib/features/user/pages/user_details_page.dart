@@ -1,4 +1,5 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:firebase_remote_config/firebase_remote_config.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -24,7 +25,7 @@ class UserDetailsPageState extends State<UserDetailsPage> {
   }
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext parentContext) {
     return DefaultScaffoldWidget(
       AppLocalizations.of(context)!.profileTitle,
       SafeArea(
@@ -34,6 +35,13 @@ class UserDetailsPageState extends State<UserDetailsPage> {
             future: _userDataRepository.getUser(),
             builder: (context, snapshot) {
               if (snapshot.hasData) {
+                if (snapshot.data == null ||
+                    snapshot.data!.firstname == null ||
+                    snapshot.data!.firstname!.isEmpty) {
+                  WidgetsBinding.instance.addPostFrameCallback((_) {
+                    Navigator.of(parentContext).pushNamed(Routes.editUser);
+                  });
+                }
                 // _firstnameController.text = snapshot.data!.firstname!;
                 // _lastnameController.text = snapshot.data!.lastname!;
                 // _ageController.text = snapshot.data!.age!;
@@ -83,19 +91,22 @@ class UserDetailsPageState extends State<UserDetailsPage> {
                           '${snapshot.data!.major}',
                           style: Styles.textStyleLight,
                         ),
-                        Container(width: 16),
-                        const Text(
-                          'Minor: ',
-                          style: Styles.textStyleMediumDarkBold,
-                        ),
-                        Text(
-                          '${snapshot.data!.minor}',
-                          style: Styles.textStyleLight,
-                        ),
+                        if (FirebaseRemoteConfig.instance.getBool('use_minor'))
+                          Row(children: [
+                            Container(width: 16),
+                            const Text(
+                              'Minor: ',
+                              style: Styles.textStyleMediumDarkBold,
+                            ),
+                            Text(
+                              '${snapshot.data!.minor}',
+                              style: Styles.textStyleLight,
+                            ),
+                          ]),
                       ],
                     ),
                     Container(height: 16),
-                    //draw line
+                    // Line
                     Container(
                       height: 1,
                       margin: const EdgeInsets.symmetric(horizontal: 16),

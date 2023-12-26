@@ -7,7 +7,13 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:spa_app/features/user/models/user.dart';
 
 class UserDataRepository {
-  Future<User> getUser() async {
+  // Save user as static variable
+  static User? _user;
+
+  Future<User> getUser({bool forceReload = false}) async {
+    if (_user != null && forceReload == false) {
+      return _user!;
+    }
     var user = await getFirebaseUser();
 
     final prefs = await SharedPreferences.getInstance();
@@ -20,7 +26,7 @@ class UserDataRepository {
     //     ? base64Decode(prefs.getString('user_image')!)
     //     : null;
 
-    return User(
+    return _user = User(
       id: FirebaseAuth.instance.currentUser!.uid,
       firstname: user.data()!['firstname'] as String,
       lastname: user.data()!['lastname'] as String,
