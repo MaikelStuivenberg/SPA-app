@@ -52,9 +52,9 @@ platform :ios do
         export_compliance_uses_encryption: false,
       },
       release_notes: {
-        'default': 'We have given the SPA app even more groove',
-        'en-GB': 'We have given the SPA app even more groove',
-        'nl-NL': 'We hebben de SPA app nog meer swing gegeven',
+        'default': 'It\'s time for a new release! You can now create your own account, like photos and infinite scroll through the feed.',
+        'en-GB': 'It\'s time for a new release! You can now create your own account, like photos and infinite scroll through the feed.',
+        'nl-NL': 'Het is tijd voor een nieuwe release! Je kunt nu je eigen account aanmaken, foto\'s liken en oneindig door de feed scrollen.',
       }
     )
   end
