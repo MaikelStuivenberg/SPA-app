@@ -28,6 +28,8 @@ Future<void> main() async {
     if (kDebugMode) {
       print('Remote config updated!');
     }
+
+    await remoteConfig.activate();
   });
 
   await remoteConfig.setDefaults(const {
