@@ -6,7 +6,7 @@ class Styles {
 
   static const TextStyle pageTitle = TextStyle(
     color: Color.fromARGB(255, 255, 255, 255),
-    fontWeight: FontWeight.w700,
+    fontWeight: FontWeight.w500,
     fontSize: 24,
     fontFamily: 'Montserrat',
     decoration: TextDecoration.none,
@@ -86,6 +86,14 @@ class Styles {
     decoration: TextDecoration.none,
   );
 
+  static const TextStyle textStyleMediumDarkBold = TextStyle(
+    color: Color.fromARGB(255, 255, 255, 255),
+    fontWeight: FontWeight.w600,
+    fontSize: 16,
+    fontFamily: 'Montserrat',
+    decoration: TextDecoration.none,
+  );
+
   static const TextStyle textStyleLarge = TextStyle(
     color: Color.fromARGB(255, 80, 80, 80),
     fontWeight: FontWeight.w600,
@@ -110,7 +118,7 @@ class Styles {
   );
   static const TextStyle textStyleLight = TextStyle(
     color: Colors.white,
-    fontWeight: FontWeight.w200,
+    fontWeight: FontWeight.w400,
     fontSize: 14,
     fontFamily: 'Montserrat',
     decoration: TextDecoration.none,
@@ -157,5 +165,7 @@ class Styles {
   );
 
   static ButtonStyle buttonStyle = ElevatedButton.styleFrom(
-      backgroundColor: AppColors.buttonColor, foregroundColor: Colors.white);
+    backgroundColor: AppColors.buttonColor,
+    foregroundColor: Colors.white,
+  );
 }

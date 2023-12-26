@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_remote_config/firebase_remote_config.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:intl/intl.dart';
@@ -26,30 +27,33 @@ class ProgramPageState extends State<ProgramPage> {
   late Future<QuerySnapshot<Map<String, dynamic>>> programDocsFuture;
   late Future<User> userDataFuture;
 
+  late DateTime minDate;
+  late DateTime maxDate;
+  late int amountOfDays;
+
   @override
   void initState() {
     super.initState();
 
     programDocsFuture = FirebaseFirestore.instance.collection('program').get();
     userDataFuture = UserDataRepository().getUser();
+    minDate = DateTime.parse(FirebaseRemoteConfig.instance.getString('start_date'));
+    maxDate = DateTime.parse(FirebaseRemoteConfig.instance.getString('end_date'));
+    amountOfDays = maxDate.difference(minDate).inDays + 1;
   }
 
   @override
   Widget build(BuildContext context) {
-    // Wait till pageController has clients and then move to page with current date
-    WidgetsBinding.instance!.addPostFrameCallback((_) {
-      if (_pageController.hasClients) {
+    // Wait till pageController has clients
+    // and then move to page with current date
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (_pageController.hasClients && DateTime.now().isAfter(minDate) && DateTime.now().isBefore(maxDate)) {
         _pageController.jumpToPage(DateTime.now().day - 22);
       }
     });
 
-    return Scaffold(
-      body: _buildBody(),
-    );
-  }
-
-  Widget _buildBody() {
-    return DefaultBodyWidget(
+    return DefaultScaffoldWidget(
+      AppLocalizations.of(context)!.programTitle,
       Stack(
         children: [
           Column(
@@ -58,18 +62,13 @@ class ProgramPageState extends State<ProgramPage> {
                 child: PageView(
                   controller: _pageController,
                   children: [
-                    _buildProgramWidget(DateTime(2023, 7, 22)),
-                    _buildProgramWidget(DateTime(2023, 7, 23)),
-                    _buildProgramWidget(DateTime(2023, 7, 24)),
-                    _buildProgramWidget(DateTime(2023, 7, 25)),
-                    _buildProgramWidget(DateTime(2023, 7, 26)),
-                    _buildProgramWidget(DateTime(2023, 7, 27)),
-                    _buildProgramWidget(DateTime(2023, 7, 28)),
+                    for (var i = 0; i < amountOfDays; i++)
+                      _buildProgramWidget(minDate.add(Duration(days: i))),
                   ],
                 ),
               ),
               Container(
-                margin: const EdgeInsets.fromLTRB(0, 0, 0, 40),
+                margin: const EdgeInsets.fromLTRB(0, 0, 0, 36),
                 child: SmoothPageIndicator(
                   controller: _pageController, // PageController
                   count: 7,
@@ -82,7 +81,7 @@ class ProgramPageState extends State<ProgramPage> {
                 ),
               ),
             ],
-          )
+          ),
           // _buildWeatherWidget(),
         ],
       ),
@@ -94,15 +93,10 @@ class ProgramPageState extends State<ProgramPage> {
     var user = User();
 
     return SafeArea(
+      bottom: false,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Center(
-            child: Text(
-              AppLocalizations.of(context)!.programTitle,
-              style: Styles.pageTitle,
-            ),
-          ),
           Center(
             child: Text(
               DateFormatter(dateTime, context).formatAsDayname(),
@@ -112,7 +106,7 @@ class ProgramPageState extends State<ProgramPage> {
           Container(height: 10),
           Expanded(
             child: Container(
-              margin: const EdgeInsets.fromLTRB(16, 16, 16, 16),
+              margin: const EdgeInsets.fromLTRB(16, 0, 16, 0),
               child: FutureBuilder(
                 future: Future.wait([
                   programDocsFuture,
@@ -203,7 +197,6 @@ class ProgramPageState extends State<ProgramPage> {
                       return Container(
                         margin: const EdgeInsets.symmetric(vertical: 8),
                         padding: const EdgeInsets.all(8),
-                        height: 95,
                         decoration: BoxDecoration(
                           color: (nextActivity != null &&
                                       nextActivity.date!
@@ -265,7 +258,6 @@ class ProgramPageState extends State<ProgramPage> {
                                 Padding(
                                   padding: const EdgeInsets.only(
                                     bottom: 2,
-                                    top: 0,
                                   ),
                                   child: Row(
                                     children: [
@@ -312,6 +304,6 @@ class ProgramPageState extends State<ProgramPage> {
   ) {
     return activity.date!.toDate().isBefore(currentTime) &&
         nextActivity != null &&
-        nextActivity!.date!.toDate().isAfter(currentTime);
+        nextActivity.date!.toDate().isAfter(currentTime);
   }
 }

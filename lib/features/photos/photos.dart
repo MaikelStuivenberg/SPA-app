@@ -1,15 +1,11 @@
-import 'dart:convert';
-import 'dart:io';
-
-import 'package:firebase_remote_config/firebase_remote_config.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:http/http.dart' as http;
-import 'package:path_provider/path_provider.dart';
-import 'package:share_plus/share_plus.dart';
+import 'package:spa_app/features/photos/widgets/photo.dart';
+import 'package:spa_app/features/user/models/user.dart';
+import 'package:spa_app/shared/models/photo.dart';
+import 'package:spa_app/shared/repositories/photo_data.dart';
+import 'package:spa_app/shared/repositories/user_data.dart';
 import 'package:spa_app/shared/widgets/default_body.dart';
-import 'package:spa_app/utils/styles.dart';
-import 'package:url_launcher/url_launcher.dart';
 
 class PhotosPage extends StatefulWidget {
   const PhotosPage({super.key});
@@ -19,152 +15,106 @@ class PhotosPage extends StatefulWidget {
 }
 
 class PhotosPageState extends State<PhotosPage> {
-  List<dynamic> _photos = [];
-  bool loading = true;
+  final photoDataRepository = PhotoDataRepository();
+
+  final _userFuture = UserDataRepository().getUser();
+  final _photosFuture = PhotoDataRepository().getRecentImages(0);
+
+  final _scrollViewController = ScrollController();
+  List<Photo> _photos = [];
+  var page = 1;
+  var _currentlyLoading = true;
 
   @override
   void initState() {
     super.initState();
 
-    _getRecentImagesInAlbum();
-  }
-
-  Future<void> _getRecentImagesInAlbum() async {
-    final remoteConfig = FirebaseRemoteConfig.instance;
-    final minUploadDate = remoteConfig.getInt('flickr_min_upload_date');
-    final maxUploadDate = remoteConfig.getInt('flickr_max_upload_date');
-    final photosPerPage = remoteConfig.getInt('show_photos_per_page');
-
-    const apiKey = '639f377344ffa79f1f0ebc8349dbae6f';
-    const userId = '195851792@N04';
-
-    var url = 'https://www.flickr.com/services/rest/';
-    url += '?method=flickr.people.getPhotos&api_key=$apiKey';
-    url += '&user_id=$userId&extras=url_m,date_taken';
-    url += '&sort=date-taken-desc&min_upload_date=$minUploadDate';
-    url += '&max_upload_date=$maxUploadDate';
-    url += '&per_page=$photosPerPage&format=json';
-    url += '&nojsoncallback=1&extras=url_m,url_k';
-
-    final response = await http.get(Uri.parse(url));
-    loading = false;
-    if (response.statusCode == 200) {
-      final data = json.decode(response.body);
+    photoDataRepository.getRecentImages(page).then((value) {
       setState(() {
-        _photos = data['photos']['photo'] as List<dynamic>;
+        _currentlyLoading = false;
+        _photos.addAll(value);
       });
-    }
+    });
+
+    _scrollViewController.addListener(() {
+      // When on 3/4 of the page, load more photos
+      if (_scrollViewController.position.extentAfter < 100 &&
+          _currentlyLoading == false) {
+        page = page + 1;
+        _currentlyLoading = true;
+        photoDataRepository.getRecentImages(page).then((value) {
+          setState(() {
+            _currentlyLoading = false;
+            _photos.addAll(value);
+          });
+        });
+      }
+    });
   }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: _buildBody(),
-    );
-  }
-
-  Widget _buildBody() {
-    return DefaultBodyWidget(
+    return DefaultScaffoldWidget(
+      AppLocalizations.of(context)!.photoTitle,
       SafeArea(
-        child: Column(
-          children: [
-            Text(
-              AppLocalizations.of(context)!.photoTitle,
-              style: Styles.pageTitle,
-            ),
-            Expanded(child: _buildPhotoGrid()),
-            ElevatedButton(
-              onPressed: () async {
-                final albumId = FirebaseRemoteConfig.instance.getString('flickr_album_id');
-                final url = 'https://www.flickr.com/photos/salvationarmyyouthnl/albums/$albumId/';
-                final uri = Uri.parse(url);
-                if (await canLaunchUrl(uri)) {
-                  await launchUrl(uri);
-                }
-              },
-              style: Styles.buttonStyle,
-              child: Text(
-                AppLocalizations.of(context)!.photoSeeAll,
-                style: Styles.buttonText,
-              ),
-            ),
-            Container(
-              height: 30,
-            )
-          ],
+        maintainBottomViewPadding: true,
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 16),
+          child: FutureBuilder(
+            future: _userFuture,
+            builder: (context, snapshot) {
+              if (snapshot.connectionState == ConnectionState.done) {
+                return _buildPhotoGrid(
+                  snapshot.data!,
+                  _photos,
+                );
+              } else {
+                return const Center(
+                  child: SizedBox(
+                    width: 64,
+                    height: 64,
+                    child: CircularProgressIndicator(
+                      color: Colors.black,
+                    ),
+                  ),
+                );
+              }
+            },
+          ),
         ),
       ),
     );
   }
 
-  Widget _buildPhotoGrid() {
+  Widget _buildPhotoGrid(User currentUser, List<Photo>? photos) {
     return Padding(
-      padding: const EdgeInsets.fromLTRB(10, 25, 10, 10),
-      child: _photos.isNotEmpty
+      padding: const EdgeInsets.fromLTRB(0, 16, 0, 8),
+      child: photos != null && photos.isNotEmpty
           ? SingleChildScrollView(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                children: [
-                  Row(
-                    children: [
-                      _buildPhotoGridRow(),
-                    ],
-                  ),
-                ],
+              controller: _scrollViewController,
+              child: Expanded(
+                child: Column(
+                  children: List.generate(photos.length, (i) {
+                    return PhotoStateWidget(currentUser, photos[i]);
+                  }),
+                ),
               ),
             )
-          : Text(loading ? "Even geduld.." : "We zijn druk bezig met het maken van foto's van dit jaar! Check later nog eens. :)", textAlign: TextAlign.center, style: TextStyle(fontSize: 16, color: Colors.white),),
-    );
-  }
-
-  Widget _buildPhotoGridRow() {
-    return Expanded(
-      child: Column(
-        children: [
-          for (var i = 0; i < 10; i++)
-            Padding(
-              padding: const EdgeInsets.all(4),
-              child: Stack(
-                children: [
-                  ClipRRect(
-                    borderRadius: BorderRadius.circular(6),
-                    child: Image.network(
-                      _photos[i]['url_m'].toString(),
-                      semanticLabel: '',
-                      fit: BoxFit.contain,
-                      errorBuilder: (context, error, stackTrace) =>
-                          const Center(
-                        child: Icon(Icons.error_outline),
-                      ),
+          : _currentlyLoading
+              ? const Center(
+                  child: SizedBox(
+                    width: 64,
+                    height: 64,
+                    child: CircularProgressIndicator(
+                      color: Colors.white,
                     ),
                   ),
-                  SizedBox(
-                    width: double.infinity,
-                    child: Align(
-                      alignment: Alignment.topRight,
-                      child: IconButton(
-                        onPressed: () async {
-                          final response = await http
-                              .get(Uri.parse(_photos[i]['url_k'].toString()));
-                          final directory = await getTemporaryDirectory();
-                          final path = directory.path;
-                          final file = File('$path/spa.jpg');
-                          await file.writeAsBytes(response.bodyBytes);
-                          await Share.shareXFiles([XFile('$path/spa.jpg')]);
-                        },
-                        icon: const Icon(
-                          Icons.send,
-                          color: Colors.white,
-                          size: 30,
-                        ),
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-        ],
-      ),
+                )
+              : const Text(
+                  "We zijn druk bezig met het maken van foto's van dit jaar! Check later nog eens. :)",
+                  textAlign: TextAlign.center,
+                  style: TextStyle(fontSize: 16, color: Colors.white),
+                ),
     );
   }
 }

@@ -7,6 +7,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:spa_app/features/splash/splash.dart';
 import 'package:spa_app/routes.dart';
+import 'package:spa_app/utils/app_colors.dart';
 import 'package:spa_app/utils/unanimated_page_route.dart';
 
 Future<void> main() async {
@@ -27,15 +28,21 @@ Future<void> main() async {
     if (kDebugMode) {
       print('Remote config updated!');
     }
+
     await remoteConfig.activate();
   });
 
   await remoteConfig.setDefaults(const {
-    'flickr_album_id': '72177720300776159',  //
-    'flickr_min_upload_date': 1689804000,   // Unix timestamp (2023-07-20)
-    'flickr_max_upload_date': 1690840800,   // Unix timestamp (2023-08-01)
-    'show_photos_per_page': 10,
+    'flickr_album_id': '72177720309943266', //
+    'flickr_min_upload_date': 1689804000, // Unix timestamp (2023-07-20)
+    'flickr_max_upload_date': 1690840800, // Unix timestamp (2023-08-01)
+    'show_photos_per_page': 5,
+    'start_date': '2024-01-20T07:00:00+01:00',
+    'end_date': '2024-01-20T23:00:00+01:00',
+    'use_minor': false,
   });
+
+  await remoteConfig.fetchAndActivate();
 
   runApp(const SpaApp());
 }
@@ -65,7 +72,9 @@ class SpaApp extends StatelessWidget {
       title: 'SPA',
       home: const SplashPage(),
       navigatorKey: navigatorKey,
-      theme: ThemeData(useMaterial3: true),
+      theme: ThemeData(
+        colorScheme: const ColorScheme.light(primary: AppColors.mainColor),
+      ),
       localizationsDelegates: AppLocalizations.localizationsDelegates,
       supportedLocales: AppLocalizations.supportedLocales,
       onGenerateRoute: (settings) {

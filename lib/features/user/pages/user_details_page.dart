@@ -1,9 +1,12 @@
+import 'package:cached_network_image/cached_network_image.dart';
+import 'package:firebase_remote_config/firebase_remote_config.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:image_picker/image_picker.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:spa_app/features/user/tabs/likes_overview.dart';
+import 'package:spa_app/routes.dart';
 import 'package:spa_app/shared/repositories/user_data.dart';
 import 'package:spa_app/shared/widgets/default_body.dart';
-import 'package:spa_app/utils/app_colors.dart';
 import 'package:spa_app/utils/styles.dart';
 
 class UserDetailsPage extends StatefulWidget {
@@ -22,14 +25,9 @@ class UserDetailsPageState extends State<UserDetailsPage> {
   }
 
   @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      body: _buildBody(),
-    );
-  }
-
-  Widget _buildBody() {
-    return DefaultBodyWidget(
+  Widget build(BuildContext parentContext) {
+    return DefaultScaffoldWidget(
+      AppLocalizations.of(context)!.profileTitle,
       SafeArea(
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 16),
@@ -37,190 +35,126 @@ class UserDetailsPageState extends State<UserDetailsPage> {
             future: _userDataRepository.getUser(),
             builder: (context, snapshot) {
               if (snapshot.hasData) {
-                return SingleChildScrollView(
-                  child: Column(
-                    children: [
-                      Text(
-                        AppLocalizations.of(context)!.profileTitle,
-                        style: Styles.pageTitle,
-                      ),
-                      Container(height: 20),
-                      SizedBox(
-                        height: 150,
-                        width: 150,
-                        child: Stack(
-                          clipBehavior: Clip.none,
-                          fit: StackFit.expand,
-                          children: [
-                            CircleAvatar(
-                              backgroundColor: Colors.transparent,
-                              foregroundImage: ((snapshot.data?.image != null)
-                                      ? MemoryImage(snapshot.data!.image!)
-                                      : const AssetImage(
-                                          'assets/profile_default.jpg'))
-                                  as ImageProvider<Object>,
-                            ),
-                            Positioned(
-                                bottom: 0,
-                                right: -25,
-                                child: RawMaterialButton(
-                                  onPressed: () {
-                                    ImagePicker()
-                                        .pickImage(source: ImageSource.gallery)
-                                        .then((value) async {
-                                      if (value != null) {
-                                        await _userDataRepository.setImage(
-                                            await value.readAsBytes());
+                if (snapshot.data == null ||
+                    snapshot.data!.firstname == null ||
+                    snapshot.data!.firstname!.isEmpty) {
+                  WidgetsBinding.instance.addPostFrameCallback((_) {
+                    Navigator.of(parentContext).pushNamed(Routes.editUser);
+                  });
+                }
+                // _firstnameController.text = snapshot.data!.firstname!;
+                // _lastnameController.text = snapshot.data!.lastname!;
+                // _ageController.text = snapshot.data!.age!;
+                // _majorValue = snapshot.data!.major!;
+                // _minorValue = snapshot.data!.minor!;
 
-                                        setState(() {});
-                                      }
-                                    });
-                                  },
-                                  fillColor: AppColors.buttonColor,
-                                  shape: const CircleBorder(),
-                                  child: const Icon(
-                                    Icons.camera_alt_outlined,
-                                    color: Colors.white,
-                                    size: 20,
-                                  ),
-                                )),
-                          ],
-                        ),
-                      ),
-                      Container(height: 20),
-                      TextFormField(
-                        controller: TextEditingController(
-                          text: snapshot.data!.firstname,
-                        ),
-                        decoration: Styles.textInputDecoration.copyWith(
-                          labelText:
-                              AppLocalizations.of(context)!.profileFirstname,
-                        ),
-                        style: Styles.textInput,
-                        onChanged: (value) async {
-                          snapshot.data!.firstname = value;
-                          await _userDataRepository.setUser(snapshot.data!);
-                        },
-                      ),
-                      TextFormField(
-                        controller: TextEditingController(
-                          text: snapshot.data!.lastname,
-                        ),
-                        decoration: Styles.textInputDecoration.copyWith(
-                          labelText:
-                              AppLocalizations.of(context)!.profileLastname,
-                        ),
-                        style: Styles.textInput,
-                        onChanged: (value) async {
-                          snapshot.data!.lastname = value;
-                          await _userDataRepository.setUser(snapshot.data!);
-                        },
-                      ),
-                      TextFormField(
-                        controller: TextEditingController(
-                          text: snapshot.data!.age,
-                        ),
-                        decoration: Styles.textInputDecoration.copyWith(
-                          labelText: AppLocalizations.of(context)!.profileAge,
-                        ),
-                        style: Styles.textInput,
-                        onChanged: (value) async {
-                          snapshot.data!.age = value;
-                          await _userDataRepository.setUser(snapshot.data!);
-                        },
-                      ),
-                      DropdownButtonFormField(
-                        value: snapshot.data!.major,
-                        dropdownColor: const Color.fromARGB(135, 0, 0, 0),
-                        decoration: Styles.textInputDecoration.copyWith(
-                          labelText: AppLocalizations.of(context)!.profileMajor,
-                        ),
-                        style: Styles.textInput,
-                        items: const [
-                          DropdownMenuItem(
-                            value: 'Brass',
-                            child: Text('Brass'),
-                          ),
-                          DropdownMenuItem(
-                            value: 'Choir',
-                            child: Text('Choir'),
-                          ),
-                          DropdownMenuItem(
-                            value: 'Dance',
-                            child: Text('Dance'),
-                          ),
-                          DropdownMenuItem(
-                            value: 'MMS',
-                            child: Text('MMS'),
-                          ),
-                          DropdownMenuItem(
-                            value: 'Theatre',
-                            child: Text('Theatre'),
+                return Column(
+                  children: [
+                    SizedBox(
+                      height: 128,
+                      width: 128,
+                      child: Stack(
+                        clipBehavior: Clip.none,
+                        fit: StackFit.expand,
+                        children: [
+                          Hero(
+                            tag: 'tag',
+                            child: CircleAvatar(
+                              backgroundColor: Colors.transparent,
+                              foregroundImage: ((snapshot.data?.image != null &&
+                                      snapshot.data?.image != '')
+                                  ? CachedNetworkImageProvider(
+                                      snapshot.data!.imageUrl!,
+                                    )
+                                  : const AssetImage(
+                                      'assets/profile_default.jpg',
+                                    )) as ImageProvider<Object>,
+                            ),
                           ),
                         ],
-                        onChanged: (String? value) async {
-                          snapshot.data!.major = value;
-                          await _userDataRepository.setUser(snapshot.data!);
-                        },
                       ),
-                      DropdownButtonFormField(
-                        value: snapshot.data!.minor,
-                        dropdownColor: const Color.fromARGB(135, 0, 0, 0),
-                        decoration: Styles.textInputDecoration.copyWith(
-                          labelText: AppLocalizations.of(context)!.profileMinor,
+                    ),
+                    Container(height: 16),
+                    Text(
+                      '${snapshot.data!.firstname} ${snapshot.data!.lastname}',
+                      style: Styles.pageSubTitle,
+                    ),
+                    Container(height: 4),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        const Text(
+                          'Major: ',
+                          style: Styles.textStyleMediumDarkBold,
                         ),
-                        style: Styles.textInput,
-                        items: const [
-                          DropdownMenuItem(
-                            value: 'Brass Class',
-                            child: Text('Brass Class'),
-                          ),
-                          DropdownMenuItem(
-                            value: 'Gospel',
-                            child: Text('Gospel'),
-                          ),
-                          DropdownMenuItem(
-                            value: 'Sport & Ministries',
-                            child: Text('Sport & Ministries'),
-                          ),
-                          DropdownMenuItem(
-                            value: 'Ritme',
-                            child: Text('Ritme'),
-                          ),
-                          DropdownMenuItem(
-                            value: 'Media',
-                            child: Text('Media'),
-                          ),
-                          DropdownMenuItem(
-                            value: 'Compositie',
-                            child: Text('Compositie'),
-                          ),
-                          DropdownMenuItem(
-                            value: 'Timbrels',
-                            child: Text('Timbrels'),
-                          ),
-                          DropdownMenuItem(
-                            value: 'Improvisatie',
-                            child: Text('Improvisatie'),
-                          ),
-                        ],
-                        onChanged: (String? value) async {
-                          snapshot.data!.minor = value;
-                          await _userDataRepository.setUser(snapshot.data!);
-                        },
-                      ),
-                    ],
-                  ),
+                        Text(
+                          '${snapshot.data!.major}',
+                          style: Styles.textStyleLight,
+                        ),
+                        if (FirebaseRemoteConfig.instance.getBool('use_minor'))
+                          Row(children: [
+                            Container(width: 16),
+                            const Text(
+                              'Minor: ',
+                              style: Styles.textStyleMediumDarkBold,
+                            ),
+                            Text(
+                              '${snapshot.data!.minor}',
+                              style: Styles.textStyleLight,
+                            ),
+                          ]),
+                      ],
+                    ),
+                    Container(height: 16),
+                    // Line
+                    Container(
+                      height: 1,
+                      margin: const EdgeInsets.symmetric(horizontal: 16),
+                      color: Colors.white.withAlpha(75),
+                    ),
+                    Container(height: 16),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        const Icon(
+                          FontAwesomeIcons.solidHeart,
+                          color: Colors.red,
+                        ),
+                        Container(width: 4),
+                        const Text(
+                          "Photo's you liked",
+                          style: Styles.textStyleLight,
+                        ),
+                      ],
+                    ),
+                    Container(height: 16),
+                    Expanded(child: LikesOverview()),
+                  ],
                 );
               } else {
                 return const Center(
-                  child: CircularProgressIndicator(),
+                  child: SizedBox(
+                    width: 64,
+                    height: 64,
+                    child: CircularProgressIndicator(
+                      color: Colors.white,
+                    ),
+                  ),
                 );
               }
             },
           ),
         ),
       ),
+      actions: [
+        IconButton(
+          icon: const Icon(FontAwesomeIcons.penToSquare),
+          onPressed: () {
+            Navigator.pushNamed(context, Routes.editUser);
+          },
+          color: Colors.white,
+        ),
+      ],
     );
   }
 }

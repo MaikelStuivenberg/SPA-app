@@ -32,18 +32,20 @@ class BibleStudyPageState extends State<BibleStudyPage> {
   }
 
   Widget _buildBody() {
-    return DefaultBodyWidget(
-      PageView(
-        children: [
-          _buildBiblestudyWidget(DateTime(2023, 7, 22)),
-          _buildBiblestudyWidget(DateTime(2023, 7, 23)),
-          _buildBiblestudyWidget(DateTime(2023, 7, 24)),
-          _buildBiblestudyWidget(DateTime(2023, 7, 25)),
-          _buildBiblestudyWidget(DateTime(2023, 7, 26)),
-          _buildBiblestudyWidget(DateTime(2023, 7, 27)),
-          _buildBiblestudyWidget(DateTime(2023, 7, 28)),
-        ],
-      ),
+    return DefaultScaffoldWidget(
+      'Bijbelstudie',
+      Container(),
+      // PageView(
+      // children: [
+      // _buildBiblestudyWidget(DateTime(2023, 7, 22)),
+      // _buildBiblestudyWidget(DateTime(2023, 7, 23)),
+      // _buildBiblestudyWidget(DateTime(2023, 7, 24)),
+      // _buildBiblestudyWidget(DateTime(2023, 7, 25)),
+      // _buildBiblestudyWidget(DateTime(2023, 7, 26)),
+      // _buildBiblestudyWidget(DateTime(2023, 7, 27)),
+      // _buildBiblestudyWidget(DateTime(2023, 7, 28)),
+      // ],
+      // ),
     );
   }
 
@@ -98,7 +100,7 @@ class BibleStudyPageState extends State<BibleStudyPage> {
                     child: Column(
                       children: [
                         for (var i = 0; i < biblestudies.length; i++)
-                          _buildElement(i)
+                          _buildElement(i),
                       ],
                     ),
                   );
@@ -158,7 +160,7 @@ class BibleStudyPageState extends State<BibleStudyPage> {
                     style: Styles.textSubTitleStyle,
                   ),
                 ],
-              )
+              ),
             ],
           ),
           // Content
