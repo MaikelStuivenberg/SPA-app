@@ -2,7 +2,9 @@ import 'dart:async';
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:spa_app/routes.dart';
+import 'package:spa_app/shared/repositories/program_data.dart';
 
 class SplashPage extends StatefulWidget {
   const SplashPage({super.key});
@@ -13,13 +15,17 @@ class SplashPage extends StatefulWidget {
 
 class SplashPageState extends State<SplashPage> {
   bool _visible = true;
+  late Future preloadProgram;
 
   @override
   void initState() {
     super.initState();
 
+    preloadProgram = ProgramDataRepository().getProgram();
+
     // Change state of background and logo
-    Future.delayed(const Duration(milliseconds: 800), () {
+    Future.delayed(const Duration(milliseconds: 800), () async {
+      await preloadProgram;
       setState(() {
         _visible = !_visible;
       });
@@ -53,7 +59,7 @@ class SplashPageState extends State<SplashPage> {
   Widget _buildBody() {
     return AnimatedOpacity(
       opacity: _visible ? 1.0 : 0.0,
-      duration: const Duration(milliseconds: 300),
+      duration: const Duration(milliseconds: 200),
       child: Stack(
         children: <Widget>[
           SizedBox.expand(
@@ -70,9 +76,21 @@ class SplashPageState extends State<SplashPage> {
               children: [
                 Padding(
                   padding: const EdgeInsets.all(8),
-                  child: Image.asset('assets/logo.png'),
+                  child: Image.asset('assets/logo/SPA Logo Tagline.png'),
                 ),
               ],
+            ),
+          ),
+          Center(
+            child: Container(
+              width: MediaQuery.of(context).size.width * 0.90,
+              height: MediaQuery.of(context).size.width * 0.90,
+              child: SpinKitRing(
+                color: Colors.white,
+                size: MediaQuery.of(context).size.width * 0.90,
+                lineWidth: 2,
+                duration: const Duration(milliseconds: 2000),
+              ),
             ),
           ),
         ],

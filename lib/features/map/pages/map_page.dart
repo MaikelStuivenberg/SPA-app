@@ -1,3 +1,4 @@
+import 'package:firebase_remote_config/firebase_remote_config.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:spa_app/features/map/widgets/map_item.dart';
@@ -56,17 +57,20 @@ class MapPageState extends State<MapPage> {
                     MapItemWidget('H', 'Theater 13-'),
                     MapItemWidget('Bosshardt', 'Choir'),
                     MapItemWidget('Congreshal', 'MMS'),
-                    Padding(padding: EdgeInsets.all(16)),
-                    Text('Minor', style: Styles.pageSubTitle),
-                    MapItemWidget('A', 'Improvisatie'),
-                    MapItemWidget('H', 'Compositie'),
-                    MapItemWidget('Congreshal', 'Timbrels'),
-                    MapItemWidget('Bosshardt', 'Gospel'),
-                    MapItemWidget('Witte tent', 'Sport & Ministries'),
-                    MapItemWidget('I', 'Media'),
-                    MapItemWidget('E/F', 'Brass Class'),
-                    MapItemWidget('K1', 'Ritme'),
-                    Padding(padding: EdgeInsets.all(16)),
+                    Padding(padding: EdgeInsets.all(8)),
+                    if(FirebaseRemoteConfig.instance.getBool('use_minor'))
+                    ...[
+                      Text('Minor', style: Styles.pageSubTitle),
+                      MapItemWidget('A', 'Improvisatie'),
+                      MapItemWidget('H', 'Compositie'),
+                      MapItemWidget('Congreshal', 'Timbrels'),
+                      MapItemWidget('Bosshardt', 'Gospel'),
+                      MapItemWidget('Witte tent', 'Sport & Ministries'),
+                      MapItemWidget('I', 'Media'),
+                      MapItemWidget('E/F', 'Brass Class'),
+                      MapItemWidget('K1', 'Ritme'),
+                      Padding(padding: EdgeInsets.all(8)),
+                    ],
                     Text('Overige', style: Styles.pageSubTitle),
                     MapItemWidget('B', 'Secretariaat (hotelkamer)'),
                     MapItemWidget('J', 'Prayer room'),

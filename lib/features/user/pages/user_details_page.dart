@@ -80,31 +80,40 @@ class UserDetailsPageState extends State<UserDetailsPage> {
                       style: Styles.pageSubTitle,
                     ),
                     Container(height: 4),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        const Text(
-                          'Major: ',
-                          style: Styles.textStyleMediumDarkBold,
-                        ),
-                        Text(
-                          '${snapshot.data!.major}',
-                          style: Styles.textStyleLight,
-                        ),
-                        if (FirebaseRemoteConfig.instance.getBool('use_minor'))
-                          Row(children: [
-                            Container(width: 16),
+                    if (snapshot.data!.major != null &&
+                        snapshot.data!.major!.isNotEmpty &&
+                        snapshot.data!.minor != null &&
+                        snapshot.data!.minor!.isNotEmpty)
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          if (snapshot.data!.major != null &&
+                              snapshot.data!.major!.isNotEmpty)
                             const Text(
-                              'Minor: ',
+                              'Major: ',
                               style: Styles.textStyleMediumDarkBold,
                             ),
-                            Text(
-                              '${snapshot.data!.minor}',
-                              style: Styles.textStyleLight,
-                            ),
-                          ]),
-                      ],
-                    ),
+                          Text(
+                            '${snapshot.data!.major}',
+                            style: Styles.textStyleLight,
+                          ),
+                          if (FirebaseRemoteConfig.instance
+                              .getBool('use_minor'))
+                            Row(children: [
+                              Container(width: 16),
+                              if (snapshot.data!.minor != null &&
+                                  snapshot.data!.minor!.isNotEmpty)
+                                const Text(
+                                  'Minor: ',
+                                  style: Styles.textStyleMediumDarkBold,
+                                ),
+                              Text(
+                                '${snapshot.data!.minor}',
+                                style: Styles.textStyleLight,
+                              ),
+                            ]),
+                        ],
+                      ),
                     Container(height: 16),
                     // Line
                     Container(

@@ -6,6 +6,7 @@ import 'package:intl/intl.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 import 'package:spa_app/features/program/models/activity.dart';
 import 'package:spa_app/features/user/models/user.dart';
+import 'package:spa_app/shared/repositories/program_data.dart';
 import 'package:spa_app/shared/repositories/user_data.dart';
 import 'package:spa_app/shared/widgets/default_body.dart';
 import 'package:spa_app/utils/app_colors.dart';
@@ -35,10 +36,12 @@ class ProgramPageState extends State<ProgramPage> {
   void initState() {
     super.initState();
 
-    programDocsFuture = FirebaseFirestore.instance.collection('program').get();
+    programDocsFuture = ProgramDataRepository().getProgram();
     userDataFuture = UserDataRepository().getUser();
-    minDate = DateTime.parse(FirebaseRemoteConfig.instance.getString('start_date'));
-    maxDate = DateTime.parse(FirebaseRemoteConfig.instance.getString('end_date'));
+    minDate =
+        DateTime.parse(FirebaseRemoteConfig.instance.getString('start_date'));
+    maxDate =
+        DateTime.parse(FirebaseRemoteConfig.instance.getString('end_date'));
     amountOfDays = maxDate.difference(minDate).inDays + 1;
   }
 
@@ -47,7 +50,9 @@ class ProgramPageState extends State<ProgramPage> {
     // Wait till pageController has clients
     // and then move to page with current date
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      if (_pageController.hasClients && DateTime.now().isAfter(minDate) && DateTime.now().isBefore(maxDate)) {
+      if (_pageController.hasClients &&
+          DateTime.now().isAfter(minDate) &&
+          DateTime.now().isBefore(maxDate)) {
         _pageController.jumpToPage(DateTime.now().day - 22);
       }
     });
@@ -82,7 +87,6 @@ class ProgramPageState extends State<ProgramPage> {
               ),
             ],
           ),
-          // _buildWeatherWidget(),
         ],
       ),
     );
@@ -185,109 +189,119 @@ class ProgramPageState extends State<ProgramPage> {
                               : -1,
                         );
 
-                  return ListView.builder(
-                    controller: _listViewController,
-                    itemCount: activities.length,
-                    itemBuilder: (BuildContext context, int index) {
-                      final activity = activities[index];
-                      final nextActivity = index + 1 < activities.length
-                          ? activities[index + 1]
-                          : null;
+                  return RefreshIndicator(
+                      child: ListView.builder(
+                        controller: _listViewController,
+                        itemCount: activities.length,
+                        itemBuilder: (BuildContext context, int index) {
+                          final activity = activities[index];
+                          final nextActivity = index + 1 < activities.length
+                              ? activities[index + 1]
+                              : null;
 
-                      return Container(
-                        margin: const EdgeInsets.symmetric(vertical: 8),
-                        padding: const EdgeInsets.all(8),
-                        decoration: BoxDecoration(
-                          color: (nextActivity != null &&
-                                      nextActivity.date!
-                                          .toDate()
-                                          .isBefore(DateTime.now())) ||
-                                  (nextActivity == null &&
-                                      activity.date!
-                                          .toDate()
-                                          .add(const Duration(minutes: 30))
-                                          .isBefore(DateTime.now()))
-                              ? Colors.white.withOpacity(0.5)
-                              : Colors.white,
-                          borderRadius: BorderRadius.circular(6),
-                        ),
-                        child: Row(
-                          children: <Widget>[
-                            ClipRRect(
+                          return Container(
+                            margin: const EdgeInsets.symmetric(vertical: 8),
+                            padding: const EdgeInsets.all(8),
+                            decoration: BoxDecoration(
+                              color: (nextActivity != null &&
+                                          nextActivity.date!
+                                              .toDate()
+                                              .isBefore(DateTime.now())) ||
+                                      (nextActivity == null &&
+                                          activity.date!
+                                              .toDate()
+                                              .add(const Duration(minutes: 30))
+                                              .isBefore(DateTime.now()))
+                                  ? Colors.white.withOpacity(0.5)
+                                  : Colors.white,
                               borderRadius: BorderRadius.circular(6),
-                              child: Image.asset(
-                                'assets/program/${activity.image!}',
-                                width: 80,
-                                height: 80,
-                                fit: BoxFit.cover,
-                                errorBuilder: (context, error, stackTrace) =>
-                                    const Icon(
-                                  Icons.broken_image,
-                                  size: 80,
-                                ),
-                              ),
                             ),
-                            const Padding(padding: EdgeInsets.only(left: 8)),
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            child: Row(
                               children: <Widget>[
-                                Padding(
-                                  padding: const EdgeInsets.only(top: 2),
-                                  child: Row(
-                                    children: [
-                                      const Icon(
-                                        Icons.schedule_outlined,
-                                        size: 18,
-                                      ),
-                                      const Padding(
-                                        padding: EdgeInsets.only(left: 4),
-                                      ),
-                                      Text(
-                                        DateFormat('HH:mm')
-                                            .format(activity.date!.toDate()),
-                                        style: Styles.textStyleMedium,
-                                      ),
-                                    ],
+                                ClipRRect(
+                                  borderRadius: BorderRadius.circular(6),
+                                  child: Image.asset(
+                                    'assets/program/${activity.image!}',
+                                    width: 80,
+                                    height: 80,
+                                    fit: BoxFit.cover,
+                                    errorBuilder:
+                                        (context, error, stackTrace) =>
+                                            const Icon(
+                                      Icons.broken_image,
+                                      size: 80,
+                                    ),
                                   ),
                                 ),
-                                Text(
-                                  activity.title!,
-                                  style: Styles.textStyleLarge,
-                                ),
-                                Padding(
-                                  padding: const EdgeInsets.only(
-                                    bottom: 2,
-                                  ),
-                                  child: Row(
-                                    children: [
-                                      if (activity.location == null ||
-                                          activity.location!.trim().isEmpty)
-                                        Container(
-                                          width: 10,
-                                        )
-                                      else
-                                        const Icon(
-                                          Icons.location_on_outlined,
-                                          size: 18,
-                                        ),
-                                      const Padding(
-                                        padding: EdgeInsets.only(left: 4),
+                                const Padding(
+                                    padding: EdgeInsets.only(left: 8)),
+                                Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: <Widget>[
+                                    Padding(
+                                      padding: const EdgeInsets.only(top: 2),
+                                      child: Row(
+                                        children: [
+                                          const Icon(
+                                            Icons.schedule_outlined,
+                                            size: 18,
+                                          ),
+                                          const Padding(
+                                            padding: EdgeInsets.only(left: 4),
+                                          ),
+                                          Text(
+                                            DateFormat('HH:mm').format(
+                                                activity.date!.toDate()),
+                                            style: Styles.textStyleMedium,
+                                          ),
+                                        ],
                                       ),
-                                      Text(
-                                        activity.location ?? '',
-                                        style: Styles.textStyleMedium,
+                                    ),
+                                    Text(
+                                      activity.title!,
+                                      style: Styles.textStyleLarge,
+                                    ),
+                                    Padding(
+                                      padding: const EdgeInsets.only(
+                                        bottom: 2,
                                       ),
-                                    ],
-                                  ),
+                                      child: Row(
+                                        children: [
+                                          if (activity.location == null ||
+                                              activity.location!.trim().isEmpty)
+                                            Container(
+                                              width: 10,
+                                            )
+                                          else
+                                            const Icon(
+                                              Icons.location_on_outlined,
+                                              size: 18,
+                                            ),
+                                          const Padding(
+                                            padding: EdgeInsets.only(left: 4),
+                                          ),
+                                          Text(
+                                            activity.location ?? '',
+                                            style: Styles.textStyleMedium,
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  ],
                                 ),
                               ],
                             ),
-                          ],
-                        ),
-                      );
-                    },
-                  );
+                          );
+                        },
+                      ),
+                      onRefresh: () async {
+                        programDocsFuture = ProgramDataRepository()
+                            .getProgram(forceReload: true);
+                        await programDocsFuture;
+                        setState(() {});
+                      });
                 },
               ),
             ),
