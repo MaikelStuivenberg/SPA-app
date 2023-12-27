@@ -2,7 +2,7 @@ name: spa_app
 description: Mobile app for SPA (School of Performing Arts)
 publish_to: "none"
 
-version: 1.2.2+16
+version: 1.2.3+17
 
 environment:
   sdk: '>=3.1.0 <4.0.0'

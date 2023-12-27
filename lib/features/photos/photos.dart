@@ -92,12 +92,10 @@ class PhotosPageState extends State<PhotosPage> {
       child: photos != null && photos.isNotEmpty
           ? SingleChildScrollView(
               controller: _scrollViewController,
-              child: Expanded(
-                child: Column(
-                  children: List.generate(photos.length, (i) {
-                    return PhotoStateWidget(currentUser, photos[i]);
-                  }),
-                ),
+              child: Column(
+                children: List.generate(photos.length, (i) {
+                  return PhotoStateWidget(currentUser, photos[i]);
+                }),
               ),
             )
           : _currentlyLoading

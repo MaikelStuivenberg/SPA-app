@@ -23,62 +23,59 @@ class MapPageState extends State<MapPage> {
     return DefaultScaffoldWidget(
       AppLocalizations.of(context)!.mapTitle,
       SafeArea(
-        child: Expanded(
-          child: SingleChildScrollView(
-            child: Column(
-              children: [
-                Container(
-                  margin: const EdgeInsets.fromLTRB(16, 16, 16, 16),
-                  padding: const EdgeInsets.all(16),
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(6),
-                    color: Colors.white,
-                    boxShadow: [
-                      BoxShadow(
-                        color: Colors.grey.withOpacity(0.5),
-                        blurRadius: 5,
-                        offset: const Offset(0, 3),
-                      ),
-                    ],
-                  ),
-                  child: InteractiveViewer(
-                    minScale: 0.5,
-                    maxScale: 5,
-                    child: Image.asset('assets/map.png'),
-                  ),
-                ),
-                Column(
-                  children: [
-                    Text('Major', style: Styles.pageSubTitle),
-                    MapItemWidget('A', 'Dance 13+'),
-                    MapItemWidget('E/F', 'Dance 13-'),
-                    MapItemWidget('K1', 'Brass'),
-                    MapItemWidget('K2', 'Theater 13+'),
-                    MapItemWidget('H', 'Theater 13-'),
-                    MapItemWidget('Bosshardt', 'Choir'),
-                    MapItemWidget('Congreshal', 'MMS'),
-                    Padding(padding: EdgeInsets.all(8)),
-                    if(FirebaseRemoteConfig.instance.getBool('use_minor'))
-                    ...[
-                      Text('Minor', style: Styles.pageSubTitle),
-                      MapItemWidget('A', 'Improvisatie'),
-                      MapItemWidget('H', 'Compositie'),
-                      MapItemWidget('Congreshal', 'Timbrels'),
-                      MapItemWidget('Bosshardt', 'Gospel'),
-                      MapItemWidget('Witte tent', 'Sport & Ministries'),
-                      MapItemWidget('I', 'Media'),
-                      MapItemWidget('E/F', 'Brass Class'),
-                      MapItemWidget('K1', 'Ritme'),
-                      Padding(padding: EdgeInsets.all(8)),
-                    ],
-                    Text('Overige', style: Styles.pageSubTitle),
-                    MapItemWidget('B', 'Secretariaat (hotelkamer)'),
-                    MapItemWidget('J', 'Prayer room'),
-                    Padding(padding: EdgeInsets.all(16)),
+        child: SingleChildScrollView(
+          child: Column(
+            children: [
+              Container(
+                margin: const EdgeInsets.fromLTRB(16, 16, 16, 16),
+                padding: const EdgeInsets.all(16),
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(6),
+                  color: Colors.white,
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.grey.withOpacity(0.5),
+                      blurRadius: 5,
+                      offset: const Offset(0, 3),
+                    ),
                   ],
                 ),
-              ],
-            ),
+                child: InteractiveViewer(
+                  minScale: 0.5,
+                  maxScale: 5,
+                  child: Image.asset('assets/map.png'),
+                ),
+              ),
+              Column(
+                children: [
+                  const Text('Major', style: Styles.pageSubTitle),
+                  const MapItemWidget('A', 'Dance 13+'),
+                  const MapItemWidget('E/F', 'Dance 13-'),
+                  const MapItemWidget('K1', 'Brass'),
+                  const MapItemWidget('K2', 'Theater 13+'),
+                  const MapItemWidget('H', 'Theater 13-'),
+                  const MapItemWidget('Bosshardt', 'Choir'),
+                  const MapItemWidget('Congreshal', 'MMS'),
+                  const Padding(padding: EdgeInsets.all(8)),
+                  if (FirebaseRemoteConfig.instance.getBool('use_minor')) ...[
+                    const Text('Minor', style: Styles.pageSubTitle),
+                    const MapItemWidget('A', 'Improvisatie'),
+                    const MapItemWidget('H', 'Compositie'),
+                    const MapItemWidget('Congreshal', 'Timbrels'),
+                    const MapItemWidget('Bosshardt', 'Gospel'),
+                    const MapItemWidget('Witte tent', 'Sport & Ministries'),
+                    const MapItemWidget('I', 'Media'),
+                    const MapItemWidget('E/F', 'Brass Class'),
+                    const MapItemWidget('K1', 'Ritme'),
+                    const Padding(padding: EdgeInsets.all(8)),
+                  ],
+                  const Text('Overige', style: Styles.pageSubTitle),
+                  const MapItemWidget('B', 'Secretariaat (hotelkamer)'),
+                  const MapItemWidget('J', 'Prayer room'),
+                  const Padding(padding: EdgeInsets.all(16)),
+                ],
+              ),
+            ],
           ),
         ),
       ),
