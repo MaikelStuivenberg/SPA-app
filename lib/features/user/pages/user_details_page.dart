@@ -126,7 +126,7 @@ class UserDetailsPageState extends State<UserDetailsPage> {
                         ),
                         Container(width: 4),
                         Text(
-                          "Photo's you liked",
+                          AppLocalizations.of(context)!.profilePhotosLiked,
                           style: Theme.of(context).textTheme.bodyMedium,
                         ),
                       ],

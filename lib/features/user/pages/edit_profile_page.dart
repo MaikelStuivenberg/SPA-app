@@ -40,7 +40,7 @@ class EditProfilePageState extends State<EditProfilePage> {
   @override
   Widget build(BuildContext context) {
     return DefaultScaffoldWidget(
-      'Edit Profile',
+      AppLocalizations.of(context)!.profileEditTitle,
       SafeArea(
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),

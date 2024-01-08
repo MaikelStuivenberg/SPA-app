@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:spa_app/routes.dart';
@@ -47,8 +48,8 @@ class LoginPageState extends State<LoginPage> {
             left: 25,
             child: CircleAvatar(
                 radius: 60,
-              backgroundColor:
-                  Theme.of(context).colorScheme.primary.withOpacity(0.15),
+                backgroundColor:
+                    Theme.of(context).colorScheme.primary.withOpacity(0.15),
                 child: const FaIcon(FontAwesomeIcons.music, size: 60)),
           ),
           Positioned(
@@ -56,8 +57,8 @@ class LoginPageState extends State<LoginPage> {
             left: 125,
             child: CircleAvatar(
                 radius: 75,
-              backgroundColor:
-                  Theme.of(context).colorScheme.primary.withOpacity(0.25),
+                backgroundColor:
+                    Theme.of(context).colorScheme.primary.withOpacity(0.25),
                 child: const FaIcon(FontAwesomeIcons.handsPraying, size: 75)),
           ),
           Positioned(
@@ -65,34 +66,10 @@ class LoginPageState extends State<LoginPage> {
             left: 280,
             child: CircleAvatar(
                 radius: 90,
-              backgroundColor:
-                  Theme.of(context).colorScheme.primary.withOpacity(0.50),
+                backgroundColor:
+                    Theme.of(context).colorScheme.primary.withOpacity(0.50),
                 child: const FaIcon(FontAwesomeIcons.campground, size: 90)),
           ),
-          // Positioned(
-          //   top: 250,
-          //   right: 150,
-          //   child: CircleAvatar(
-          //     radius: 80,
-          //     backgroundColor: AppColors.secondaryColor.shade100,
-          //   ),
-          // ),
-          // Positioned(
-          //   top: 150,
-          //   right: 50,
-          //   child: CircleAvatar(
-          //     radius: 80,
-          //     backgroundColor: AppColors.secondaryColor.shade100,
-          //   ),
-          // ),
-          // Positioned(
-          //   bottom: 10,
-          //   left: 10,
-          //   child: CircleAvatar(
-          //     radius: 80,
-          //     backgroundColor: AppColors.mainColor.shade300,
-          //   ),
-          // ),
           SafeArea(
             child: Container(
               margin: const EdgeInsets.fromLTRB(16, 16, 16, 16),
@@ -101,7 +78,7 @@ class LoginPageState extends State<LoginPage> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    'Welcome to',
+                    AppLocalizations.of(context)!.loginWelcome,
                     style: Theme.of(context).textTheme.titleLarge!.copyWith(
                           color: Theme.of(context).colorScheme.primary,
                           fontWeight: FontWeight.bold,
@@ -109,7 +86,7 @@ class LoginPageState extends State<LoginPage> {
                         ),
                   ),
                   Text(
-                    'School of Performing Arts',
+                    AppLocalizations.of(context)!.loginWelcomeSPA,
                     style: Theme.of(context).textTheme.titleLarge!.copyWith(
                           fontWeight: FontWeight.bold,
                           fontSize: 32,
@@ -144,9 +121,7 @@ class LoginPageState extends State<LoginPage> {
               ),
             ),
             const SizedBox(width: 8),
-            const Text(
-              'Or login with',
-            ),
+            Text(AppLocalizations.of(context)!.loginSocial),
             const SizedBox(width: 8),
             Expanded(
               child: Divider(

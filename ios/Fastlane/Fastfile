@@ -52,9 +52,9 @@ platform :ios do
         export_compliance_uses_encryption: false,
       },
       release_notes: {
-        'default': 'It\'s time for a new release! You can now create your own account, like photos and infinite scroll through the feed.',
-        'en-GB': 'It\'s time for a new release! You can now create your own account, like photos and infinite scroll through the feed.',
-        'nl-NL': 'Het is tijd voor een nieuwe release! Je kunt nu je eigen account aanmaken, foto\'s liken en oneindig door de feed scrollen.',
+        'default': 'The app got a new look! You can now create your own account, like photos and infinite scroll through the photo feed',
+        'en-GB': 'The app got a new look! You can now create your own account, like photos and infinite scroll through the photo feed.',
+        'nl-NL': 'De app heeft een nieuwe look! Je kunt nu je eigen account aanmaken, foto\'s liken en oneindig door de foto feed scrollen.',
       }
     )
   end
