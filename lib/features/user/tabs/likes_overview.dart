@@ -16,15 +16,13 @@ class LikesOverview extends StatelessWidget {
         if (snapshot.hasData) {
           return _buildGridView(snapshot.data!);
         } else if (snapshot.hasError) {
-          return Text('${snapshot.error}');
+          return Text(''); //'${snapshot.error}');
         }
         return const Center(
           child: SizedBox(
             width: 64,
             height: 64,
-            child: CircularProgressIndicator(
-              color: Colors.white,
-            ),
+            child: CircularProgressIndicator(),
           ),
         );
       },
@@ -33,14 +31,17 @@ class LikesOverview extends StatelessWidget {
   }
 
   Widget _buildGridView(List<Photo> photos) {
-    return GridView.builder(
-      itemCount: photos.length,
-      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-        crossAxisCount: 3,
+    return Container(
+      padding: const EdgeInsets.only(top: 16),
+      child: GridView.builder(
+        itemCount: photos.length,
+        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+          crossAxisCount: 3,
+        ),
+        itemBuilder: (context, index) {
+          return _buildGridItem(photos[index]);
+        },
       ),
-      itemBuilder: (context, index) {
-        return _buildGridItem(photos[index]);
-      },
     );
   }
 
@@ -50,9 +51,8 @@ class LikesOverview extends StatelessWidget {
       child: Column(
         children: [
           Expanded(
-            child: Container(
-              decoration:
-                  BoxDecoration(borderRadius: BorderRadius.circular(10)),
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(4),
               child: CachedNetworkImage(
                 imageUrl: photo.thumbnailUrl,
                 fit: BoxFit.cover,

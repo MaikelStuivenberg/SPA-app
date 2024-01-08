@@ -14,9 +14,9 @@ class UserDataRepository {
     if (_user != null && forceReload == false) {
       return _user!;
     }
-    var user = await getFirebaseUser();
+    final user = await getFirebaseUser();
 
-    final prefs = await SharedPreferences.getInstance();
+    // final prefs = await SharedPreferences.getInstance();
     // final firstname = prefs.getString('user_firstname');
     // final lastname = prefs.getString('user_lastname');
     // final age = prefs.getString('user_age');
@@ -51,7 +51,7 @@ class UserDataRepository {
   }
 
   Future<void> setProfileImage(Uint8List imageBytes) async {
-    var datestamp = DateTime.now().year.toString() +
+    final datestamp = DateTime.now().year.toString() +
         DateTime.now().month.toString() +
         DateTime.now().day.toString() +
         DateTime.now().hour.toString() +
@@ -59,24 +59,24 @@ class UserDataRepository {
         DateTime.now().second.toString() +
         DateTime.now().millisecond.toString();
 
-    var upload = await FirebaseStorage.instance
+    final upload = await FirebaseStorage.instance
         .ref()
         .child('users')
         .child(FirebaseAuth.instance.currentUser!.uid)
         .child('profile')
-        .child('$datestamp')
+        .child(datestamp)
         .putData(imageBytes, SettableMetadata(contentType: 'image/jpeg'));
 
     await FirebaseFirestore.instance
         .collection('users')
         .doc(FirebaseAuth.instance.currentUser!.uid)
         .update({
-      'image': '$datestamp',
+      'image': datestamp,
     });
   }
 
   Future<DocumentSnapshot<Map<String, dynamic>>> getFirebaseUser() async {
-    var user = await FirebaseFirestore.instance
+    final user = await FirebaseFirestore.instance
         .collection('users')
         .doc(FirebaseAuth.instance.currentUser!.uid)
         .get();

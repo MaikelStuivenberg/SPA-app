@@ -56,31 +56,28 @@ class PhotosPageState extends State<PhotosPage> {
   Widget build(BuildContext context) {
     return DefaultScaffoldWidget(
       AppLocalizations.of(context)!.photoTitle,
-      SafeArea(
-        maintainBottomViewPadding: true,
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 16),
-          child: FutureBuilder(
-            future: _userFuture,
-            builder: (context, snapshot) {
-              if (snapshot.connectionState == ConnectionState.done) {
-                return _buildPhotoGrid(
-                  snapshot.data!,
-                  _photos,
-                );
-              } else {
-                return const Center(
-                  child: SizedBox(
-                    width: 64,
-                    height: 64,
-                    child: CircularProgressIndicator(
-                      color: Colors.black,
-                    ),
+      Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 16),
+        child: FutureBuilder(
+          future: _userFuture,
+          builder: (context, snapshot) {
+            if (snapshot.connectionState == ConnectionState.done) {
+              return _buildPhotoGrid(
+                snapshot.data!,
+                _photos,
+              );
+            } else {
+              return const Center(
+                child: SizedBox(
+                  width: 64,
+                  height: 64,
+                  child: CircularProgressIndicator(
+                    color: Colors.black,
                   ),
-                );
-              }
-            },
-          ),
+                ),
+              );
+            }
+          },
         ),
       ),
     );
@@ -92,10 +89,13 @@ class PhotosPageState extends State<PhotosPage> {
       child: photos != null && photos.isNotEmpty
           ? SingleChildScrollView(
               controller: _scrollViewController,
-              child: Column(
-                children: List.generate(photos.length, (i) {
-                  return PhotoStateWidget(currentUser, photos[i]);
-                }),
+              child: SafeArea(
+                maintainBottomViewPadding: true,
+                child: Column(
+                  children: List.generate(photos.length, (i) {
+                    return PhotoStateWidget(currentUser, photos[i]);
+                  }),
+                ),
               ),
             )
           : _currentlyLoading

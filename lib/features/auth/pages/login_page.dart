@@ -28,21 +28,105 @@ class LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     return DefaultScaffoldWidget(
-      'Hello!',
-      SafeArea(
-        child: Container(
-          margin: const EdgeInsets.fromLTRB(16, 16, 16, 16),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              _loginWidget(),
-              const SizedBox(height: 16),
-              _socialWidget(),
-              const SizedBox(height: 16),
-              _signupWidget(),
-            ],
+      null,
+      Stack(
+        children: [
+          Positioned(
+            top: 0,
+            left: 0,
+            child: CircleAvatar(
+              radius: 40,
+              // When theme is dark, use white background, otherwise use black
+              backgroundColor:
+                  Theme.of(context).colorScheme.primary.withOpacity(0.05),
+              child: const FaIcon(FontAwesomeIcons.masksTheater, size: 40),
+            ),
           ),
-        ),
+          Positioned(
+            top: 85,
+            left: 25,
+            child: CircleAvatar(
+                radius: 60,
+              backgroundColor:
+                  Theme.of(context).colorScheme.primary.withOpacity(0.15),
+                child: const FaIcon(FontAwesomeIcons.music, size: 60)),
+          ),
+          Positioned(
+            top: 170,
+            left: 125,
+            child: CircleAvatar(
+                radius: 75,
+              backgroundColor:
+                  Theme.of(context).colorScheme.primary.withOpacity(0.25),
+                child: const FaIcon(FontAwesomeIcons.handsPraying, size: 75)),
+          ),
+          Positioned(
+            top: 230,
+            left: 280,
+            child: CircleAvatar(
+                radius: 90,
+              backgroundColor:
+                  Theme.of(context).colorScheme.primary.withOpacity(0.50),
+                child: const FaIcon(FontAwesomeIcons.campground, size: 90)),
+          ),
+          // Positioned(
+          //   top: 250,
+          //   right: 150,
+          //   child: CircleAvatar(
+          //     radius: 80,
+          //     backgroundColor: AppColors.secondaryColor.shade100,
+          //   ),
+          // ),
+          // Positioned(
+          //   top: 150,
+          //   right: 50,
+          //   child: CircleAvatar(
+          //     radius: 80,
+          //     backgroundColor: AppColors.secondaryColor.shade100,
+          //   ),
+          // ),
+          // Positioned(
+          //   bottom: 10,
+          //   left: 10,
+          //   child: CircleAvatar(
+          //     radius: 80,
+          //     backgroundColor: AppColors.mainColor.shade300,
+          //   ),
+          // ),
+          SafeArea(
+            child: Container(
+              margin: const EdgeInsets.fromLTRB(16, 16, 16, 16),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    'Welcome to',
+                    style: Theme.of(context).textTheme.titleLarge!.copyWith(
+                          color: Theme.of(context).colorScheme.primary,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 48,
+                        ),
+                  ),
+                  Text(
+                    'School of Performing Arts',
+                    style: Theme.of(context).textTheme.titleLarge!.copyWith(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 32,
+                        ),
+                  ),
+                  const Spacer(),
+                  _loginWidget(),
+                  const SizedBox(height: 16),
+                  _socialWidget(),
+                  const SizedBox(height: 16),
+                  _signupWidget(),
+                  const Spacer(),
+                ],
+              ),
+            ),
+          ),
+        ],
       ),
       showMenu: false,
     );
@@ -51,27 +135,23 @@ class LoginPageState extends State<LoginPage> {
   Widget _socialWidget() {
     return Column(
       children: [
-        const Row(
+        Row(
           children: [
             Expanded(
               child: Divider(
-                color: Color.fromARGB(64, 255, 255, 255),
-                thickness: 1,
+                color: Theme.of(context).colorScheme.secondary,
+                thickness: 0.5,
               ),
             ),
-            SizedBox(width: 8),
-            Text(
+            const SizedBox(width: 8),
+            const Text(
               'Or login with',
-              style: TextStyle(
-                fontWeight: FontWeight.w300,
-                color: Colors.white,
-              ),
             ),
-            SizedBox(width: 8),
+            const SizedBox(width: 8),
             Expanded(
               child: Divider(
-                color: Color.fromARGB(64, 255, 255, 255),
-                thickness: 1,
+                color: Theme.of(context).colorScheme.secondary,
+                thickness: 0.5,
               ),
             ),
           ],
@@ -80,37 +160,60 @@ class LoginPageState extends State<LoginPage> {
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            // IconButton(
-            //   onPressed: () {},
-            //   icon: const Icon(
-            //     FontAwesomeIcons.facebook,
-            //     color: AppColors.mainColor,
-            //     size: 40,
-            //   ),
-            //   style: ButtonStyle(
-            //     backgroundColor: MaterialStateProperty.all(Colors.white),
-            //     shape: MaterialStateProperty.all(
-            //       RoundedRectangleBorder(
-            //         borderRadius: BorderRadius.circular(8),
-            //       ),
-            //     ),
-            //   ),
-            // ),
-            // const SizedBox(width: 16),
-            IconButton(
-              padding: const EdgeInsets.all(11),
-              onPressed: () {
-                try {
-                  GoogleSignIn().signIn().then((googleUser) async {
-                    final googleAuth = await googleUser?.authentication;
+            Material(
+              elevation: 2,
+              borderRadius: BorderRadius.circular(8),
+              child: IconButton(
+                padding: const EdgeInsets.all(11),
+                onPressed: () {
+                  try {
+                    GoogleSignIn().signIn().then((googleUser) async {
+                      final googleAuth = await googleUser?.authentication;
 
-                    final credential = GoogleAuthProvider.credential(
-                      accessToken: googleAuth?.accessToken,
-                      idToken: googleAuth?.idToken,
-                    );
+                      final credential = GoogleAuthProvider.credential(
+                        accessToken: googleAuth?.accessToken,
+                        idToken: googleAuth?.idToken,
+                      );
 
+                      await FirebaseAuth.instance
+                          .signInWithCredential(credential)
+                          .then((value) {
+                        Navigator.pushNamedAndRemoveUntil(
+                          context,
+                          Routes.program,
+                          (route) => false,
+                        );
+                      });
+                    });
+                  } on Exception catch (e) {
+                    print('exception->$e');
+                  }
+                },
+                icon: Icon(
+                  FontAwesomeIcons.google,
+                  color: AppColors.mainColor,
+                  size: 34,
+                ),
+                style: ButtonStyle(
+                  backgroundColor: MaterialStateProperty.all(Colors.white),
+                  shape: MaterialStateProperty.all(
+                    RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(8),
+                    ),
+                  ),
+                ),
+              ),
+            ),
+            const SizedBox(width: 16),
+            Material(
+              elevation: 2,
+              borderRadius: BorderRadius.circular(8),
+              child: IconButton(
+                onPressed: () async {
+                  try {
+                    final appleProvider = AppleAuthProvider();
                     await FirebaseAuth.instance
-                        .signInWithCredential(credential)
+                        .signInWithProvider(appleProvider)
                         .then((value) {
                       Navigator.pushNamedAndRemoveUntil(
                         context,
@@ -118,53 +221,21 @@ class LoginPageState extends State<LoginPage> {
                         (route) => false,
                       );
                     });
-                  });
-                } on Exception catch (e) {
-                  print('exception->$e');
-                }
-              },
-              icon: const Icon(
-                FontAwesomeIcons.google,
-                color: AppColors.mainColor,
-                size: 34,
-              ),
-              style: ButtonStyle(
-                backgroundColor: MaterialStateProperty.all(Colors.white),
-                shape: MaterialStateProperty.all(
-                  RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(8),
-                  ),
+                  } on Exception catch (e) {
+                    print('exception->$e');
+                  }
+                },
+                icon: Icon(
+                  FontAwesomeIcons.apple,
+                  color: AppColors.mainColor,
+                  size: 40,
                 ),
-              ),
-            ),
-            const SizedBox(width: 16),
-            IconButton(
-              onPressed: () async {
-                try {
-                  final appleProvider = AppleAuthProvider();
-                  await FirebaseAuth.instance
-                      .signInWithProvider(appleProvider)
-                      .then((value) {
-                    Navigator.pushNamedAndRemoveUntil(
-                      context,
-                      Routes.program,
-                      (route) => false,
-                    );
-                  });
-                } on Exception catch (e) {
-                  print('exception->$e');
-                }
-              },
-              icon: const Icon(
-                FontAwesomeIcons.apple,
-                color: AppColors.mainColor,
-                size: 40,
-              ),
-              style: ButtonStyle(
-                backgroundColor: MaterialStateProperty.all(Colors.white),
-                shape: MaterialStateProperty.all(
-                  RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(8),
+                style: ButtonStyle(
+                  backgroundColor: MaterialStateProperty.all(Colors.white),
+                  shape: MaterialStateProperty.all(
+                    RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(8),
+                    ),
                   ),
                 ),
               ),
@@ -179,12 +250,9 @@ class LoginPageState extends State<LoginPage> {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        const Text(
+        Text(
           "Don't have an account?",
-          style: TextStyle(
-            fontWeight: FontWeight.w300,
-            color: Colors.white,
-          ),
+          style: Theme.of(context).textTheme.bodyMedium,
         ),
         TextButton(
           onPressed: () {
@@ -192,10 +260,6 @@ class LoginPageState extends State<LoginPage> {
           },
           child: const Text(
             'Register',
-            style: TextStyle(
-              fontWeight: FontWeight.bold,
-              color: Colors.white,
-            ),
           ),
         ),
       ],
@@ -210,7 +274,6 @@ class LoginPageState extends State<LoginPage> {
           TextFormField(
             controller: _emailController,
             decoration: const InputDecoration(
-              fillColor: Colors.white,
               filled: true,
               border: OutlineInputBorder(
                 borderRadius: BorderRadius.all(Radius.circular(8)),
@@ -242,8 +305,6 @@ class LoginPageState extends State<LoginPage> {
             controller: _passwordController,
             obscureText: true,
             decoration: const InputDecoration(
-              fillColor: Colors.white,
-              focusColor: AppColors.mainColor,
               filled: true,
               border: OutlineInputBorder(
                 borderRadius: BorderRadius.all(Radius.circular(8)),
@@ -315,9 +376,7 @@ class LoginPageState extends State<LoginPage> {
                       });
                     },
               style: ElevatedButton.styleFrom(
-                backgroundColor: AppColors.buttonColor,
-                foregroundColor: Colors.white,
-                disabledBackgroundColor: AppColors.disabledButtonColor,
+                elevation: 1,
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(8),
                 ),
@@ -325,13 +384,7 @@ class LoginPageState extends State<LoginPage> {
               ),
               child: _loading
                   ? const CircularProgressIndicator()
-                  : const Text(
-                      'Login',
-                      style: TextStyle(
-                        fontSize: 16,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
+                  : const Text('Login'),
             ),
           ),
         ],

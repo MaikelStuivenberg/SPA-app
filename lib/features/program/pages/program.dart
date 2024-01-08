@@ -9,7 +9,6 @@ import 'package:spa_app/features/user/models/user.dart';
 import 'package:spa_app/shared/repositories/program_data.dart';
 import 'package:spa_app/shared/repositories/user_data.dart';
 import 'package:spa_app/shared/widgets/default_body.dart';
-import 'package:spa_app/utils/app_colors.dart';
 import 'package:spa_app/utils/date_formatter.dart';
 import 'package:spa_app/utils/styles.dart';
 
@@ -21,7 +20,6 @@ class ProgramPage extends StatefulWidget {
 }
 
 class ProgramPageState extends State<ProgramPage> {
-  // final bool _weatherOpen = false;
   final PageController _pageController = PageController();
   final ScrollController _listViewController = ScrollController();
 
@@ -76,10 +74,10 @@ class ProgramPageState extends State<ProgramPage> {
                 margin: const EdgeInsets.fromLTRB(0, 0, 0, 36),
                 child: SmoothPageIndicator(
                   controller: _pageController, // PageController
-                  count: 7,
+                  count: amountOfDays,
                   effect: const WormEffect(
-                    dotColor: AppColors.mainColor,
-                    activeDotColor: AppColors.buttonColor,
+                    // dotColor: AppColors.mainColor,
+                    // activeDotColor: AppColors.buttonColor,
                     dotHeight: 8,
                   ), // your preferred effect
                   onDotClicked: (index) {},
@@ -101,10 +99,11 @@ class ProgramPageState extends State<ProgramPage> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
+          Container(height: 16),
           Center(
             child: Text(
               DateFormatter(dateTime, context).formatAsDayname(),
-              style: Styles.pageSubTitle,
+              style: Theme.of(context).textTheme.headlineLarge,
             ),
           ),
           Container(height: 10),
@@ -200,98 +199,109 @@ class ProgramPageState extends State<ProgramPage> {
                               : null;
 
                           return Container(
-                            margin: const EdgeInsets.symmetric(vertical: 8),
-                            padding: const EdgeInsets.all(8),
-                            decoration: BoxDecoration(
-                              color: (nextActivity != null &&
-                                          nextActivity.date!
-                                              .toDate()
-                                              .isBefore(DateTime.now())) ||
-                                      (nextActivity == null &&
-                                          activity.date!
-                                              .toDate()
-                                              .add(const Duration(minutes: 30))
-                                              .isBefore(DateTime.now()))
-                                  ? Colors.white.withOpacity(0.5)
-                                  : Colors.white,
-                              borderRadius: BorderRadius.circular(6),
-                            ),
-                            child: Row(
-                              children: <Widget>[
-                                ClipRRect(
-                                  borderRadius: BorderRadius.circular(6),
-                                  child: Image.asset(
-                                    'assets/program/${activity.image!}',
-                                    width: 80,
-                                    height: 80,
-                                    fit: BoxFit.cover,
-                                    errorBuilder:
-                                        (context, error, stackTrace) =>
-                                            const Icon(
-                                      Icons.broken_image,
-                                      size: 80,
-                                    ),
-                                  ),
-                                ),
-                                const Padding(
-                                    padding: EdgeInsets.only(left: 8)),
-                                Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
+                            padding: const EdgeInsets.only(bottom: 4),
+                            child: Card(
+                              elevation: 1,
+                              // borderRadius: BorderRadius.circular(8),
+                              // color: isCurrentItem(
+                              //   activity,
+                              //   nextActivity,
+                              //   DateTime.now(),
+                              // )
+                              //     ? Colors.blue.shade50
+                              //     : Colors.white,
+                              child: Container(
+                                padding: const EdgeInsets.all(8),
+                                margin:
+                                    const EdgeInsets.only(bottom: 4, top: 4),
+                                child: Row(
                                   children: <Widget>[
-                                    Padding(
-                                      padding: const EdgeInsets.only(top: 2),
-                                      child: Row(
-                                        children: [
-                                          const Icon(
-                                            Icons.schedule_outlined,
-                                            size: 18,
-                                          ),
-                                          const Padding(
-                                            padding: EdgeInsets.only(left: 4),
-                                          ),
-                                          Text(
-                                            DateFormat('HH:mm').format(
-                                                activity.date!.toDate()),
-                                            style: Styles.textStyleMedium,
-                                          ),
-                                        ],
+                                    ClipRRect(
+                                      borderRadius: BorderRadius.circular(8),
+                                      child: Image.asset(
+                                        'assets/program/${activity.image!}',
+                                        width: 75,
+                                        height: 75,
+                                        fit: BoxFit.cover,
+                                        errorBuilder:
+                                            (context, error, stackTrace) =>
+                                                const Icon(
+                                          Icons.broken_image,
+                                          size: 75,
+                                        ),
                                       ),
                                     ),
-                                    Text(
-                                      activity.title!,
-                                      style: Styles.textStyleLarge,
+                                    const Padding(
+                                      padding: EdgeInsets.only(left: 16),
                                     ),
-                                    Padding(
-                                      padding: const EdgeInsets.only(
-                                        bottom: 2,
-                                      ),
-                                      child: Row(
-                                        children: [
-                                          if (activity.location == null ||
-                                              activity.location!.trim().isEmpty)
-                                            Container(
-                                              width: 10,
-                                            )
-                                          else
-                                            const Icon(
-                                              Icons.location_on_outlined,
-                                              size: 18,
+                                    Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: <Widget>[
+                                        Text(
+                                          activity.title!,
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .titleLarge,
+                                        ),
+                                        Padding(
+                                          padding: const EdgeInsets.only(
+                                            bottom: 2,
+                                            top: 2,
+                                          ),
+                                          child: Row(
+                                            children: [
+                                              const Icon(
+                                                Icons.schedule_outlined,
+                                                size: 18,
+                                              ),
+                                              const Padding(
+                                                padding:
+                                                    EdgeInsets.only(left: 4),
+                                              ),
+                                              Text(
+                                                DateFormat('HH:mm').format(
+                                                  activity.date!.toDate(),
+                                                ),
+                                                style: Theme.of(context)
+                                                    .textTheme
+                                                    .bodyMedium,
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                        Row(
+                                          children: [
+                                            if (activity.location == null ||
+                                                activity.location!
+                                                    .trim()
+                                                    .isEmpty)
+                                              Container(
+                                                width: 10,
+                                              )
+                                            else
+                                              const Icon(
+                                                Icons.location_on_outlined,
+                                                size: 18,
+                                              ),
+                                            const Padding(
+                                              padding: EdgeInsets.only(left: 4),
                                             ),
-                                          const Padding(
-                                            padding: EdgeInsets.only(left: 4),
-                                          ),
-                                          Text(
-                                            activity.location ?? '',
-                                            style: Styles.textStyleMedium,
-                                          ),
-                                        ],
-                                      ),
+                                            Text(
+                                              activity.location ?? '',
+                                              style: Theme.of(context)
+                                                  .textTheme
+                                                  .bodyMedium,
+                                            ),
+                                          ],
+                                        ),
+                                      ],
                                     ),
                                   ],
                                 ),
-                              ],
+                              ),
                             ),
                           );
                         },

@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:spa_app/routes.dart';
 import 'package:spa_app/shared/widgets/default_body.dart';
-import 'package:spa_app/utils/app_colors.dart';
 import 'package:spa_app/utils/styles.dart';
 
 class WelcomePage extends StatefulWidget {
@@ -76,8 +75,8 @@ class WelcomePageState extends State<WelcomePage> {
                     Navigator.pushNamed(context, Routes.userDetails);
                   },
                   style: OutlinedButton.styleFrom(
-                    foregroundColor: Colors.white,
-                    backgroundColor: AppColors.buttonColor,
+                    // foregroundColor: Colors.white,
+                    // backgroundColor: AppColors.buttonColor,
                     shape: const RoundedRectangleBorder(
                       borderRadius: BorderRadius.all(Radius.circular(6)),
                     ),

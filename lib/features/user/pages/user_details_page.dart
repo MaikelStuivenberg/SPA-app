@@ -7,7 +7,6 @@ import 'package:spa_app/features/user/tabs/likes_overview.dart';
 import 'package:spa_app/routes.dart';
 import 'package:spa_app/shared/repositories/user_data.dart';
 import 'package:spa_app/shared/widgets/default_body.dart';
-import 'package:spa_app/utils/styles.dart';
 
 class UserDetailsPage extends StatefulWidget {
   const UserDetailsPage({super.key});
@@ -30,7 +29,7 @@ class UserDetailsPageState extends State<UserDetailsPage> {
       AppLocalizations.of(context)!.profileTitle,
       SafeArea(
         child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 16),
+          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
           child: FutureBuilder(
             future: _userDataRepository.getUser(),
             builder: (context, snapshot) {
@@ -77,7 +76,7 @@ class UserDetailsPageState extends State<UserDetailsPage> {
                     Container(height: 16),
                     Text(
                       '${snapshot.data!.firstname} ${snapshot.data!.lastname}',
-                      style: Styles.pageSubTitle,
+                      style: Theme.of(context).textTheme.headlineMedium,
                     ),
                     Container(height: 4),
                     if (snapshot.data!.major != null &&
@@ -89,38 +88,34 @@ class UserDetailsPageState extends State<UserDetailsPage> {
                         children: [
                           if (snapshot.data!.major != null &&
                               snapshot.data!.major!.isNotEmpty)
-                            const Text(
+                            Text(
                               'Major: ',
-                              style: Styles.textStyleMediumDarkBold,
+                              style: Theme.of(context).textTheme.bodyMedium,
                             ),
                           Text(
                             '${snapshot.data!.major}',
-                            style: Styles.textStyleLight,
+                            style: Theme.of(context).textTheme.bodyMedium,
                           ),
                           if (FirebaseRemoteConfig.instance
                               .getBool('use_minor'))
-                            Row(children: [
-                              Container(width: 16),
-                              if (snapshot.data!.minor != null &&
-                                  snapshot.data!.minor!.isNotEmpty)
-                                const Text(
-                                  'Minor: ',
-                                  style: Styles.textStyleMediumDarkBold,
+                            Row(
+                              children: [
+                                Container(width: 16),
+                                if (snapshot.data!.minor != null &&
+                                    snapshot.data!.minor!.isNotEmpty)
+                                  Text(
+                                    'Minor: ',
+                                    style:
+                                        Theme.of(context).textTheme.bodyMedium,
+                                  ),
+                                Text(
+                                  '${snapshot.data!.minor}',
+                                  style: Theme.of(context).textTheme.bodyMedium,
                                 ),
-                              Text(
-                                '${snapshot.data!.minor}',
-                                style: Styles.textStyleLight,
-                              ),
-                            ]),
+                              ],
+                            ),
                         ],
                       ),
-                    Container(height: 16),
-                    // Line
-                    Container(
-                      height: 1,
-                      margin: const EdgeInsets.symmetric(horizontal: 16),
-                      color: Colors.white.withAlpha(75),
-                    ),
                     Container(height: 16),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
@@ -130,13 +125,19 @@ class UserDetailsPageState extends State<UserDetailsPage> {
                           color: Colors.red,
                         ),
                         Container(width: 4),
-                        const Text(
+                        Text(
                           "Photo's you liked",
-                          style: Styles.textStyleLight,
+                          style: Theme.of(context).textTheme.bodyMedium,
                         ),
                       ],
                     ),
                     Container(height: 16),
+                    // border
+                    Container(
+                      height: 0.5,
+                      margin: const EdgeInsets.symmetric(horizontal: 32),
+                      color: Theme.of(context).dividerColor,
+                    ),
                     Expanded(child: LikesOverview()),
                   ],
                 );
@@ -146,8 +147,7 @@ class UserDetailsPageState extends State<UserDetailsPage> {
                     width: 64,
                     height: 64,
                     child: CircularProgressIndicator(
-                      color: Colors.white,
-                    ),
+                        ),
                   ),
                 );
               }
@@ -161,7 +161,6 @@ class UserDetailsPageState extends State<UserDetailsPage> {
           onPressed: () {
             Navigator.pushNamed(context, Routes.editUser);
           },
-          color: Colors.white,
         ),
       ],
     );

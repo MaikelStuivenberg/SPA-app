@@ -97,7 +97,7 @@ class PhotoDataRepository {
       return [];
     }
 
-    var result = data['likedBy'] as List<dynamic>;
+    final result = data['likedBy'] as List<dynamic>;
     return result.map((e) => e.toString()).toList();
   }
 

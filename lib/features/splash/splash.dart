@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:spa_app/routes.dart';
 import 'package:spa_app/shared/repositories/program_data.dart';
+import 'package:spa_app/utils/app_colors.dart';
 
 class SplashPage extends StatefulWidget {
   const SplashPage({super.key});

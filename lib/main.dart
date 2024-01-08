@@ -7,6 +7,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:spa_app/features/splash/splash.dart';
 import 'package:spa_app/routes.dart';
+import 'package:spa_app/shared/widgets/app_bar_shape.dart';
 import 'package:spa_app/utils/app_colors.dart';
 import 'package:spa_app/utils/unanimated_page_route.dart';
 
@@ -54,27 +55,104 @@ class SpaApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final colorSchemeLight = ColorScheme.light(
+      primary: AppColors.mainColor,
+      secondary: AppColors.secondaryColor,
+    );
+    
+    final colorSchemeDark = ColorScheme.dark(
+      primary: AppColors.mainColor,
+      secondary: AppColors.secondaryColor,
+    );
+
+    final spaThemeLight = ThemeData(
+      useMaterial3: true,
+      colorScheme: colorSchemeLight,
+      brightness: Brightness.light,
+      fontFamily: 'Montserrat',
+      dividerColor: AppColors.mainColor.shade200,
+      appBarTheme: AppBarTheme(
+        centerTitle: false,
+        titleTextStyle: const TextStyle(
+          fontFamily: 'Montserrat',
+          fontSize: 28,
+          color: Colors.white,
+        ),
+        iconTheme: IconThemeData(color: Colors.white),
+        backgroundColor: AppColors.mainColor,
+      ),
+      elevatedButtonTheme: ElevatedButtonThemeData(
+        style: ElevatedButton.styleFrom(
+          backgroundColor: AppColors.mainColor.shade500,
+          foregroundColor: Colors.white,
+          textStyle: const TextStyle(
+            fontSize: 16,
+            fontWeight: FontWeight.w500,
+          ),
+          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(8),
+          ),
+          minimumSize: const Size(88, 36),
+        ),
+      ),
+      iconTheme: IconThemeData(color: colorSchemeDark.primary),
+    );
+
+    final spaThemeDark = ThemeData(
+      useMaterial3: true,
+      colorScheme: colorSchemeDark,
+      brightness: Brightness.dark,
+      fontFamily: 'Montserrat',
+      dividerColor: AppColors.mainColor.shade800,
+      appBarTheme: const AppBarTheme(
+        centerTitle: false,
+        titleTextStyle: TextStyle(
+          fontFamily: 'Montserrat',
+          fontSize: 28,
+          color: Colors.white,
+        ),
+        iconTheme: IconThemeData(color: Colors.white),
+      ),
+      elevatedButtonTheme: ElevatedButtonThemeData(
+        style: ElevatedButton.styleFrom(
+          backgroundColor: AppColors.mainColor.shade900,
+          foregroundColor: Colors.white,
+          textStyle: const TextStyle(
+            fontSize: 16,
+            fontWeight: FontWeight.w500,
+          ),
+          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(8),
+          ),
+          minimumSize: const Size(88, 36),
+        ),
+      ),
+      iconTheme: IconThemeData(color: colorSchemeDark.primary),
+    );
+
     SystemChrome.setPreferredOrientations([
       DeviceOrientation.portraitUp,
       DeviceOrientation.portraitDown,
     ]);
 
-    SystemChrome.setSystemUIOverlayStyle(
-      SystemUiOverlayStyle.dark.copyWith(
-        statusBarColor: Colors.transparent, // Color for Android
-        statusBarBrightness:
-            Brightness.dark, // Dark == white status bar -- for IOS.
-      ),
-    );
+    // SystemChrome.setSystemUIOverlayStyle(
+    //   SystemUiOverlayStyle.dark.copyWith(
+    //     statusBarColor: Colors.transparent, // Color for Android
+    //     statusBarBrightness:
+    //         Brightness.dark, // Dark == white status bar -- for IOS.
+    //   ),
+    // );
 
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'SPA',
       home: const SplashPage(),
       navigatorKey: navigatorKey,
-      theme: ThemeData(
-        colorScheme: const ColorScheme.light(primary: AppColors.mainColor),
-      ),
+      theme: spaThemeLight,
+      darkTheme: spaThemeDark,
+      // themeMode: ThemeMode.dark,
       localizationsDelegates: AppLocalizations.localizationsDelegates,
       supportedLocales: AppLocalizations.supportedLocales,
       onGenerateRoute: (settings) {

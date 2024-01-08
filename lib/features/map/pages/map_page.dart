@@ -22,33 +22,20 @@ class MapPageState extends State<MapPage> {
   Widget build(BuildContext context) {
     return DefaultScaffoldWidget(
       AppLocalizations.of(context)!.mapTitle,
-      SafeArea(
-        child: SingleChildScrollView(
+      SingleChildScrollView(
+        child: SafeArea(
           child: Column(
             children: [
-              Container(
-                margin: const EdgeInsets.fromLTRB(16, 16, 16, 16),
-                padding: const EdgeInsets.all(16),
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(6),
-                  color: Colors.white,
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.grey.withOpacity(0.5),
-                      blurRadius: 5,
-                      offset: const Offset(0, 3),
-                    ),
-                  ],
-                ),
-                child: InteractiveViewer(
-                  minScale: 0.5,
-                  maxScale: 5,
-                  child: Image.asset('assets/map.png'),
-                ),
+              InteractiveViewer(
+                maxScale: 5,
+                child: Image.asset('assets/map.png'),
               ),
+              const SizedBox(height: 8),
               Column(
                 children: [
-                  const Text('Major', style: Styles.pageSubTitle),
+                  Text('Major',
+                      style: Theme.of(context).textTheme.headlineMedium),
+                  const SizedBox(height: 8),
                   const MapItemWidget('A', 'Dance 13+'),
                   const MapItemWidget('E/F', 'Dance 13-'),
                   const MapItemWidget('K1', 'Brass'),
@@ -58,7 +45,9 @@ class MapPageState extends State<MapPage> {
                   const MapItemWidget('Congreshal', 'MMS'),
                   const Padding(padding: EdgeInsets.all(8)),
                   if (FirebaseRemoteConfig.instance.getBool('use_minor')) ...[
-                    const Text('Minor', style: Styles.pageSubTitle),
+                    Text('Minor',
+                        style: Theme.of(context).textTheme.headlineMedium),
+                    const SizedBox(height: 8),
                     const MapItemWidget('A', 'Improvisatie'),
                     const MapItemWidget('H', 'Compositie'),
                     const MapItemWidget('Congreshal', 'Timbrels'),
@@ -69,7 +58,9 @@ class MapPageState extends State<MapPage> {
                     const MapItemWidget('K1', 'Ritme'),
                     const Padding(padding: EdgeInsets.all(8)),
                   ],
-                  const Text('Overige', style: Styles.pageSubTitle),
+                  Text('Overige',
+                      style: Theme.of(context).textTheme.headlineMedium),
+                  const SizedBox(height: 8),
                   const MapItemWidget('B', 'Secretariaat (hotelkamer)'),
                   const MapItemWidget('J', 'Prayer room'),
                   const Padding(padding: EdgeInsets.all(16)),

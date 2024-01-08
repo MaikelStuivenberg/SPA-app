@@ -13,7 +13,6 @@ import 'package:spa_app/routes.dart';
 import 'package:spa_app/shared/repositories/user_data.dart';
 import 'package:spa_app/shared/widgets/default_body.dart';
 import 'package:spa_app/utils/app_colors.dart';
-import 'package:spa_app/utils/styles.dart';
 
 class EditProfilePage extends StatefulWidget {
   const EditProfilePage({super.key});
@@ -44,7 +43,7 @@ class EditProfilePageState extends State<EditProfilePage> {
       'Edit Profile',
       SafeArea(
         child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 16),
+          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
           child: FutureBuilder(
             future: _userDataRepository.getUser(forceReload: true),
             builder: (context, snapshot) {
@@ -105,7 +104,7 @@ class EditProfilePageState extends State<EditProfilePage> {
                                   }
                                 });
                               },
-                              fillColor: AppColors.buttonColor,
+                              // fillColor: AppColors.buttonColor,
                               shape: const CircleBorder(),
                               child: const Icon(
                                 Icons.camera_alt_outlined,
@@ -125,37 +124,31 @@ class EditProfilePageState extends State<EditProfilePage> {
                             children: [
                               TextFormField(
                                 controller: _firstnameController,
-                                decoration: Styles.textInputDecoration.copyWith(
+                                decoration: InputDecoration(
                                   labelText: AppLocalizations.of(context)!
                                       .profileFirstname,
                                 ),
-                                style: Styles.textInput,
                               ),
                               TextFormField(
                                 controller: _lastnameController,
-                                decoration: Styles.textInputDecoration.copyWith(
+                                decoration: InputDecoration(
                                   labelText: AppLocalizations.of(context)!
                                       .profileLastname,
                                 ),
-                                style: Styles.textInput,
                               ),
                               TextFormField(
                                 controller: _ageController,
-                                decoration: Styles.textInputDecoration.copyWith(
+                                decoration: InputDecoration(
                                   labelText:
                                       AppLocalizations.of(context)!.profileAge,
                                 ),
-                                style: Styles.textInput,
                               ),
                               DropdownButtonFormField(
                                 value: _majorValue.isEmpty ? null : _majorValue,
-                                dropdownColor:
-                                    const Color.fromARGB(135, 0, 0, 0),
-                                decoration: Styles.textInputDecoration.copyWith(
+                                decoration: InputDecoration(
                                   labelText: AppLocalizations.of(context)!
                                       .profileMajor,
                                 ),
-                                style: Styles.textInput,
                                 items: const [
                                   DropdownMenuItem(
                                     value: 'Brass',
@@ -184,56 +177,55 @@ class EditProfilePageState extends State<EditProfilePage> {
                                   }
                                 },
                               ),
-                              if(FirebaseRemoteConfig.instance.getBool('use_minor'))
-                              DropdownButtonFormField(
-                                value: _minorValue.isEmpty ? null : _minorValue,
-                                dropdownColor:
-                                    const Color.fromARGB(135, 0, 0, 0),
-                                decoration: Styles.textInputDecoration.copyWith(
-                                  labelText: AppLocalizations.of(context)!
-                                      .profileMinor,
+                              if (FirebaseRemoteConfig.instance
+                                  .getBool('use_minor'))
+                                DropdownButtonFormField(
+                                  value:
+                                      _minorValue.isEmpty ? null : _minorValue,
+                                  decoration: InputDecoration(
+                                    labelText: AppLocalizations.of(context)!
+                                        .profileMinor,
+                                  ),
+                                  items: const [
+                                    DropdownMenuItem(
+                                      value: 'Brass Class',
+                                      child: Text('Brass Class'),
+                                    ),
+                                    DropdownMenuItem(
+                                      value: 'Gospel',
+                                      child: Text('Gospel'),
+                                    ),
+                                    DropdownMenuItem(
+                                      value: 'Sport & Ministries',
+                                      child: Text('Sport & Ministries'),
+                                    ),
+                                    DropdownMenuItem(
+                                      value: 'Ritme',
+                                      child: Text('Ritme'),
+                                    ),
+                                    DropdownMenuItem(
+                                      value: 'Media',
+                                      child: Text('Media'),
+                                    ),
+                                    DropdownMenuItem(
+                                      value: 'Compositie',
+                                      child: Text('Compositie'),
+                                    ),
+                                    DropdownMenuItem(
+                                      value: 'Timbrels',
+                                      child: Text('Timbrels'),
+                                    ),
+                                    DropdownMenuItem(
+                                      value: 'Improvisatie',
+                                      child: Text('Improvisatie'),
+                                    ),
+                                  ],
+                                  onChanged: (value) {
+                                    if (value != null) {
+                                      _minorValue = value;
+                                    }
+                                  },
                                 ),
-                                style: Styles.textInput,
-                                items: const [
-                                  DropdownMenuItem(
-                                    value: 'Brass Class',
-                                    child: Text('Brass Class'),
-                                  ),
-                                  DropdownMenuItem(
-                                    value: 'Gospel',
-                                    child: Text('Gospel'),
-                                  ),
-                                  DropdownMenuItem(
-                                    value: 'Sport & Ministries',
-                                    child: Text('Sport & Ministries'),
-                                  ),
-                                  DropdownMenuItem(
-                                    value: 'Ritme',
-                                    child: Text('Ritme'),
-                                  ),
-                                  DropdownMenuItem(
-                                    value: 'Media',
-                                    child: Text('Media'),
-                                  ),
-                                  DropdownMenuItem(
-                                    value: 'Compositie',
-                                    child: Text('Compositie'),
-                                  ),
-                                  DropdownMenuItem(
-                                    value: 'Timbrels',
-                                    child: Text('Timbrels'),
-                                  ),
-                                  DropdownMenuItem(
-                                    value: 'Improvisatie',
-                                    child: Text('Improvisatie'),
-                                  ),
-                                ],
-                                onChanged: (value) {
-                                  if (value != null) {
-                                    _minorValue = value;
-                                  }
-                                },
-                              ),
                               const SizedBox(
                                 height: 24,
                               ),
@@ -277,8 +269,6 @@ class EditProfilePageState extends State<EditProfilePage> {
                                     });
                                   },
                                   style: ElevatedButton.styleFrom(
-                                    backgroundColor: AppColors.buttonColor,
-                                    foregroundColor: Colors.white,
                                     shape: RoundedRectangleBorder(
                                       borderRadius: BorderRadius.circular(8),
                                     ),
@@ -289,6 +279,9 @@ class EditProfilePageState extends State<EditProfilePage> {
                                           ? const CircularProgressIndicator()
                                           : const Text('Save'),
                                 ),
+                              ),
+                              const SizedBox(
+                                height: 8,
                               ),
                               SizedBox(
                                 width: double.infinity,

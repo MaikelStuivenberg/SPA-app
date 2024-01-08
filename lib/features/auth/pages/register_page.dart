@@ -56,7 +56,6 @@ class RegisterPageState extends State<RegisterPage> {
           TextFormField(
             controller: _emailController,
             decoration: const InputDecoration(
-              fillColor: Colors.white,
               filled: true,
               border: OutlineInputBorder(
                 borderRadius: BorderRadius.all(Radius.circular(8)),
@@ -88,8 +87,6 @@ class RegisterPageState extends State<RegisterPage> {
             controller: _passwordController,
             obscureText: true,
             decoration: const InputDecoration(
-              fillColor: Colors.white,
-              focusColor: AppColors.mainColor,
               filled: true,
               border: OutlineInputBorder(
                 borderRadius: BorderRadius.all(Radius.circular(8)),
@@ -120,8 +117,6 @@ class RegisterPageState extends State<RegisterPage> {
           TextFormField(
             obscureText: true,
             decoration: const InputDecoration(
-              fillColor: Colors.white,
-              focusColor: AppColors.mainColor,
               filled: true,
               border: OutlineInputBorder(
                 borderRadius: BorderRadius.all(Radius.circular(8)),
@@ -187,23 +182,13 @@ class RegisterPageState extends State<RegisterPage> {
                       });
                     },
               style: ElevatedButton.styleFrom(
-                backgroundColor: AppColors.buttonColor,
-                foregroundColor: Colors.white,
-                disabledBackgroundColor: AppColors.disabledButtonColor,
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(8),
                 ),
-                padding: const EdgeInsets.all(16),
               ),
               child: _loading
                   ? const CircularProgressIndicator()
-                  : const Text(
-                      'Sign up',
-                      style: TextStyle(
-                        fontSize: 16,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
+                  : const Text('Sign up'),
             ),
           ),
         ],
