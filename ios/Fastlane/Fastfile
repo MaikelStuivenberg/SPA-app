@@ -54,7 +54,7 @@ platform :ios do
       release_notes: {
         'default': 'The app got a new look! You can now create your own account, like photos and infinite scroll through the photo feed',
         'en-GB': 'The app got a new look! You can now create your own account, like photos and infinite scroll through the photo feed.',
-        'nl-NL': 'De app heeft een nieuwe look! Je kunt nu je eigen account aanmaken, foto\'s liken en oneindig door de foto feed scrollen.',
+        'nl-NL': 'De app heeft een nieuwe look! Je kunt nu je eigen account aanmaken, foto\'s liken, bijbelstudie in de app lezen en oneindig door de foto feed scrollen.',
       }
     )
   end
