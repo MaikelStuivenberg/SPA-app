@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:spa_app/routes.dart';
 import 'package:spa_app/shared/widgets/app_bar_shape.dart';
 
@@ -8,6 +9,7 @@ class DefaultScaffoldWidget extends StatelessWidget {
     this._childWidget, {
     this.showMenu = true,
     this.actions = const [],
+    this.back = false,
     super.key,
   });
 
@@ -15,6 +17,7 @@ class DefaultScaffoldWidget extends StatelessWidget {
   final String? _title;
   final bool showMenu;
   final List<Widget> actions;
+  final bool back;
 
   @override
   Widget build(BuildContext context) {
@@ -22,7 +25,7 @@ class DefaultScaffoldWidget extends StatelessWidget {
       floatingActionButton: showMenu
           ? FloatingActionButton(
               onPressed: () {
-                Navigator.pushNamed(context, Routes.program);
+                Navigator.of(context).pushNamed(Routes.program);
               },
               child: const Icon(Icons.calendar_today),
             )
@@ -40,22 +43,22 @@ class DefaultScaffoldWidget extends StatelessWidget {
         elevation: 1,
         shadowColor: Colors.black,
         // elevation: 0,
-        // leading: Builder(
-        //   builder: (BuildContext context) {
-        //     if (Navigator.canPop(context)) {
-        //       return IconButton(
-        //         icon: const Icon(
-        //           FontAwesomeIcons.arrowLeft,
-        //         ), // Put icon of your preference.
-        //         onPressed: () {
-        //           Navigator.pop(context);
-        //         },
-        //       );
-        //     } else {
-        //       return Container();
-        //     }
-          // },
-        // ),
+        leading: !back ? null: Builder(
+          builder: (BuildContext context) {
+            if (Navigator.canPop(context)) {
+              return IconButton(
+                icon: const Icon(
+                  FontAwesomeIcons.arrowLeft,
+                ), // Put icon of your preference.
+                onPressed: () {
+                  Navigator.pop(context);
+                },
+              );
+            } else {
+              return const SizedBox();
+            }
+          },
+        ),
         // iconTheme: const IconThemeData(color: Colors.white),
         title: Text(
           _title!,
@@ -98,20 +101,20 @@ class DefaultScaffoldWidget extends StatelessWidget {
           IconButton(
             icon: const Icon(Icons.list),
             onPressed: () {
-              Navigator.pushNamed(context, Routes.rules);
+              Navigator.of(context).pushNamed(Routes.rules);
             },
             
           ),
           IconButton(
             icon: const Icon(Icons.image),
             onPressed: () {
-              Navigator.pushNamed(context, Routes.photos);
+              Navigator.of(context).pushNamed(Routes.photos);
             },
           ),
           const SizedBox(width: 32, height: 32),
           // IconButton(
           //   onPressed: () {
-          //     Navigator.pushNamed(context, Routes.program);
+          //     Navigator.of(context).pushNamed(Routes.program);
           //   },
           //   icon: const Icon(Icons.calendar_today),
           //   // Use main iconbutton style, but add background color
@@ -132,13 +135,13 @@ class DefaultScaffoldWidget extends StatelessWidget {
           IconButton(
             icon: const Icon(Icons.map),
             onPressed: () {
-              Navigator.pushNamed(context, Routes.map);
+              Navigator.of(context).pushNamed(Routes.map);
             },
           ),
           IconButton(
             icon: const Icon(Icons.person_2),
             onPressed: () {
-              Navigator.pushNamed(context, Routes.userDetails);
+              Navigator.of(context).pushNamed(Routes.userDetails);
             },
           ),
         ],

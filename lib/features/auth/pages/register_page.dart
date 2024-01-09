@@ -169,8 +169,7 @@ class RegisterPageState extends State<RegisterPage> {
                               password: _passwordController.text,
                             )
                             .then(
-                              (value) => Navigator.pushNamedAndRemoveUntil(
-                                context,
+                              (value) => Navigator.of(context).pushNamedAndRemoveUntil(
                                 Routes.editUser,
                                 (route) => false,
                               ),

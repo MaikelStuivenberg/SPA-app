@@ -258,10 +258,9 @@ class EditProfilePageState extends State<EditProfilePage> {
                                           _doneSaving = false;
                                         });
 
-                                        Navigator.canPop(context)
-                                            ? Navigator.pop(context)
-                                            : Navigator.pushNamedAndRemoveUntil(
-                                                context,
+                                        Navigator.of(context).canPop()
+                                            ? Navigator.of(context).pop()
+                                            : Navigator.of(context).pushNamedAndRemoveUntil(
                                                 Routes.userDetails,
                                                 (route) => false,
                                               );
@@ -291,8 +290,7 @@ class EditProfilePageState extends State<EditProfilePage> {
                                   ),
                                   onPressed: () {
                                     FirebaseAuth.instance.signOut();
-                                    Navigator.pushNamedAndRemoveUntil(
-                                      context,
+                                    Navigator.of(context).pushNamedAndRemoveUntil(
                                       Routes.login,
                                       (route) => false,
                                     );
@@ -325,15 +323,6 @@ class EditProfilePageState extends State<EditProfilePage> {
           ),
         ),
       ),
-      // actions: [
-      //   IconButton(
-      //     icon: const Icon(FontAwesomeIcons.save),
-      //     onPressed: () {
-      //       // Navigator.pushNamed(context, Routes.likes);
-      //     },
-      //     color: Colors.white,
-      //   ),
-      // ],
     );
   }
 }

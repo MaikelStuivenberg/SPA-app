@@ -153,8 +153,7 @@ class LoginPageState extends State<LoginPage> {
                       await FirebaseAuth.instance
                           .signInWithCredential(credential)
                           .then((value) {
-                        Navigator.pushNamedAndRemoveUntil(
-                          context,
+                        Navigator.of(context).pushNamedAndRemoveUntil(
                           Routes.program,
                           (route) => false,
                         );
@@ -190,8 +189,7 @@ class LoginPageState extends State<LoginPage> {
                     await FirebaseAuth.instance
                         .signInWithProvider(appleProvider)
                         .then((value) {
-                      Navigator.pushNamedAndRemoveUntil(
-                        context,
+                      Navigator.of(context).pushNamedAndRemoveUntil(
                         Routes.program,
                         (route) => false,
                       );
@@ -231,7 +229,7 @@ class LoginPageState extends State<LoginPage> {
         ),
         TextButton(
           onPressed: () {
-            Navigator.pushNamed(context, Routes.register);
+            Navigator.of(context).pushNamed(Routes.register);
           },
           child: const Text(
             'Register',
@@ -334,8 +332,7 @@ class LoginPageState extends State<LoginPage> {
                       )
                           .then(
                         (value) {
-                          Navigator.pushNamedAndRemoveUntil(
-                            context,
+                          Navigator.of(context).pushNamedAndRemoveUntil(
                             Routes.program,
                             (route) => false,
                           );

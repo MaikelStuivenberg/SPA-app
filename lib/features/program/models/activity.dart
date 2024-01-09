@@ -6,6 +6,7 @@ class Activity {
   String? location;
   Map<String, dynamic>? requirements;
   String? image;
+  String? link;
 
   static Activity createFromDoc(QueryDocumentSnapshot<Map<String, dynamic>> d) {
     final activity = Activity()
@@ -17,6 +18,10 @@ class Activity {
               d.get('requirements').toString().isNotEmpty
           ? d.get('requirements') as Map<String, dynamic>
           : null;
+
+    if (d.data().containsKey('link') && d.get('link').toString().isNotEmpty) {
+      activity.link = d.get('link') as String;
+    }
 
     return activity;
   }

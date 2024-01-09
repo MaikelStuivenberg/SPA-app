@@ -159,7 +159,7 @@ class UserDetailsPageState extends State<UserDetailsPage> {
         IconButton(
           icon: const Icon(FontAwesomeIcons.penToSquare),
           onPressed: () {
-            Navigator.pushNamed(context, Routes.editUser);
+            Navigator.of(context).pushNamed(Routes.editUser);
           },
         ),
       ],

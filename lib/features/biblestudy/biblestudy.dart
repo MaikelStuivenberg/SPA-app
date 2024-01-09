@@ -34,6 +34,7 @@ class BibleStudyPageState extends State<BibleStudyPage> {
     return DefaultScaffoldWidget(
       'Bijbelstudie',
       Container(),
+      back: true,
       // PageView(
       // children: [
       // _buildBiblestudyWidget(DateTime(2023, 7, 22)),

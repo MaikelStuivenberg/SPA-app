@@ -2,10 +2,12 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_remote_config/firebase_remote_config.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:intl/intl.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 import 'package:spa_app/features/program/models/activity.dart';
 import 'package:spa_app/features/user/models/user.dart';
+import 'package:spa_app/routes.dart';
 import 'package:spa_app/shared/repositories/program_data.dart';
 import 'package:spa_app/shared/repositories/user_data.dart';
 import 'package:spa_app/shared/widgets/default_body.dart';
@@ -202,7 +204,6 @@ class ProgramPageState extends State<ProgramPage> {
                             padding: const EdgeInsets.only(bottom: 4),
                             child: Card(
                               elevation: 1,
-                              // borderRadius: BorderRadius.circular(8),
                               // color: isCurrentItem(
                               //   activity,
                               //   nextActivity,
@@ -210,96 +211,115 @@ class ProgramPageState extends State<ProgramPage> {
                               // )
                               //     ? Colors.blue.shade50
                               //     : Colors.white,
-                              child: Container(
-                                padding: const EdgeInsets.all(8),
-                                margin:
-                                    const EdgeInsets.only(bottom: 4, top: 4),
-                                child: Row(
-                                  children: <Widget>[
-                                    ClipRRect(
-                                      borderRadius: BorderRadius.circular(8),
-                                      child: Image.asset(
-                                        'assets/program/${activity.image!}',
-                                        width: 75,
-                                        height: 75,
-                                        fit: BoxFit.cover,
-                                        errorBuilder:
-                                            (context, error, stackTrace) =>
-                                                const Icon(
-                                          Icons.broken_image,
-                                          size: 75,
+                              child: InkWell(
+                                borderRadius: BorderRadius.circular(8),
+                                onTap: activity.link != null &&
+                                        activity.link!.isNotEmpty
+                                    ? () {
+                                        Navigator.of(context).pushNamed(
+                                          Routes.biblestudy,
+                                          arguments: activity,
+                                        );
+                                      }
+                                    : null,
+                                child: Container(
+                                  padding: const EdgeInsets.all(8),
+                                  margin:
+                                      const EdgeInsets.only(bottom: 4, top: 4),
+                                  child: Row(
+                                    children: <Widget>[
+                                      ClipRRect(
+                                        borderRadius: BorderRadius.circular(8),
+                                        child: Image.asset(
+                                          'assets/program/${activity.image!}',
+                                          width: 75,
+                                          height: 75,
+                                          fit: BoxFit.cover,
+                                          errorBuilder:
+                                              (context, error, stackTrace) =>
+                                                  const Icon(
+                                            Icons.broken_image,
+                                            size: 75,
+                                          ),
                                         ),
                                       ),
-                                    ),
-                                    const Padding(
-                                      padding: EdgeInsets.only(left: 16),
-                                    ),
-                                    Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      children: <Widget>[
-                                        Text(
-                                          activity.title!,
-                                          style: Theme.of(context)
-                                              .textTheme
-                                              .titleLarge,
-                                        ),
-                                        Padding(
-                                          padding: const EdgeInsets.only(
-                                            bottom: 2,
-                                            top: 2,
+                                      const Padding(
+                                        padding: EdgeInsets.only(left: 16),
+                                      ),
+                                      Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
+                                        children: <Widget>[
+                                          Text(
+                                            activity.title!,
+                                            style: Theme.of(context)
+                                                .textTheme
+                                                .titleLarge,
                                           ),
-                                          child: Row(
+                                          Padding(
+                                            padding: const EdgeInsets.only(
+                                              bottom: 2,
+                                              top: 2,
+                                            ),
+                                            child: Row(
+                                              children: [
+                                                const Icon(
+                                                  Icons.schedule_outlined,
+                                                  size: 18,
+                                                ),
+                                                const Padding(
+                                                  padding:
+                                                      EdgeInsets.only(left: 4),
+                                                ),
+                                                Text(
+                                                  DateFormat('HH:mm').format(
+                                                    activity.date!.toDate(),
+                                                  ),
+                                                  style: Theme.of(context)
+                                                      .textTheme
+                                                      .bodyMedium,
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                          Row(
                                             children: [
-                                              const Icon(
-                                                Icons.schedule_outlined,
-                                                size: 18,
-                                              ),
+                                              if (activity.location == null ||
+                                                  activity.location!
+                                                      .trim()
+                                                      .isEmpty)
+                                                Container(
+                                                  width: 10,
+                                                )
+                                              else
+                                                const Icon(
+                                                  Icons.location_on_outlined,
+                                                  size: 18,
+                                                ),
                                               const Padding(
                                                 padding:
                                                     EdgeInsets.only(left: 4),
                                               ),
                                               Text(
-                                                DateFormat('HH:mm').format(
-                                                  activity.date!.toDate(),
-                                                ),
+                                                activity.location ?? '',
                                                 style: Theme.of(context)
                                                     .textTheme
                                                     .bodyMedium,
                                               ),
                                             ],
                                           ),
-                                        ),
-                                        Row(
-                                          children: [
-                                            if (activity.location == null ||
-                                                activity.location!
-                                                    .trim()
-                                                    .isEmpty)
-                                              Container(
-                                                width: 10,
-                                              )
-                                            else
-                                              const Icon(
-                                                Icons.location_on_outlined,
-                                                size: 18,
-                                              ),
-                                            const Padding(
-                                              padding: EdgeInsets.only(left: 4),
-                                            ),
-                                            Text(
-                                              activity.location ?? '',
-                                              style: Theme.of(context)
-                                                  .textTheme
-                                                  .bodyMedium,
-                                            ),
-                                          ],
-                                        ),
-                                      ],
-                                    ),
-                                  ],
+                                        ],
+                                      ),
+                                      const Spacer(),
+                                      if(activity.link != null && activity.link!.isNotEmpty)
+                                      const FaIcon(
+                                        Icons.arrow_forward_ios,
+                                        size: 18,
+                                      ),
+                                    ],
+                                  ),
                                 ),
                               ),
                             ),

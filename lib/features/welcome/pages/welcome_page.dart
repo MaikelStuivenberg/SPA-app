@@ -72,7 +72,7 @@ class WelcomePageState extends State<WelcomePage> {
                 width: double.infinity,
                 child: OutlinedButton(
                   onPressed: () {
-                    Navigator.pushNamed(context, Routes.userDetails);
+                    Navigator.of(context).pushNamed(Routes.userDetails);
                   },
                   style: OutlinedButton.styleFrom(
                     // foregroundColor: Colors.white,
