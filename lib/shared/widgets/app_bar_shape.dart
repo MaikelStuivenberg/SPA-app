@@ -39,7 +39,7 @@ class AppBarShape extends ContinuousRectangleBorder {
   Path getOuterPath(Rect rect, {TextDirection? textDirection}) {
     const radius = 16.0;
 
-    final Path path = Path()
+    final path = Path()
       ..lineTo(0, rect.height + radius)
       ..quadraticBezierTo(0, rect.height, radius, rect.height)
       ..lineTo(rect.width - radius, rect.height)

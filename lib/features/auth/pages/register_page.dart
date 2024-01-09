@@ -2,7 +2,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:spa_app/routes.dart';
 import 'package:spa_app/shared/widgets/default_body.dart';
-import 'package:spa_app/utils/app_colors.dart';
 
 class RegisterPage extends StatefulWidget {
   const RegisterPage({super.key});
@@ -169,8 +168,7 @@ class RegisterPageState extends State<RegisterPage> {
                               password: _passwordController.text,
                             )
                             .then(
-                              (value) => Navigator.pushNamedAndRemoveUntil(
-                                context,
+                              (value) => Navigator.of(context).pushNamedAndRemoveUntil(
                                 Routes.editUser,
                                 (route) => false,
                               ),
