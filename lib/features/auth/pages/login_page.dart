@@ -20,6 +20,7 @@ class LoginPageState extends State<LoginPage> {
   final _passwordController = TextEditingController();
 
   bool _loading = false;
+  bool _showWrongCredentials = false;
 
   @override
   void initState() {
@@ -313,6 +314,13 @@ class LoginPageState extends State<LoginPage> {
           //     ),
           //   ),
           // ),
+          if (_showWrongCredentials)
+            const Text(
+              'Wrong credentials',
+              style: TextStyle(
+                color: Colors.red,
+              ),
+            ),
           const SizedBox(height: 16),
           SizedBox(
             width: double.infinity,
@@ -344,6 +352,7 @@ class LoginPageState extends State<LoginPage> {
                       ).catchError((_) {
                         setState(() {
                           _loading = false;
+                          _showWrongCredentials = true;
                         });
                       });
                     },

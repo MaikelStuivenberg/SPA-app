@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:spa_app/features/map/widgets/map_item.dart';
 import 'package:spa_app/shared/widgets/default_body.dart';
-import 'package:spa_app/utils/styles.dart';
 
 class MapPage extends StatefulWidget {
   const MapPage({super.key});
@@ -36,12 +35,12 @@ class MapPageState extends State<MapPage> {
                   Text('Major',
                       style: Theme.of(context).textTheme.headlineMedium),
                   const SizedBox(height: 8),
-                  const MapItemWidget('A', 'Dance 13+'),
-                  const MapItemWidget('E/F', 'Dance 13-'),
+                  const MapItemWidget('A', 'Dance'),
+                  // const MapItemWidget('E/F', 'Dance 13-'),
                   const MapItemWidget('K1', 'Brass'),
                   const MapItemWidget('K2', 'Theater 13+'),
                   const MapItemWidget('H', 'Theater 13-'),
-                  const MapItemWidget('Bosshardt', 'Choir'),
+                  const MapItemWidget('E/F', 'Choir'),
                   const MapItemWidget('Congreshal', 'MMS'),
                   const Padding(padding: EdgeInsets.all(8)),
                   if (FirebaseRemoteConfig.instance.getBool('use_minor')) ...[
@@ -58,11 +57,11 @@ class MapPageState extends State<MapPage> {
                     const MapItemWidget('K1', 'Ritme'),
                     const Padding(padding: EdgeInsets.all(8)),
                   ],
-                  Text('Overige',
-                      style: Theme.of(context).textTheme.headlineMedium),
-                  const SizedBox(height: 8),
-                  const MapItemWidget('B', 'Secretariaat (hotelkamer)'),
-                  const MapItemWidget('J', 'Prayer room'),
+                  // Text('Overige',
+                  //     style: Theme.of(context).textTheme.headlineMedium),
+                  // const SizedBox(height: 8),
+                  // const MapItemWidget('B', 'Secretariaat (hotelkamer)'),
+                  // const MapItemWidget('J', 'Prayer room'),
                   const Padding(padding: EdgeInsets.all(16)),
                 ],
               ),

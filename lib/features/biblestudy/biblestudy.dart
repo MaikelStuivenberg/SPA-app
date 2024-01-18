@@ -99,7 +99,7 @@ class BibleStudyPageState extends State<BibleStudyPage> {
           'Introductie',
           style: Theme.of(context).textTheme.headlineSmall!.copyWith(
                 fontWeight: FontWeight.bold,
-                color: Theme.of(context).primaryColor,
+                color: Theme.of(context).colorScheme.primary,
               ),
         ),
         const SizedBox(height: 8),
@@ -142,7 +142,7 @@ class BibleStudyPageState extends State<BibleStudyPage> {
           'Bijbel & Vragen',
           style: Theme.of(context).textTheme.headlineSmall!.copyWith(
                 fontWeight: FontWeight.bold,
-                color: Theme.of(context).primaryColor,
+                color: Theme.of(context).colorScheme.primary,
               ),
         ),
         const SizedBox(height: 8),
@@ -199,7 +199,7 @@ class BibleStudyPageState extends State<BibleStudyPage> {
         ),
         const SizedBox(height: 16),
         const Text(
-          'Jezus vertelde de gelijkenis van het mosterdzaadje om te illustreren hoe het Koninkrijk van God kan groeien. Het kleine verhaal laat ons zien dat iets wat lijkt op een onbenullig beginpunt, kan leiden tot iets heel groots. Net als het mosterdzaadje kunnen ons geloof, onze daden en kleinste bijdragen het potentieel hebben om een ​​aanzienlijke invloed en verandering in deze wereld teweeg te brengen.',
+          'Net zoals een boom sterke wortels nodig heeft om hoog te groeien en vruchten te dragen, hebben wij ook behoefte aan verankering. Gods liefde en waarheid zijn onze voeding om te bloeien in elk aspect van ons leven. Door het liefdevolle werk van God in ons te omarmen, door zijn Heilige Geest, zullen we uitgroeien tot een leven van vervulling en met een doel. En het uiteindelijke resultaat? Een leven vol dankbaarheid!',
         ),
       ],
     );
@@ -296,7 +296,7 @@ class BibleStudyPageState extends State<BibleStudyPage> {
           'Activiteit',
           style: Theme.of(context).textTheme.headlineSmall!.copyWith(
                 fontWeight: FontWeight.bold,
-                color: Theme.of(context).primaryColor,
+                color: Theme.of(context).colorScheme.primary,
               ),
         ),
         const SizedBox(height: 8),
@@ -364,7 +364,7 @@ class BibleStudyPageState extends State<BibleStudyPage> {
           'Gebed',
           style: Theme.of(context).textTheme.headlineSmall!.copyWith(
                 fontWeight: FontWeight.bold,
-                color: Theme.of(context).primaryColor,
+                color: Theme.of(context).colorScheme.primary,
               ),
         ),
         const SizedBox(height: 8),

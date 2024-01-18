@@ -152,7 +152,7 @@ class SpaApp extends StatelessWidget {
       navigatorKey: navigatorKey,
       theme: spaThemeLight,
       darkTheme: spaThemeDark,
-      // themeMode: ThemeMode.dark,
+      themeMode: ThemeMode.dark,
       localizationsDelegates: AppLocalizations.localizationsDelegates,
       supportedLocales: AppLocalizations.supportedLocales,
       onGenerateRoute: (settings) {
