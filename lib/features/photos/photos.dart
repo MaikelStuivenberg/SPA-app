@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:spa_app/features/photos/cubit/photos_cubit.dart';
 import 'package:spa_app/features/photos/widgets/photo.dart';
-import 'package:spa_app/features/user/models/user.dart';
 import 'package:spa_app/shared/models/photo.dart';
 import 'package:spa_app/shared/repositories/photo_data.dart';
-import 'package:spa_app/shared/repositories/user_data.dart';
 import 'package:spa_app/shared/widgets/default_body.dart';
 
 class PhotosPage extends StatefulWidget {
@@ -17,37 +17,16 @@ class PhotosPage extends StatefulWidget {
 class PhotosPageState extends State<PhotosPage> {
   final photoDataRepository = PhotoDataRepository();
 
-  final _userFuture = UserDataRepository().getUser();
-  final _photosFuture = PhotoDataRepository().getRecentImages(0);
-
   final _scrollViewController = ScrollController();
-  List<Photo> _photos = [];
-  var page = 1;
-  var _currentlyLoading = true;
 
   @override
   void initState() {
     super.initState();
 
-    photoDataRepository.getRecentImages(page).then((value) {
-      setState(() {
-        _currentlyLoading = false;
-        _photos.addAll(value);
-      });
-    });
-
     _scrollViewController.addListener(() {
       // When on 3/4 of the page, load more photos
-      if (_scrollViewController.position.extentAfter < 100 &&
-          _currentlyLoading == false) {
-        page = page + 1;
-        _currentlyLoading = true;
-        photoDataRepository.getRecentImages(page).then((value) {
-          setState(() {
-            _currentlyLoading = false;
-            _photos.addAll(value);
-          });
-        });
+      if (_scrollViewController.position.extentAfter < 250) {
+        BlocProvider.of<PhotosCubit>(context).fetchMorePhotos();
       }
     });
   }
@@ -58,15 +37,9 @@ class PhotosPageState extends State<PhotosPage> {
       AppLocalizations.of(context)!.photoTitle,
       Padding(
         padding: const EdgeInsets.symmetric(horizontal: 16),
-        child: FutureBuilder(
-          future: _userFuture,
-          builder: (context, snapshot) {
-            if (snapshot.connectionState == ConnectionState.done) {
-              return _buildPhotoGrid(
-                snapshot.data!,
-                _photos,
-              );
-            } else {
+        child: BlocBuilder<PhotosCubit, PhotosState>(
+          builder: (context, state) {
+            if (state.isLoading && state.currentPage == 0) {
               return const Center(
                 child: SizedBox(
                   width: 64,
@@ -77,13 +50,17 @@ class PhotosPageState extends State<PhotosPage> {
                 ),
               );
             }
+
+            return _buildPhotoGrid(
+              state.photos,
+            );
           },
         ),
       ),
     );
   }
 
-  Widget _buildPhotoGrid(User currentUser, List<Photo>? photos) {
+  Widget _buildPhotoGrid(List<Photo>? photos) {
     return Padding(
       padding: const EdgeInsets.fromLTRB(0, 16, 0, 8),
       child: photos != null && photos.isNotEmpty
@@ -93,26 +70,16 @@ class PhotosPageState extends State<PhotosPage> {
                 maintainBottomViewPadding: true,
                 child: Column(
                   children: List.generate(photos.length, (i) {
-                    return PhotoStateWidget(currentUser, photos[i]);
+                    return PhotoStateWidget(photos[i]);
                   }),
                 ),
               ),
             )
-          : _currentlyLoading
-              ? const Center(
-                  child: SizedBox(
-                    width: 64,
-                    height: 64,
-                    child: CircularProgressIndicator(
-                      color: Colors.white,
-                    ),
-                  ),
-                )
-              : const Text(
-                  "We zijn druk bezig met het maken van foto's van dit jaar! Check later nog eens. :)",
-                  textAlign: TextAlign.center,
-                  style: TextStyle(fontSize: 16, color: Colors.white),
-                ),
+          : const Text(
+              "We zijn druk bezig met het maken van foto's van dit jaar! Check later nog eens. :)",
+              textAlign: TextAlign.center,
+              style: TextStyle(fontSize: 16, color: Colors.white),
+            ),
     );
   }
 }

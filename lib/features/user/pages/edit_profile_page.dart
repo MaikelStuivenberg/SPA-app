@@ -12,7 +12,6 @@ import 'package:spa_app/features/user/models/user.dart';
 import 'package:spa_app/routes.dart';
 import 'package:spa_app/shared/repositories/user_data.dart';
 import 'package:spa_app/shared/widgets/default_body.dart';
-import 'package:spa_app/utils/app_colors.dart';
 
 class EditProfilePage extends StatefulWidget {
   const EditProfilePage({super.key});
@@ -260,7 +259,8 @@ class EditProfilePageState extends State<EditProfilePage> {
 
                                         Navigator.of(context).canPop()
                                             ? Navigator.of(context).pop()
-                                            : Navigator.of(context).pushNamedAndRemoveUntil(
+                                            : Navigator.of(context)
+                                                .pushNamedAndRemoveUntil(
                                                 Routes.userDetails,
                                                 (route) => false,
                                               );
@@ -290,7 +290,8 @@ class EditProfilePageState extends State<EditProfilePage> {
                                   ),
                                   onPressed: () {
                                     FirebaseAuth.instance.signOut();
-                                    Navigator.of(context).pushNamedAndRemoveUntil(
+                                    Navigator.of(context)
+                                        .pushNamedAndRemoveUntil(
                                       Routes.login,
                                       (route) => false,
                                     );

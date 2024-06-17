@@ -1,11 +1,11 @@
 import 'dart:async';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:spa_app/routes.dart';
 import 'package:spa_app/shared/repositories/program_data.dart';
-import 'package:spa_app/utils/app_colors.dart';
 
 class SplashPage extends StatefulWidget {
   const SplashPage({super.key});
@@ -16,7 +16,7 @@ class SplashPage extends StatefulWidget {
 
 class SplashPageState extends State<SplashPage> {
   bool _visible = true;
-  late Future preloadProgram;
+  late Future<QuerySnapshot<Map<String, dynamic>>> preloadProgram;
 
   @override
   void initState() {
@@ -36,7 +36,7 @@ class SplashPageState extends State<SplashPage> {
     Future.delayed(const Duration(milliseconds: 1000), () {
       final user = FirebaseAuth.instance.currentUser;
       if (user != null) {
-        Navigator.of(context).pushReplacementNamed(Routes.program);
+        Navigator.of(context).pushReplacementNamed(Routes.home);
       } else {
         Navigator.of(context).pushReplacementNamed(Routes.login);
       }
@@ -83,7 +83,7 @@ class SplashPageState extends State<SplashPage> {
             ),
           ),
           Center(
-            child: Container(
+            child: SizedBox(
               width: MediaQuery.of(context).size.width * 0.90,
               height: MediaQuery.of(context).size.width * 0.90,
               child: SpinKitRing(

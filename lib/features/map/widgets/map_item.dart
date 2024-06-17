@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:spa_app/utils/styles.dart';
 
 class MapItemWidget extends StatelessWidget {
   const MapItemWidget(this.location, this.description, {super.key});

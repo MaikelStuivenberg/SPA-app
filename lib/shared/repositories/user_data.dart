@@ -3,7 +3,6 @@ import 'dart:typed_data';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart' hide User;
 import 'package:firebase_storage/firebase_storage.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:spa_app/features/user/models/user.dart';
 
 class UserDataRepository {
@@ -59,7 +58,7 @@ class UserDataRepository {
         DateTime.now().second.toString() +
         DateTime.now().millisecond.toString();
 
-    final upload = await FirebaseStorage.instance
+    await FirebaseStorage.instance
         .ref()
         .child('users')
         .child(FirebaseAuth.instance.currentUser!.uid)

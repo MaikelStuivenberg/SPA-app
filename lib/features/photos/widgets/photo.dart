@@ -6,22 +6,19 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:http/http.dart' as http;
 import 'package:path_provider/path_provider.dart';
 import 'package:share_plus/share_plus.dart';
-import 'package:spa_app/features/user/models/user.dart';
 import 'package:spa_app/shared/models/photo.dart';
 import 'package:spa_app/shared/repositories/photo_data.dart';
 
 class PhotoStateWidget extends StatefulWidget {
-  final User currentUser;
+  const PhotoStateWidget(this.photo, {super.key});
+
   final Photo photo;
 
-  const PhotoStateWidget(this.currentUser, this.photo, {Key? key})
-      : super(key: key);
-
   @override
-  _PhotoStateWidgetState createState() => _PhotoStateWidgetState();
+  PhotoStateWidgetState createState() => PhotoStateWidgetState();
 }
 
-class _PhotoStateWidgetState extends State<PhotoStateWidget> {
+class PhotoStateWidgetState extends State<PhotoStateWidget> {
   final photoDataRepository = PhotoDataRepository();
 
   @override
@@ -58,41 +55,41 @@ class _PhotoStateWidgetState extends State<PhotoStateWidget> {
                 padding: const EdgeInsets.all(2),
                 child: Column(
                   children: [
-                    IconButton(
-                      onPressed: () async {
-                        // Like photo
-                        if (!widget.photo.likedBy
-                            .contains(widget.currentUser.id)) {
-                          await photoDataRepository.addLike(widget.photo.id);
-                          setState(() {
-                            widget.photo.likedBy
-                                .add(widget.currentUser.id.toString());
-                            widget.photo.likes++;
-                          });
-                        } else {
-                          await photoDataRepository.removeLike(widget.photo.id);
-                          setState(() {
-                            widget.photo.likedBy
-                                .remove(widget.currentUser.id.toString());
-                            widget.photo.likes--;
-                          });
-                        }
-                      },
-                      icon: Column(
-                        children: [
-                          Icon(
-                            widget.photo.likedBy.contains(widget.currentUser.id)
-                                ? FontAwesomeIcons.solidHeart
-                                : FontAwesomeIcons.heart,
-                            color: widget.photo.likedBy
-                                    .contains(widget.currentUser.id)
-                                ? Colors.red
-                                : Colors.black,
-                          ),
-                          Text(widget.photo.likes.toString()),
-                        ],
-                      ),
-                    ),
+                    // IconButton(
+                    //   onPressed: () async {
+                    //     // Like photo
+                    //     if (!widget.photo.likedBy
+                    //         .contains(widget.currentUser.id)) {
+                    //       await photoDataRepository.addLike(widget.photo.id);
+                    //       setState(() {
+                    //         widget.photo.likedBy
+                    //             .add(widget.currentUser.id.toString());
+                    //         widget.photo.likes++;
+                    //       });
+                    //     } else {
+                    //       await photoDataRepository.removeLike(widget.photo.id);
+                    //       setState(() {
+                    //         widget.photo.likedBy
+                    //             .remove(widget.currentUser.id.toString());
+                    //         widget.photo.likes--;
+                    //       });
+                    //     }
+                    //   },
+                    //   icon: Column(
+                    //     children: [
+                    //       Icon(
+                    //         widget.photo.likedBy.contains(widget.currentUser.id)
+                    //             ? FontAwesomeIcons.solidHeart
+                    //             : FontAwesomeIcons.heart,
+                    //         color: widget.photo.likedBy
+                    //                 .contains(widget.currentUser.id)
+                    //             ? Colors.red
+                    //             : Colors.black,
+                    //       ),
+                    //       Text(widget.photo.likes.toString()),
+                    //     ],
+                    //   ),
+                    // ),
                     const SizedBox(width: 8),
                     IconButton(
                       onPressed: () async {
@@ -104,7 +101,10 @@ class _PhotoStateWidgetState extends State<PhotoStateWidget> {
                         await file.writeAsBytes(response.bodyBytes);
                         await Share.shareXFiles([XFile('$path/spa.jpg')]);
                       },
-                      icon: const Icon(FontAwesomeIcons.paperPlane, color: Colors.black,),
+                      icon: const Icon(
+                        FontAwesomeIcons.paperPlane,
+                        color: Colors.black,
+                      ),
                     ),
                   ],
                 ),

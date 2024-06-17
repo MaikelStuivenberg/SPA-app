@@ -81,7 +81,6 @@ class BibleStudyPageState extends State<BibleStudyPage> {
         // ),
         // const SizedBox(height: 8),
         Row(
-          mainAxisAlignment: MainAxisAlignment.start,
           children: [
             NecessitiesTag(text: 'Papier (2 per persoon)'),
             NecessitiesTag(text: 'Pennen'),

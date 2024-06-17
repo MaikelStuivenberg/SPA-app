@@ -16,7 +16,7 @@ class LikesOverview extends StatelessWidget {
         if (snapshot.hasData) {
           return _buildGridView(snapshot.data!);
         } else if (snapshot.hasError) {
-          return Text(''); //'${snapshot.error}');
+          return const Text(''); //'${snapshot.error}');
         }
         return const Center(
           child: SizedBox(

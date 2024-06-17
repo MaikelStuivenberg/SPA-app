@@ -1,5 +1,3 @@
-import 'dart:typed_data';
-
 class User {
   User({
     this.id,
@@ -28,7 +26,9 @@ class User {
   String? major;
   String? minor;
   String? image;
-  String? get imageUrl => image != null ? 'https://firebasestorage.googleapis.com/v0/b/school-of-performing-arts.appspot.com/o/users%2F$id%2Fprofile%2F$image?alt=media' : null;
+  String? get imageUrl => image != null
+      ? 'https://firebasestorage.googleapis.com/v0/b/school-of-performing-arts.appspot.com/o/users%2F$id%2Fprofile%2F$image?alt=media'
+      : null;
 
   Map<String, dynamic> toJson() {
     return {

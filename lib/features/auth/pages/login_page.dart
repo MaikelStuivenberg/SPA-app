@@ -1,4 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -48,28 +49,31 @@ class LoginPageState extends State<LoginPage> {
             top: 85,
             left: 25,
             child: CircleAvatar(
-                radius: 60,
-                backgroundColor:
-                    Theme.of(context).colorScheme.primary.withOpacity(0.15),
-                child: const FaIcon(FontAwesomeIcons.music, size: 60)),
+              radius: 60,
+              backgroundColor:
+                  Theme.of(context).colorScheme.primary.withOpacity(0.15),
+              child: const FaIcon(FontAwesomeIcons.music, size: 60),
+            ),
           ),
           Positioned(
             top: 170,
             left: 125,
             child: CircleAvatar(
-                radius: 75,
-                backgroundColor:
-                    Theme.of(context).colorScheme.primary.withOpacity(0.25),
-                child: const FaIcon(FontAwesomeIcons.handsPraying, size: 75)),
+              radius: 75,
+              backgroundColor:
+                  Theme.of(context).colorScheme.primary.withOpacity(0.25),
+              child: const FaIcon(FontAwesomeIcons.handsPraying, size: 75),
+            ),
           ),
           Positioned(
             top: 230,
             left: 280,
             child: CircleAvatar(
-                radius: 90,
-                backgroundColor:
-                    Theme.of(context).colorScheme.primary.withOpacity(0.50),
-                child: const FaIcon(FontAwesomeIcons.campground, size: 90)),
+              radius: 90,
+              backgroundColor:
+                  Theme.of(context).colorScheme.primary.withOpacity(0.50),
+              child: const FaIcon(FontAwesomeIcons.campground, size: 90),
+            ),
           ),
           SafeArea(
             child: Container(
@@ -161,17 +165,17 @@ class LoginPageState extends State<LoginPage> {
                       });
                     });
                   } on Exception catch (e) {
-                    print('exception->$e');
+                    if (kDebugMode) print('exception->$e');
                   }
                 },
-                icon: Icon(
+                icon: const Icon(
                   FontAwesomeIcons.google,
                   color: AppColors.mainColor,
                   size: 34,
                 ),
                 style: ButtonStyle(
-                  backgroundColor: MaterialStateProperty.all(Colors.white),
-                  shape: MaterialStateProperty.all(
+                  backgroundColor: WidgetStateProperty.all(Colors.white),
+                  shape: WidgetStateProperty.all(
                     RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(8),
                     ),
@@ -196,17 +200,17 @@ class LoginPageState extends State<LoginPage> {
                       );
                     });
                   } on Exception catch (e) {
-                    print('exception->$e');
+                    if (kDebugMode) print('exception->$e');
                   }
                 },
-                icon: Icon(
+                icon: const Icon(
                   FontAwesomeIcons.apple,
                   color: AppColors.mainColor,
                   size: 40,
                 ),
                 style: ButtonStyle(
-                  backgroundColor: MaterialStateProperty.all(Colors.white),
-                  shape: MaterialStateProperty.all(
+                  backgroundColor: WidgetStateProperty.all(Colors.white),
+                  shape: WidgetStateProperty.all(
                     RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(8),
                     ),

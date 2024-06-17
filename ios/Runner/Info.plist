@@ -60,5 +60,20 @@
 	<string>This app requires access to your photo library to be able to show a custom image on your profile page</string>
 	<key>NSCameraUsageDescription</key>
 	<string>This app requires access to your camera to be able to make a custom image for your profile page</string>
+	<!-- Google Sign-in Section -->
+	<key>CFBundleURLTypes</key>
+	<array>
+		<dict>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<!-- TODO Replace this value: -->
+				<!-- Copied from GoogleService-Info.plist key REVERSED_CLIENT_ID -->
+				<string>com.googleusercontent.apps.497946122788-9fr3rtnml86o9cdfl8eskg42nksf704n</string>
+			</array>
+		</dict>
+	</array>
+	<!-- End of the Google Sign-in Section -->
 </dict>
 </plist>
