@@ -35,7 +35,8 @@ class _MusicWidgetState extends State<MusicWidget> {
             child: GestureDetector(
               onTap: () {
                 // Open the Spotify playlist link
-                launchUrl(Uri.parse('https://open.spotify.com/playlist/28ZxH1fGEMHhoT9HrpgJb6?si=8d5d2ba4a60c4f43'));
+                launchUrl(Uri.parse(
+                    'https://open.spotify.com/playlist/28ZxH1fGEMHhoT9HrpgJb6?si=8d5d2ba4a60c4f43'));
               },
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -48,15 +49,14 @@ class _MusicWidgetState extends State<MusicWidget> {
                   Text(
                     'Worship',
                     style: Theme.of(context).textTheme.headlineMedium!.copyWith(
-                      fontWeight: FontWeight.bold,
-                    ),
+                          fontWeight: FontWeight.bold,
+                        ),
                     textAlign: TextAlign.center,
                   ),
                   const SizedBox(height: 16),
                   Image.asset('assets/spotify.png', height: 75),
                 ],
               ),
-            ),
             ),
           ),
         );
