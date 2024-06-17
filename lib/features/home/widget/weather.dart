@@ -34,8 +34,6 @@ class _WeatherWidgetState extends State<WeatherWidget> {
                       style: Theme.of(context).textTheme.headlineLarge,
                     ),
                     Image.network(weatherCurrent.conditionIcon),
-                    // Text('Feels like: ${weather.feelslike}'),
-                    // Text('UV: ${weather.uv}'),
                   ],
                 ),
               ),
@@ -49,15 +47,13 @@ class _WeatherWidgetState extends State<WeatherWidget> {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                             Text(
+                        Text(
                           weatherForecast.maxtemp.toString(),
                           style: Theme.of(context).textTheme.headlineLarge,
                         ),
                       ],
                     ),
                     Image.network(weatherForecast.conditionIcon),
-                    // Text('Feels like: ${weather.feelslike}'),
-                    // Text('UV: ${weather.uv}'),
                   ],
                 ),
               ),

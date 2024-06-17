@@ -7,6 +7,7 @@ class CardWidget extends StatelessWidget {
     this.textColor,
     super.key,
     this.onTap,
+    this.height,
     this.padding = 8,
   });
 
@@ -14,6 +15,7 @@ class CardWidget extends StatelessWidget {
   final Color? textColor;
   final Widget child;
   final double padding;
+  final double? height;
   final void Function()? onTap;
 
   @override
@@ -25,6 +27,7 @@ class CardWidget extends StatelessWidget {
         borderRadius: BorderRadius.circular(8),
         onTap: onTap,
         child: Container(
+          height: height,
           padding: EdgeInsets.all(padding),
           child: DefaultTextStyle(
             style: TextStyle(

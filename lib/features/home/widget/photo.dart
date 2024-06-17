@@ -17,7 +17,12 @@ class _PhotoWidgetState extends State<PhotoWidget> {
     return BlocBuilder<PhotosCubit, PhotosState>(
       builder: (context, state) {
         if (state.isLoading) {
-          return const CircularProgressIndicator();
+          return Expanded(
+            child: CardWidget(
+              height: 200,
+              child: Container(),
+            ),
+          );
         }
 
         if (state.photos == null || state.photos!.isEmpty) {
@@ -27,6 +32,7 @@ class _PhotoWidgetState extends State<PhotoWidget> {
         return Expanded(
           child: CardWidget(
             padding: 0,
+            height: 200,
             child: ClipRRect(
               borderRadius: BorderRadius.circular(8),
               child: CachedNetworkImage(

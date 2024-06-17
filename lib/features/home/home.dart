@@ -61,10 +61,11 @@ class HomePageState extends State<HomePage> {
                   const SizedBox(height: 8),
                   CountdownWidget(),
                   const SizedBox(height: 8),
-                  Row(
+                  const Row(
                     children: [
-                      const PhotoWidget(),
-                      const MusicWidget(),
+                      PhotoWidget(),
+                      const SizedBox(width: 8),
+                      MusicWidget(),
                     ],
                   ),
                 ],
