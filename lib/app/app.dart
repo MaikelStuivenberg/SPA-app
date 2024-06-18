@@ -2,8 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:spa_app/features/auth/cubit/auth_cubit.dart';
 import 'package:spa_app/features/home/cubit/weather_cubit.dart';
 import 'package:spa_app/features/photos/cubit/photos_cubit.dart';
+import 'package:spa_app/features/program/cubit/program_cubit.dart';
 import 'package:spa_app/features/splash/splash.dart';
 import 'package:spa_app/routes.dart';
 import 'package:spa_app/utils/app_colors.dart';
@@ -26,20 +28,27 @@ class AppState extends State<App> {
       providers: [
         BlocProvider(
           create: (_) => WeatherCubit()..fetchCurrentWeather(),
+          lazy: false,
         ),
         BlocProvider(
           create: (_) => PhotosCubit()..fetchLastPhotos(),
+          lazy: false,
+        ),
+        BlocProvider(
+          create: (_) => ProgramCubit()..fetchProgram(),
+          lazy: false,
+        ),
+        BlocProvider(
+          create: (_) => AuthCubit(),
         ),
       ],
-      child: AppView(),
+      child: const AppView(),
     );
   }
 }
 
 class AppView extends StatelessWidget {
-  AppView({super.key});
-
-  final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
+  const AppView({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -135,7 +144,6 @@ class AppView extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'SPA',
       home: const SplashPage(),
-      navigatorKey: navigatorKey,
       theme: spaThemeLight,
       darkTheme: spaThemeDark,
       // themeMode: ThemeMode.dark,

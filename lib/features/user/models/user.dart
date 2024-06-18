@@ -1,5 +1,5 @@
-class User {
-  User({
+class UserData {
+  UserData({
     this.id,
     this.firstname,
     this.lastname,
@@ -9,7 +9,7 @@ class User {
     this.image,
   });
 
-  User.fromJson(Map<String, dynamic> json) {
+  UserData.fromJson(Map<String, dynamic> json) {
     id = json['id'] as String;
     firstname = json['firstname'] as String;
     lastname = json['lastname'] as String;

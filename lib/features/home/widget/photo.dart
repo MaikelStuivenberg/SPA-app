@@ -2,6 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:spa_app/features/photos/cubit/photos_cubit.dart';
+import 'package:spa_app/routes.dart';
 import 'package:spa_app/shared/widgets/card.dart';
 
 class PhotoWidget extends StatefulWidget {
@@ -33,6 +34,9 @@ class _PhotoWidgetState extends State<PhotoWidget> {
           child: CardWidget(
             padding: 0,
             height: 200,
+            onTap: () {
+              Navigator.pushNamed(context, Routes.photos);
+            },
             child: ClipRRect(
               borderRadius: BorderRadius.circular(8),
               child: CachedNetworkImage(

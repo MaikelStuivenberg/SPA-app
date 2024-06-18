@@ -6,26 +6,10 @@ import 'package:firebase_storage/firebase_storage.dart';
 import 'package:spa_app/features/user/models/user.dart';
 
 class UserDataRepository {
-  // Save user as static variable
-  static User? _user;
-
-  Future<User> getUser({bool forceReload = false}) async {
-    if (_user != null && forceReload == false) {
-      return _user!;
-    }
+  Future<UserData> getUser() async {
     final user = await getFirebaseUser();
 
-    // final prefs = await SharedPreferences.getInstance();
-    // final firstname = prefs.getString('user_firstname');
-    // final lastname = prefs.getString('user_lastname');
-    // final age = prefs.getString('user_age');
-    // final major = prefs.getString('user_major');
-    // final minor = prefs.getString('user_minor');
-    // final image = prefs.getString('user_image') != null
-    //     ? base64Decode(prefs.getString('user_image')!)
-    //     : null;
-
-    return _user = User(
+    return UserData(
       id: FirebaseAuth.instance.currentUser!.uid,
       firstname: user.data()!['firstname'] as String,
       lastname: user.data()!['lastname'] as String,
@@ -36,7 +20,7 @@ class UserDataRepository {
     );
   }
 
-  Future<void> updateUser(User user) async {
+  Future<void> updateUser(UserData user) async {
     await FirebaseFirestore.instance
         .collection('users')
         .doc(FirebaseAuth.instance.currentUser!.uid)

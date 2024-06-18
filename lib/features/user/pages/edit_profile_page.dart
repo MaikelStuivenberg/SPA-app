@@ -44,7 +44,7 @@ class EditProfilePageState extends State<EditProfilePage> {
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
           child: FutureBuilder(
-            future: _userDataRepository.getUser(forceReload: true),
+            future: _userDataRepository.getUser(),
             builder: (context, snapshot) {
               if (snapshot.hasData) {
                 _firstnameController.text = snapshot.data!.firstname!;
@@ -238,7 +238,7 @@ class EditProfilePageState extends State<EditProfilePage> {
                                       _doneSaving = false;
                                     });
                                     await _userDataRepository.updateUser(
-                                      User(
+                                      UserData(
                                         firstname: _firstnameController.text,
                                         lastname: _lastnameController.text,
                                         age: _ageController.text,

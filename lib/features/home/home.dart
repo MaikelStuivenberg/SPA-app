@@ -64,7 +64,7 @@ class HomePageState extends State<HomePage> {
                   const Row(
                     children: [
                       PhotoWidget(),
-                      const SizedBox(width: 8),
+                      SizedBox(width: 8),
                       MusicWidget(),
                     ],
                   ),
