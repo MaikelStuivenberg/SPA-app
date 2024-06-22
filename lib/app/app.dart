@@ -114,8 +114,8 @@ class AppView extends StatelessWidget {
         ),
         iconTheme: IconThemeData(color: Colors.white),
       ),
-      bottomAppBarTheme: BottomAppBarTheme(
-        color: AppColors.mainColor.shade900,
+      bottomAppBarTheme: const BottomAppBarTheme(
+        color: Color.fromARGB(255, 28, 29, 29),
       ),
       elevatedButtonTheme: ElevatedButtonThemeData(
         style: ElevatedButton.styleFrom(

@@ -35,8 +35,8 @@ Future<void> main() async {
     'flickr_min_upload_date': 1689804000, // Unix timestamp (2023-07-20)
     'flickr_max_upload_date': 1690840800, // Unix timestamp (2023-08-01)
     'show_photos_per_page': 5,
-    'start_date': '2024-07-20T07:00:00+01:00',
-    'end_date': '2024-07-26T23:00:00+01:00',
+    'start_date': '2024-07-01T00:00:00+02:00',
+    'end_date': '2024-08-01T00:00:00+02:00',
     'use_minor': true,
   });
 

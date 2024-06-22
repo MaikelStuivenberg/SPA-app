@@ -6,8 +6,8 @@ import 'package:spa_app/routes.dart';
 
 class Programitem extends StatelessWidget {
   const Programitem({
-    super.key,
     required this.activity,
+    super.key,
   });
 
   final Activity activity;
@@ -80,7 +80,7 @@ class Programitem extends StatelessWidget {
                           ),
                           Text(
                             DateFormat('HH:mm').format(
-                              activity.date!.toDate(),
+                              activity.date!,
                             ),
                             style: Theme.of(context).textTheme.bodyMedium,
                           ),

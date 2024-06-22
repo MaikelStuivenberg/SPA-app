@@ -4,7 +4,6 @@ import 'package:spa_app/features/home/widget/countdown.dart';
 import 'package:spa_app/features/home/widget/music.dart';
 import 'package:spa_app/features/home/widget/photo.dart';
 import 'package:spa_app/features/home/widget/weather.dart';
-import 'package:spa_app/routes.dart';
 import 'package:spa_app/shared/repositories/user_data.dart';
 import 'package:spa_app/shared/widgets/default_body.dart';
 
@@ -73,7 +72,6 @@ class HomePageState extends State<HomePage> {
             ),
           ),
         );
-        ;
       },
     );
   }

@@ -169,6 +169,10 @@ class EditProfilePageState extends State<EditProfilePage> {
                                     value: 'Theatre',
                                     child: Text('Theatre'),
                                   ),
+                                  DropdownMenuItem(
+                                    value: 'Sports',
+                                    child: Text('Sports'),
+                                  ),
                                 ],
                                 onChanged: (value) {
                                   if (value != null) {
@@ -191,12 +195,8 @@ class EditProfilePageState extends State<EditProfilePage> {
                                       child: Text('Brass Class'),
                                     ),
                                     DropdownMenuItem(
-                                      value: 'Gospel',
-                                      child: Text('Gospel'),
-                                    ),
-                                    DropdownMenuItem(
-                                      value: 'Sport & Ministries',
-                                      child: Text('Sport & Ministries'),
+                                      value: 'Zingen in stijl!',
+                                      child: Text('Zingen in stijl!'),
                                     ),
                                     DropdownMenuItem(
                                       value: 'Ritme',
@@ -207,16 +207,16 @@ class EditProfilePageState extends State<EditProfilePage> {
                                       child: Text('Media'),
                                     ),
                                     DropdownMenuItem(
-                                      value: 'Compositie',
-                                      child: Text('Compositie'),
+                                      value: 'Handige Handjes',
+                                      child: Text('Handige Handjes'),
                                     ),
                                     DropdownMenuItem(
                                       value: 'Timbrels',
                                       child: Text('Timbrels'),
                                     ),
                                     DropdownMenuItem(
-                                      value: 'Improvisatie',
-                                      child: Text('Improvisatie'),
+                                      value: 'Directie',
+                                      child: Text('Directie'),
                                     ),
                                   ],
                                   onChanged: (value) {
