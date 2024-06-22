@@ -25,9 +25,12 @@ class DefaultScaffoldWidget extends StatelessWidget {
       floatingActionButton: showMenu
           ? FloatingActionButton(
               onPressed: () {
-                Navigator.of(context).pushNamed(Routes.program);
+                Navigator.of(context).pushNamed(Routes.home);
               },
-              child: const Icon(Icons.calendar_today),
+              child: const Icon(
+                Icons.home,
+                size: 32,
+              ),
             )
           : null,
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
@@ -37,73 +40,67 @@ class DefaultScaffoldWidget extends StatelessWidget {
       extendBodyBehindAppBar: true,
       extendBody: true,
       resizeToAvoidBottomInset: false,
-      appBar: _title == null ? null : AppBar(
-        shape: AppBarShape(),
-        automaticallyImplyLeading: false,
-        elevation: 1,
-        shadowColor: Colors.black,
-        // elevation: 0,
-        leading: !back ? null: Builder(
-          builder: (BuildContext context) {
-            if (Navigator.canPop(context)) {
-              return IconButton(
-                icon: const Icon(
-                  FontAwesomeIcons.arrowLeft,
-                ), // Put icon of your preference.
-                onPressed: () {
-                  Navigator.pop(context);
-                },
-              );
-            } else {
-              return const SizedBox();
-            }
-          },
-        ),
-        // iconTheme: const IconThemeData(color: Colors.white),
-        title: Text(
-          _title!,
-        ),
-        actions: [
-          ...actions,
-          // IconButton(
-          //   icon: const Icon(FontAwesomeIcons.bell),
-          //   onPressed: () {
-          //     Navigator.pushNamed(context, Routes.program);
-          //   },
-          //   color: Colors.white,
-          // ),
-          // IconButton(
-          //   icon: const Icon(FontAwesomeIcons.userLarge),
-          //   onPressed: () {
-          //     Navigator.pushNamed(context, Routes.program);
-          //   },
-          //   color: Colors.white,
-          // ),
-        ],
-      ),
+      appBar: _title == null
+          ? null
+          : AppBar(
+              shape: AppBarShape(),
+              automaticallyImplyLeading: false,
+              elevation: 1,
+              shadowColor: Colors.black,
+              // elevation: 0,
+              leading: !back
+                  ? null
+                  : Builder(
+                      builder: (BuildContext context) {
+                        if (Navigator.canPop(context)) {
+                          return IconButton(
+                            icon: const Icon(
+                              FontAwesomeIcons.arrowLeft,
+                            ), // Put icon of your preference.
+                            onPressed: () {
+                              Navigator.pop(context);
+                            },
+                          );
+                        } else {
+                          return const SizedBox();
+                        }
+                      },
+                    ),
+              // iconTheme: const IconThemeData(color: Colors.white),
+              title: Text(
+                _title!,
+              ),
+              actions: [
+                ...actions,
+                // IconButton(
+                //   icon: const Icon(FontAwesomeIcons.bell),
+                //   onPressed: () {
+                //     Navigator.pushNamed(context, Routes.program);
+                //   },
+                //   color: Colors.white,
+                // ),
+                IconButton(
+                  icon: const FaIcon(FontAwesomeIcons.solidUser),
+                  onPressed: () {
+                    Navigator.pushNamed(context, Routes.userDetails);
+                  },
+                  color: Colors.white,
+                ),
+              ],
+            ),
     );
   }
 
   Widget _buildNavigationBar(BuildContext context) {
     return BottomAppBar(
-      notchMargin: 0,
-      shape: AutomaticNotchedShape(
-        RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(16),
-        ),
-        RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(16),
-        ),
-      ),
       child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: <Widget>[
           IconButton(
-            icon: const Icon(Icons.list),
+            icon: const Icon(Icons.calendar_today),
             onPressed: () {
-              Navigator.of(context).pushNamed(Routes.rules);
+              Navigator.of(context).pushNamed(Routes.program);
             },
-            
           ),
           IconButton(
             icon: const Icon(Icons.image),
@@ -112,26 +109,6 @@ class DefaultScaffoldWidget extends StatelessWidget {
             },
           ),
           const SizedBox(width: 32, height: 32),
-          // IconButton(
-          //   onPressed: () {
-          //     Navigator.of(context).pushNamed(Routes.program);
-          //   },
-          //   icon: const Icon(Icons.calendar_today),
-          //   // Use main iconbutton style, but add background color
-          //   // style: ButtonStyle(
-          //   //   backgroundColor: MaterialStateProperty.all<Color>(
-          //   //     Theme.of(context).highlightColor,
-          //   //   ),
-          //   //   shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-          //   //     RoundedRectangleBorder(
-          //   //       borderRadius: BorderRadius.circular(8.0),
-          //   //     ),
-          //   //   ),
-          //   //   padding: MaterialStateProperty.all<EdgeInsetsGeometry>(
-          //   //     const EdgeInsets.all(16),
-          //   //   ),
-          //   // ),
-          // ),
           IconButton(
             icon: const Icon(Icons.map),
             onPressed: () {
@@ -139,9 +116,9 @@ class DefaultScaffoldWidget extends StatelessWidget {
             },
           ),
           IconButton(
-            icon: const Icon(Icons.person_2),
+            icon: const Icon(Icons.list),
             onPressed: () {
-              Navigator.of(context).pushNamed(Routes.userDetails);
+              Navigator.of(context).pushNamed(Routes.rules);
             },
           ),
         ],

@@ -13,7 +13,7 @@ class PhotoDataRepository {
   final apiKey = '639f377344ffa79f1f0ebc8349dbae6f';
   final userId = '195851792@N04';
 
-  Future<List<Photo>> getRecentImages(int page) async {
+  Future<List<Photo>> getRecentImages([int page = 1]) async {
     final photoResult = <Photo>[];
     final remoteConfig = FirebaseRemoteConfig.instance;
     final minUploadDate = remoteConfig.getInt('flickr_min_upload_date');
@@ -30,7 +30,7 @@ class PhotoDataRepository {
     final response = await http.get(Uri.parse(url));
 
     if (response.statusCode == 200) {
-      final data = json.decode(response.body);
+      final data = json.decode(response.body) as Map<String, dynamic>;
       final photos = data['photos']['photo'] as List<dynamic>;
 
       for (final photo in photos) {
@@ -129,7 +129,7 @@ class PhotoDataRepository {
         continue;
       }
 
-      final data = json.decode(response.body);
+      final data = json.decode(response.body) as Map<String, dynamic>;
       final sizes = data['sizes']['size'] as List<dynamic>;
 
       final photoData = Photo(

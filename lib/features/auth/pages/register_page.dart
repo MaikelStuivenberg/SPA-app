@@ -1,5 +1,7 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:spa_app/app/injection/injection.dart';
+import 'package:spa_app/features/auth/cubit/auth_cubit.dart';
 import 'package:spa_app/routes.dart';
 import 'package:spa_app/shared/widgets/default_body.dart';
 
@@ -26,20 +28,39 @@ class RegisterPageState extends State<RegisterPage> {
   Widget build(BuildContext context) {
     return DefaultScaffoldWidget(
       'Create an account',
-      SafeArea(
-        child: Container(
-          margin: const EdgeInsets.fromLTRB(16, 16, 16, 16),
-          child: Column(
-            children: [
-              Expanded(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    _signupFormWidget(),
-                  ],
+      BlocListener<AuthCubit, AuthState>(
+        listener: (context, state) {
+          if (state is AuthStateLoading) {
+            setState(() {
+              _loading = true;
+            });
+          } else if (state is AuthStateError) {
+            setState(() {
+              _loading = false;
+            });
+          } else if (state is AuthStateSuccess) {
+            _loading = false;
+            Navigator.of(context).pushNamedAndRemoveUntil(
+              Routes.home,
+              (route) => false,
+            );
+          }
+        },
+        child: SafeArea(
+          child: Container(
+            margin: const EdgeInsets.fromLTRB(16, 16, 16, 16),
+            child: Column(
+              children: [
+                Expanded(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      _signupFormWidget(),
+                    ],
+                  ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
         ),
       ),
@@ -150,34 +171,10 @@ class RegisterPageState extends State<RegisterPage> {
                       !_formKey.currentState!.validate()
                   ? null
                   : () {
-                      setState(() {
-                        _loading = true;
-                      });
-                      FirebaseAuth.instance
-                          .createUserWithEmailAndPassword(
-                        email: _emailController.text,
-                        password: _passwordController.text,
-                      )
-                          .then((value) {
-                        setState(() {
-                          _loading = false;
-                        });
-                        FirebaseAuth.instance
-                            .signInWithEmailAndPassword(
-                              email: _emailController.text,
-                              password: _passwordController.text,
-                            )
-                            .then(
-                              (value) => Navigator.of(context).pushNamedAndRemoveUntil(
-                                Routes.editUser,
-                                (route) => false,
-                              ),
-                            );
-                      }).catchError((_) {
-                        setState(() {
-                          _loading = false;
-                        });
-                      });
+                      getIt<AuthCubit>().register(
+                        _emailController.text,
+                        _passwordController.text,
+                      );
                     },
               style: ElevatedButton.styleFrom(
                 shape: RoundedRectangleBorder(

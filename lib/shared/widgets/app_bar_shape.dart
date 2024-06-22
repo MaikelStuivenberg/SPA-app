@@ -44,7 +44,11 @@ class AppBarShape extends ContinuousRectangleBorder {
       ..quadraticBezierTo(0, rect.height, radius, rect.height)
       ..lineTo(rect.width - radius, rect.height)
       ..quadraticBezierTo(
-          rect.width, rect.height, rect.width, rect.height + radius)
+        rect.width,
+        rect.height,
+        rect.width,
+        rect.height + radius,
+      )
       ..lineTo(rect.width, 0)
       ..close();
 

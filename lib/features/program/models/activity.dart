@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class Activity {
-  Timestamp? date;
+  DateTime? date;
   String? title;
   String? location;
   Map<String, dynamic>? requirements;
@@ -10,7 +10,7 @@ class Activity {
 
   static Activity createFromDoc(QueryDocumentSnapshot<Map<String, dynamic>> d) {
     final activity = Activity()
-      ..date = d.get('date') as Timestamp
+      ..date = (d.get('date') as Timestamp).toDate()
       ..location = d.get('location') as String
       ..title = d.get('title') as String
       ..image = d.get('image') as String

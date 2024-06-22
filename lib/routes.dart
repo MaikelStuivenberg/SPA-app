@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:spa_app/features/auth/pages/login_page.dart';
 import 'package:spa_app/features/auth/pages/register_page.dart';
 import 'package:spa_app/features/biblestudy/biblestudy.dart';
+import 'package:spa_app/features/home/home.dart';
 import 'package:spa_app/features/map/pages/map_page.dart';
 import 'package:spa_app/features/photos/photos.dart';
 import 'package:spa_app/features/program/pages/program.dart';
@@ -13,6 +14,7 @@ import 'package:spa_app/features/welcome/pages/welcome_page.dart';
 class Routes {
   Routes._();
 
+  static const String home = '/home';
   static const String program = '/program';
   static const String biblestudy = '/biblestudy';
   static const String photos = '/photos';
@@ -28,6 +30,7 @@ class Routes {
   // static const String games = '/games';
 
   static final routes = <String, WidgetBuilder>{
+    home: (BuildContext context) => const HomePage(),
     program: (BuildContext context) => const ProgramPage(),
     biblestudy: (BuildContext context) => const BibleStudyPage(),
     photos: (BuildContext context) => const PhotosPage(),

@@ -12,7 +12,6 @@ import 'package:spa_app/features/user/models/user.dart';
 import 'package:spa_app/routes.dart';
 import 'package:spa_app/shared/repositories/user_data.dart';
 import 'package:spa_app/shared/widgets/default_body.dart';
-import 'package:spa_app/utils/app_colors.dart';
 
 class EditProfilePage extends StatefulWidget {
   const EditProfilePage({super.key});
@@ -45,7 +44,7 @@ class EditProfilePageState extends State<EditProfilePage> {
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
           child: FutureBuilder(
-            future: _userDataRepository.getUser(forceReload: true),
+            future: _userDataRepository.getUser(),
             builder: (context, snapshot) {
               if (snapshot.hasData) {
                 _firstnameController.text = snapshot.data!.firstname!;
@@ -170,6 +169,10 @@ class EditProfilePageState extends State<EditProfilePage> {
                                     value: 'Theatre',
                                     child: Text('Theatre'),
                                   ),
+                                  DropdownMenuItem(
+                                    value: 'Sports',
+                                    child: Text('Sports'),
+                                  ),
                                 ],
                                 onChanged: (value) {
                                   if (value != null) {
@@ -192,12 +195,8 @@ class EditProfilePageState extends State<EditProfilePage> {
                                       child: Text('Brass Class'),
                                     ),
                                     DropdownMenuItem(
-                                      value: 'Gospel',
-                                      child: Text('Gospel'),
-                                    ),
-                                    DropdownMenuItem(
-                                      value: 'Sport & Ministries',
-                                      child: Text('Sport & Ministries'),
+                                      value: 'Zingen in stijl!',
+                                      child: Text('Zingen in stijl!'),
                                     ),
                                     DropdownMenuItem(
                                       value: 'Ritme',
@@ -208,16 +207,16 @@ class EditProfilePageState extends State<EditProfilePage> {
                                       child: Text('Media'),
                                     ),
                                     DropdownMenuItem(
-                                      value: 'Compositie',
-                                      child: Text('Compositie'),
+                                      value: 'Handige Handjes',
+                                      child: Text('Handige Handjes'),
                                     ),
                                     DropdownMenuItem(
                                       value: 'Timbrels',
                                       child: Text('Timbrels'),
                                     ),
                                     DropdownMenuItem(
-                                      value: 'Improvisatie',
-                                      child: Text('Improvisatie'),
+                                      value: 'Directie',
+                                      child: Text('Directie'),
                                     ),
                                   ],
                                   onChanged: (value) {
@@ -239,7 +238,7 @@ class EditProfilePageState extends State<EditProfilePage> {
                                       _doneSaving = false;
                                     });
                                     await _userDataRepository.updateUser(
-                                      User(
+                                      UserData(
                                         firstname: _firstnameController.text,
                                         lastname: _lastnameController.text,
                                         age: _ageController.text,
@@ -260,7 +259,8 @@ class EditProfilePageState extends State<EditProfilePage> {
 
                                         Navigator.of(context).canPop()
                                             ? Navigator.of(context).pop()
-                                            : Navigator.of(context).pushNamedAndRemoveUntil(
+                                            : Navigator.of(context)
+                                                .pushNamedAndRemoveUntil(
                                                 Routes.userDetails,
                                                 (route) => false,
                                               );
@@ -290,7 +290,8 @@ class EditProfilePageState extends State<EditProfilePage> {
                                   ),
                                   onPressed: () {
                                     FirebaseAuth.instance.signOut();
-                                    Navigator.of(context).pushNamedAndRemoveUntil(
+                                    Navigator.of(context)
+                                        .pushNamedAndRemoveUntil(
                                       Routes.login,
                                       (route) => false,
                                     );
