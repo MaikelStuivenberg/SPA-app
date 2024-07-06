@@ -52,9 +52,9 @@ platform :ios do
         export_compliance_uses_encryption: false,
       },
       release_notes: {
-        'default': 'The app got a new look! You can now create your own account, like photos and infinite scroll through the photo feed',
-        'en-GB': 'The app got a new look! You can now create your own account, like photos and infinite scroll through the photo feed.',
-        'nl-NL': 'De app heeft een nieuwe look! Je kunt nu je eigen account aanmaken, foto\'s liken, bijbelstudie in de app lezen en oneindig door de foto feed scrollen.',
+        'default': 'The app is now ready for SPA 2024 and get some new features!',
+        'en-GB': 'The app is now ready for SPA 2024 and get some new features!',
+        'nl-NL': 'De app is nu klaar voor SPA 2024 en heeft weer nieuwe functies erbij!',
       }
     )
   end
