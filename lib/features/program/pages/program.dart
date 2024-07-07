@@ -69,7 +69,7 @@ class ProgramPageState extends State<ProgramPage> {
                       child: PageView(
                         controller: _pageController,
                         children: [
-                          for (var i = 0; i < programState.amountOfDays; i++)
+                          for (var i = 0; i <= programState.amountOfDays; i++)
                             _buildProgramWidget(
                               programState
                                   .activities(minDate.add(Duration(days: i))),

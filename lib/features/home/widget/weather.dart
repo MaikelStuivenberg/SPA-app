@@ -28,7 +28,7 @@ class _WeatherWidgetState extends State<WeatherWidget> {
               child: CardWidget(
                 child: Column(
                   children: [
-                    Text('Now', style: Theme.of(context).textTheme.bodyLarge),
+                    Text('Nu', style: Theme.of(context).textTheme.bodyLarge),
                     Text(
                       weatherCurrent.temp.toString(),
                       style: Theme.of(context).textTheme.headlineLarge,
@@ -43,7 +43,7 @@ class _WeatherWidgetState extends State<WeatherWidget> {
               child: CardWidget(
                 child: Column(
                   children: [
-                    Text('Today', style: Theme.of(context).textTheme.bodyLarge),
+                    Text('Vandaag', style: Theme.of(context).textTheme.bodyLarge),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:spa_app/features/home/widget/countdown.dart';
 import 'package:spa_app/features/home/widget/music.dart';
+import 'package:spa_app/features/home/widget/next_program.dart';
 import 'package:spa_app/features/home/widget/photo.dart';
 import 'package:spa_app/features/home/widget/weather.dart';
 import 'package:spa_app/shared/repositories/user_data.dart';
@@ -39,6 +40,10 @@ class HomePageState extends State<HomePage> {
 
         final user = snapshot;
 
+        final targetDate = DateTime(2024, 7, 20);
+        final now = DateTime.now();
+        final daysRemaining = targetDate.difference(now).inDays;
+
         return SingleChildScrollView(
           child: SafeArea(
             child: Padding(
@@ -58,7 +63,10 @@ class HomePageState extends State<HomePage> {
                   const SizedBox(height: 16),
                   const WeatherWidget(),
                   const SizedBox(height: 8),
-                  CountdownWidget(),
+                  if(daysRemaining <= 0)
+                    NextProgramWidget(),
+                  if(daysRemaining > 0)
+                    CountdownWidget(),
                   const SizedBox(height: 8),
                   const Row(
                     children: [

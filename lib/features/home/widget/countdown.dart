@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:spa_app/routes.dart';
 import 'package:spa_app/shared/widgets/primary_card.dart';
 
 class CountdownWidget extends StatelessWidget {
@@ -14,6 +15,7 @@ class CountdownWidget extends StatelessWidget {
     return SizedBox(
       width: double.infinity,
       child: PrimaryCardWidget(
+        onTap: () => Navigator.of(context).pushNamed(Routes.program),
         child: Padding(
           padding: const EdgeInsets.all(8),
           child: Column(

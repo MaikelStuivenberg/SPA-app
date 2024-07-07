@@ -11,6 +11,10 @@ class ProgramState {
 
   Activity? get firstActivity => program?.first;
   Activity? get lastActivity => program?.last;
+  Activity? get nextActivity {
+    final now = DateTime.now();
+    return program?.firstWhere((element) => element.date!.isAfter(now));
+  }
 
   List<Activity> activities(DateTime date) => program!.where((element) {
         return element.date!.year == date.year &&
