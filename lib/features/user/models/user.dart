@@ -7,6 +7,8 @@ class UserData {
     this.major,
     this.minor,
     this.image,
+    this.biblestudyGroup,
+    this.tent,
   });
 
   UserData.fromJson(Map<String, dynamic> json) {
@@ -17,6 +19,8 @@ class UserData {
     major = json['major'] as String;
     minor = json['minor'] as String;
     image = json['image'] as String;
+    biblestudyGroup = json['biblestudyGroup'] as String;
+    tent = json['tent'] as String;
   }
 
   String? id;
@@ -29,6 +33,8 @@ class UserData {
   String? get imageUrl => image != null
       ? 'https://firebasestorage.googleapis.com/v0/b/school-of-performing-arts.appspot.com/o/users%2F$id%2Fprofile%2F$image?alt=media'
       : null;
+  String? biblestudyGroup;
+  String? tent;
 
   Map<String, dynamic> toJson() {
     return {
@@ -39,6 +45,8 @@ class UserData {
       'major': major,
       'minor': minor,
       'image': image,
+      'biblestudyGroup': biblestudyGroup,
+      'tent': tent,
     };
   }
 }

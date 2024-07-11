@@ -1,12 +1,20 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:spa_app/shared/models/photo.dart';
 import 'package:spa_app/shared/repositories/photo_data.dart';
 
-class LikesOverview extends StatelessWidget {
+class LikesOverview extends StatefulWidget {
   LikesOverview({super.key});
 
+  @override
+  State<LikesOverview> createState() => _LikesOverviewState();
+}
+
+class _LikesOverviewState extends State<LikesOverview> {
   late Future<List<Photo>> photos;
+
   @override
   Widget build(BuildContext context) {
     photos = PhotoDataRepository().getMyLikedPhotos();
@@ -31,16 +39,38 @@ class LikesOverview extends StatelessWidget {
   }
 
   Widget _buildGridView(List<Photo> photos) {
-    return Container(
-      padding: const EdgeInsets.only(top: 16),
-      child: GridView.builder(
-        itemCount: photos.length,
-        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-          crossAxisCount: 3,
-        ),
-        itemBuilder: (context, index) {
-          return _buildGridItem(photos[index]);
-        },
+    return Expanded(
+      child: Column(
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              const Icon(
+                FontAwesomeIcons.solidHeart,
+                color: Colors.red,
+              ),
+              Container(width: 4),
+              Text(
+                AppLocalizations.of(context)!.profilePhotosLiked,
+                style: Theme.of(context).textTheme.bodyMedium,
+              ),
+            ],
+          ),
+          Expanded(
+            child: Container(
+              padding: const EdgeInsets.only(top: 16),
+              child: GridView.builder(
+                itemCount: photos.length,
+                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 3,
+                ),
+                itemBuilder: (context, index) {
+                  return _buildGridItem(photos[index]);
+                },
+              ),
+            ),
+          ),
+        ],
       ),
     );
   }

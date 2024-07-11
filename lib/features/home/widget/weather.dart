@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:spa_app/features/home/cubit/weather_cubit.dart';
+import 'package:spa_app/routes.dart';
 import 'package:spa_app/shared/widgets/card.dart';
 
 class WeatherWidget extends StatefulWidget {
@@ -36,6 +37,7 @@ class _WeatherWidgetState extends State<WeatherWidget> {
                     Image.network(weatherCurrent.conditionIcon),
                   ],
                 ),
+                onTap: () => Navigator.pushNamed(context, Routes.weather),
               ),
             ),
             const SizedBox(width: 8), // Add some space between the cards
@@ -43,7 +45,10 @@ class _WeatherWidgetState extends State<WeatherWidget> {
               child: CardWidget(
                 child: Column(
                   children: [
-                    Text('Vandaag', style: Theme.of(context).textTheme.bodyLarge),
+                    Text(
+                      'Vandaag',
+                      style: Theme.of(context).textTheme.bodyLarge,
+                    ),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
@@ -56,6 +61,7 @@ class _WeatherWidgetState extends State<WeatherWidget> {
                     Image.network(weatherForecast.conditionIcon),
                   ],
                 ),
+                onTap: () => Navigator.pushNamed(context, Routes.weather),
               ),
             ),
           ],

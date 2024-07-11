@@ -9,6 +9,7 @@ import 'package:spa_app/features/program/pages/program.dart';
 import 'package:spa_app/features/rules/pages/rules_page.dart';
 import 'package:spa_app/features/user/pages/edit_profile_page.dart';
 import 'package:spa_app/features/user/pages/user_details_page.dart';
+import 'package:spa_app/features/weather/weather.dart';
 import 'package:spa_app/features/welcome/pages/welcome_page.dart';
 
 class Routes {
@@ -25,9 +26,7 @@ class Routes {
   static const String welcome = '/welcome';
   static const String login = '/login';
   static const String register = '/register';
-
-  // static const String music = '/music';
-  // static const String games = '/games';
+  static const String weather = '/weather';
 
   static final routes = <String, WidgetBuilder>{
     home: (BuildContext context) => const HomePage(),
@@ -41,8 +40,6 @@ class Routes {
     welcome: (BuildContext context) => const WelcomePage(),
     login: (BuildContext context) => const LoginPage(),
     register: (BuildContext context) => const RegisterPage(),
-
-    // music: (BuildContext context) => const MusicPage(),
-    // games: (BuildContext context) => const GamesPage(),
+    weather: (BuildContext context) => const WeatherPage(),
   };
 }

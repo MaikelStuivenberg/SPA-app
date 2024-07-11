@@ -41,104 +41,143 @@ class UserDetailsPageState extends State<UserDetailsPage> {
                     Navigator.of(parentContext).pushNamed(Routes.editUser);
                   });
                 }
-                // _firstnameController.text = snapshot.data!.firstname!;
-                // _lastnameController.text = snapshot.data!.lastname!;
-                // _ageController.text = snapshot.data!.age!;
-                // _majorValue = snapshot.data!.major!;
-                // _minorValue = snapshot.data!.minor!;
 
                 return Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    SizedBox(
-                      height: 128,
-                      width: 128,
-                      child: Stack(
-                        clipBehavior: Clip.none,
-                        fit: StackFit.expand,
-                        children: [
-                          Hero(
-                            tag: 'tag',
-                            child: CircleAvatar(
-                              backgroundColor: Colors.transparent,
-                              foregroundImage: ((snapshot.data?.image != null &&
-                                      snapshot.data?.image != '')
-                                  ? CachedNetworkImageProvider(
-                                      snapshot.data!.imageUrl!,
-                                    )
-                                  : const AssetImage(
-                                      'assets/profile_default.jpg',
-                                    )) as ImageProvider<Object>,
-                            ),
-                          ),
-                        ],
+                    Padding(
+                      padding: const EdgeInsets.all(4),
+                      child: Text(
+                        '${snapshot.data!.firstname} ${snapshot.data!.lastname}',
+                        style: Theme.of(context).textTheme.headlineLarge,
                       ),
                     ),
-                    Container(height: 16),
-                    Text(
-                      '${snapshot.data!.firstname} ${snapshot.data!.lastname}',
-                      style: Theme.of(context).textTheme.headlineMedium,
-                    ),
-                    Container(height: 4),
-                    if (snapshot.data!.major != null &&
-                        snapshot.data!.major!.isNotEmpty &&
-                        snapshot.data!.minor != null &&
-                        snapshot.data!.minor!.isNotEmpty)
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          if (snapshot.data!.major != null &&
-                              snapshot.data!.major!.isNotEmpty)
-                            Text(
-                              'Major: ',
-                              style: Theme.of(context).textTheme.bodyMedium,
-                            ),
-                          Text(
-                            '${snapshot.data!.major}',
-                            style: Theme.of(context).textTheme.bodyMedium,
+                    Container(height: 8),
+                    Row(
+                      children: [
+                        SizedBox(
+                          height: 96,
+                          width: 96,
+                          child: Stack(
+                            clipBehavior: Clip.none,
+                            fit: StackFit.expand,
+                            children: [
+                              Hero(
+                                tag: 'tag',
+                                child: CircleAvatar(
+                                  backgroundColor: Colors.transparent,
+                                  foregroundImage:
+                                      ((snapshot.data?.image != null &&
+                                              snapshot.data?.image != '')
+                                          ? CachedNetworkImageProvider(
+                                              snapshot.data!.imageUrl!,
+                                            )
+                                          : const AssetImage(
+                                              'assets/profile_default.jpg',
+                                            )) as ImageProvider<Object>,
+                                ),
+                              ),
+                            ],
                           ),
-                          if (FirebaseRemoteConfig.instance
-                              .getBool('use_minor'))
-                            Row(
-                              children: [
-                                Container(width: 16),
-                                if (snapshot.data!.minor != null &&
-                                    snapshot.data!.minor!.isNotEmpty)
+                        ),
+                        Container(width: 16),
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            if (snapshot.data!.major != null &&
+                                snapshot.data!.major!.isNotEmpty)
+                              Row(
+                                children: [
                                   Text(
-                                    'Minor: ',
+                                    'Major: ',
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .bodyMedium!
+                                        .copyWith(
+                                          fontWeight: FontWeight.w600,
+                                        ),
+                                  ),
+                                  Text(
+                                    '${snapshot.data!.major}',
                                     style:
                                         Theme.of(context).textTheme.bodyMedium,
                                   ),
-                                Text(
-                                  '${snapshot.data!.minor}',
-                                  style: Theme.of(context).textTheme.bodyMedium,
-                                ),
-                              ],
-                            ),
-                        ],
-                      ),
-                    Container(height: 16),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        const Icon(
-                          FontAwesomeIcons.solidHeart,
-                          color: Colors.red,
-                        ),
-                        Container(width: 4),
-                        Text(
-                          AppLocalizations.of(context)!.profilePhotosLiked,
-                          style: Theme.of(context).textTheme.bodyMedium,
+                                ],
+                              ),
+                            if (snapshot.data!.minor != null &&
+                                snapshot.data!.minor!.isNotEmpty)
+                              Row(
+                                children: [
+                                  Text(
+                                    'Minor: ',
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .bodyMedium!
+                                        .copyWith(
+                                          fontWeight: FontWeight.w600,
+                                        ),
+                                  ),
+                                  Text(
+                                    '${snapshot.data!.minor}',
+                                    style:
+                                        Theme.of(context).textTheme.bodyMedium,
+                                  ),
+                                ],
+                              ),
+                            if (snapshot.data!.biblestudyGroup != null &&
+                                snapshot.data!.biblestudyGroup!.isNotEmpty)
+                              Row(
+                                children: [
+                                  Text(
+                                    'Bijbelstudie groep: ',
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .bodyMedium!
+                                        .copyWith(
+                                          fontWeight: FontWeight.w600,
+                                        ),
+                                  ),
+                                  Text(
+                                    '${snapshot.data!.biblestudyGroup}',
+                                    style:
+                                        Theme.of(context).textTheme.bodyMedium,
+                                  ),
+                                ],
+                              ),
+                            if (snapshot.data!.tent != null &&
+                                snapshot.data!.tent!.isNotEmpty)
+                              Row(
+                                children: [
+                                  Text(
+                                    'Tent: ',
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .bodyMedium!
+                                        .copyWith(
+                                          fontWeight: FontWeight.w600,
+                                        ),
+                                  ),
+                                  Text(
+                                    '${snapshot.data!.tent}',
+                                    style:
+                                        Theme.of(context).textTheme.bodyMedium,
+                                  ),
+                                ],
+                              ),
+                          ],
                         ),
                       ],
                     ),
-                    Container(height: 16),
+                    Container(height: 24),
                     // border
                     Container(
                       height: 0.5,
                       margin: const EdgeInsets.symmetric(horizontal: 32),
                       color: Theme.of(context).dividerColor,
                     ),
-                    Expanded(child: LikesOverview()),
+                    Container(height: 16),
+
+                    LikesOverview(),
                   ],
                 );
               } else {
@@ -146,8 +185,7 @@ class UserDetailsPageState extends State<UserDetailsPage> {
                   child: SizedBox(
                     width: 64,
                     height: 64,
-                    child: CircularProgressIndicator(
-                        ),
+                    child: CircularProgressIndicator(),
                   ),
                 );
               }

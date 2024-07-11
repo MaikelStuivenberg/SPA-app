@@ -8,7 +8,7 @@ class DefaultScaffoldWidget extends StatelessWidget {
     this._title,
     this._childWidget, {
     this.showMenu = true,
-    this.actions = const [],
+    this.actions,
     this.back = false,
     super.key,
   });
@@ -16,7 +16,7 @@ class DefaultScaffoldWidget extends StatelessWidget {
   final Widget _childWidget;
   final String? _title;
   final bool showMenu;
-  final List<Widget> actions;
+  final List<Widget>? actions;
   final bool back;
 
   @override
@@ -39,7 +39,7 @@ class DefaultScaffoldWidget extends StatelessWidget {
       body: _childWidget,
       extendBodyBehindAppBar: true,
       extendBody: true,
-      resizeToAvoidBottomInset: false,
+      resizeToAvoidBottomInset: true,
       appBar: _title == null
           ? null
           : AppBar(
@@ -70,15 +70,7 @@ class DefaultScaffoldWidget extends StatelessWidget {
               title: Text(
                 _title!,
               ),
-              actions: [
-                ...actions,
-                // IconButton(
-                //   icon: const Icon(FontAwesomeIcons.bell),
-                //   onPressed: () {
-                //     Navigator.pushNamed(context, Routes.program);
-                //   },
-                //   color: Colors.white,
-                // ),
+              actions: actions ?? [
                 IconButton(
                   icon: const FaIcon(FontAwesomeIcons.solidUser),
                   onPressed: () {

@@ -96,7 +96,7 @@ class LoginPageState extends State<LoginPage> {
             ),
             SafeArea(
               child: Container(
-                margin: const EdgeInsets.fromLTRB(16, 16, 16, 16),
+                margin: const EdgeInsets.fromLTRB(24,24,24,24),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -117,12 +117,14 @@ class LoginPageState extends State<LoginPage> {
                           ),
                     ),
                     const Spacer(),
+                    const SizedBox(height: 16),
                     _loginWidget(),
                     const SizedBox(height: 16),
                     _socialWidget(),
                     const SizedBox(height: 16),
                     _signupWidget(),
                     const Spacer(),
+                    const SizedBox(height: 16),
                   ],
                 ),
               ),
@@ -174,8 +176,8 @@ class LoginPageState extends State<LoginPage> {
                   size: 34,
                 ),
                 style: ButtonStyle(
-                  backgroundColor: WidgetStateProperty.all(Colors.white),
-                  shape: WidgetStateProperty.all(
+                  backgroundColor: MaterialStateProperty.all(Colors.white),
+                  shape: MaterialStateProperty.all(
                     RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(8),
                     ),
@@ -197,8 +199,8 @@ class LoginPageState extends State<LoginPage> {
                   size: 40,
                 ),
                 style: ButtonStyle(
-                  backgroundColor: WidgetStateProperty.all(Colors.white),
-                  shape: WidgetStateProperty.all(
+                  backgroundColor: MaterialStateProperty.all(Colors.white),
+                  shape: MaterialStateProperty.all(
                     RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(8),
                     ),
