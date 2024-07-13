@@ -20,7 +20,9 @@ class WeatherRepository {
     if (response.statusCode == 200) {
       // If the server returns a 200 OK response, parse the JSON.
       final parsed = jsonDecode(response.body) as Map<String, dynamic>;
+      
       final current =
+      (parsed['current'] as Map<String, dynamic>).isEmpty ? null : 
           WeatherCurrent.fromJson(parsed['current'] as Map<String, dynamic>);
       final forecast = (parsed['forecast']['forecastday'] as List<dynamic>)
           .map((e) => WeatherForecast.fromJson(e as Map<String, dynamic>))

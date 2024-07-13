@@ -17,6 +17,8 @@ class UserDataRepository {
       major: user.data()!['major'] as String,
       minor: user.data()!['minor'] as String,
       image: user.data()!['image'] as String,
+      biblestudyGroup: user.data()!['biblestudyGroup'] as String?,
+      tent: user.data()!['tent'] as String?,
     );
   }
 
@@ -30,6 +32,7 @@ class UserDataRepository {
       'age': user.age,
       'major': user.major,
       'minor': user.minor,
+      'tent': user.tent,
     });
   }
 
@@ -76,6 +79,8 @@ class UserDataRepository {
         'major': '',
         'minor': '',
         'image': '',
+        'biblestudyGroup': '',
+        'tent': '',
       });
 
       return getFirebaseUser();

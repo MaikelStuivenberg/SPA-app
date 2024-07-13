@@ -40,6 +40,7 @@ platform :ios do
       archive_path: "../build/ios/archive/Runner.xcarchive"
     )
     dsym_zip
+    upload_symbols_to_crashlytics
     upload_to_app_store(
       app_identifier: app_identifier,
       api_key: api_key,

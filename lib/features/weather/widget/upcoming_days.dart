@@ -21,7 +21,7 @@ class _UpcomingDaysWidgetState extends State<UpcomingDaysWidget> {
           return const CircularProgressIndicator();
         }
 
-        final weatherCurrent = state.weather!.current!;
+        final weatherCurrent = state.weather!.current;
 
         return Column(
           children: [

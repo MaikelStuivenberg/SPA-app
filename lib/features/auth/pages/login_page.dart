@@ -96,7 +96,7 @@ class LoginPageState extends State<LoginPage> {
             ),
             SafeArea(
               child: Container(
-                margin: const EdgeInsets.fromLTRB(24,24,24,24),
+                margin: const EdgeInsets.fromLTRB(24, 24, 24, 24),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -324,7 +324,7 @@ class LoginPageState extends State<LoginPage> {
                       !_formKey.currentState!.validate()
                   ? null
                   : () {
-                      getIt<AuthCubit>().loginUsernamePassword(
+                      BlocProvider.of<AuthCubit>(context).loginUsernamePassword(
                         _emailController.text,
                         _passwordController.text,
                       );

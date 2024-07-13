@@ -27,7 +27,7 @@ class _PhotoWidgetState extends State<PhotoWidget> {
         }
 
         if (state.photos == null || state.photos!.isEmpty) {
-          return const Text('No photos found');
+          return Container();
         }
 
         return Expanded(

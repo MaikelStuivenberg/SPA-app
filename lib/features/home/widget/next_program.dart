@@ -14,6 +14,10 @@ class NextProgramWidget extends StatelessWidget {
     return BlocBuilder<ProgramCubit, ProgramState>(
       bloc: BlocProvider.of<ProgramCubit>(context),
       builder: (context, programState) {
+        if (programState.nextActivity == null) {
+          return Container();
+        }
+
         var nextActivityDateDiff =
             programState.nextActivity!.date!.difference(DateTime.now());
 

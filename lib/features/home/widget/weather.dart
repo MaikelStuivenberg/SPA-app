@@ -20,13 +20,17 @@ class _WeatherWidgetState extends State<WeatherWidget> {
           return const CircularProgressIndicator();
         }
 
-        final weatherCurrent = state.weather!.current!;
+        if (state.weather == null) {
+          return Container();
+        }
+
+        final weatherCurrent = state.weather!.current;
         final weatherForecast = state.weather!.forecast!.first;
 
         return Row(
           children: [
             Expanded(
-              child: CardWidget(
+              child: weatherCurrent == null ? Container() : CardWidget(
                 child: Column(
                   children: [
                     Text('Nu', style: Theme.of(context).textTheme.bodyLarge),

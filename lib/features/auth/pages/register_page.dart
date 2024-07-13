@@ -171,7 +171,7 @@ class RegisterPageState extends State<RegisterPage> {
                       !_formKey.currentState!.validate()
                   ? null
                   : () {
-                      getIt<AuthCubit>().register(
+                    BlocProvider.of<AuthCubit>(context).register(
                         _emailController.text,
                         _passwordController.text,
                       );
