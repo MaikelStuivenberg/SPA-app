@@ -118,6 +118,7 @@ class ProgramPageState extends State<ProgramPage> {
                   user.major == null ||
                   user.major!.isEmpty ||
                   !el.requirements!.containsKey('major') ||
+                  el.requirements!['major'] == null ||
                   (el.requirements!.containsKey('major') &&
                       el.requirements!['major']
                           .toString()
@@ -132,6 +133,7 @@ class ProgramPageState extends State<ProgramPage> {
                   user.minor == null ||
                   user.minor!.isEmpty ||
                   !el.requirements!.containsKey('minor') ||
+                  el.requirements!['minor'] == null ||
                   (el.requirements!.containsKey('minor') &&
                       el.requirements!['minor']
                           .toString()
@@ -146,6 +148,7 @@ class ProgramPageState extends State<ProgramPage> {
                   user.tent == null ||
                   user.tent!.isEmpty ||
                   !el.requirements!.containsKey('tent') ||
+                  el.requirements!['tent'] == null ||
                   (el.requirements!.containsKey('tent') &&
                       el.requirements!['tent']
                           .toString()
@@ -158,8 +161,8 @@ class ProgramPageState extends State<ProgramPage> {
               (el) =>
                   el.requirements == null ||
                   !el.requirements!.containsKey('staff') ||
-                  (el.requirements!.containsKey('staff') &&
-                      user.staff != null &&
+                  el.requirements!['staff'] == false ||
+                  (user.staff != null &&
                       user.staff!),
             )
 
@@ -168,8 +171,8 @@ class ProgramPageState extends State<ProgramPage> {
               (el) =>
                   el.requirements == null ||
                   !el.requirements!.containsKey('tentLeader') ||
-                  (el.requirements!.containsKey('tentLeader') &&
-                      user.tentLeader != null &&
+                  el.requirements!['tentLeader'] == false ||
+                  (user.tentLeader != null &&
                       user.tentLeader!),
             )
 
@@ -178,8 +181,8 @@ class ProgramPageState extends State<ProgramPage> {
               (el) =>
                   el.requirements == null ||
                   !el.requirements!.containsKey('biblestudyLeader') ||
-                  (el.requirements!.containsKey('biblestudyLeader') &&
-                      user.biblestudyLeader != null &&
+                  el.requirements!['biblestudyLeader'] == false ||
+                  (user.biblestudyLeader != null &&
                       user.biblestudyLeader!),
             )
 

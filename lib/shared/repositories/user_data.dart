@@ -19,6 +19,9 @@ class UserDataRepository {
       image: user.data()!['image'] as String,
       biblestudyGroup: user.data()!['biblestudyGroup'] as String?,
       tent: user.data()!['tent'] as String?,
+      biblestudyLeader: user.data()!['biblestudyLeader'] as bool?,
+      tentLeader: user.data()!['tentLeader'] as bool?,
+      staff: user.data()!['staff'] as bool?,
     );
   }
 
