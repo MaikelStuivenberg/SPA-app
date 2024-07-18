@@ -53,9 +53,9 @@ platform :ios do
         export_compliance_uses_encryption: false,
       },
       release_notes: {
-        'default': 'The app is now ready for SPA 2024 and got some new features!',
-        'en-GB': 'The app is now ready for SPA 2024 and got some new features!',
-        'nl-NL': 'De app is nu klaar voor SPA 2024 en heeft weer nieuwe functies erbij!',
+        'default': 'Some bugfixes to improve the experience for SPA 2024!',
+        'en-GB': 'Some bugfixes to improve the experience for SPA 2024!',
+        'nl-NL': 'Enkele foutjes opgelost om nog beter het programma van SPA 2024 te kunnen tonen!',
       }
     )
   end

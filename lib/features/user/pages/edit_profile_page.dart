@@ -4,10 +4,13 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:firebase_auth/firebase_auth.dart' hide User;
 import 'package:firebase_remote_config/firebase_remote_config.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_image_compress/flutter_image_compress.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:spa_app/app/injection/injection.dart';
+import 'package:spa_app/features/auth/cubit/auth_cubit.dart';
 import 'package:spa_app/features/user/models/user.dart';
 import 'package:spa_app/routes.dart';
 import 'package:spa_app/shared/repositories/user_data.dart';
@@ -237,15 +240,19 @@ class EditProfilePageState extends State<EditProfilePage> {
                                       _isSaving = true;
                                       _doneSaving = false;
                                     });
-                                    await _userDataRepository.updateUser(
-                                      UserData(
-                                        firstname: _firstnameController.text,
-                                        lastname: _lastnameController.text,
-                                        age: _ageController.text,
-                                        major: _majorValue,
-                                        minor: _minorValue,
-                                      ),
-                                    );
+
+                                    await context
+                                        .read<AuthCubit>()
+                                        .updateUserData(
+                                          UserData(
+                                            firstname:
+                                                _firstnameController.text,
+                                            lastname: _lastnameController.text,
+                                            age: _ageController.text,
+                                            major: _majorValue,
+                                            minor: _minorValue,
+                                          ),
+                                        );
 
                                     setState(() {
                                       _isSaving = false;

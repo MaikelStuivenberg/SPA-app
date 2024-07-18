@@ -34,14 +34,6 @@ class UserDetailsPageState extends State<UserDetailsPage> {
             future: _userDataRepository.getUser(),
             builder: (context, snapshot) {
               if (snapshot.hasData) {
-                if (snapshot.data == null ||
-                    snapshot.data!.firstname == null ||
-                    snapshot.data!.firstname!.isEmpty) {
-                  WidgetsBinding.instance.addPostFrameCallback((_) {
-                    Navigator.of(parentContext).pushNamed(Routes.editUser);
-                  });
-                }
-
                 return Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [

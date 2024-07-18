@@ -116,9 +116,13 @@ class ProgramPageState extends State<ProgramPage> {
               (el) =>
                   el.requirements == null ||
                   user.major == null ||
+                  user.major!.isEmpty ||
                   !el.requirements!.containsKey('major') ||
                   (el.requirements!.containsKey('major') &&
-                      el.requirements!['major'] == user.major),
+                      el.requirements!['major']
+                          .toString()
+                          .split(',')
+                          .contains(user.major)),
             )
 
             // Only show relevant minors
@@ -126,9 +130,57 @@ class ProgramPageState extends State<ProgramPage> {
               (el) =>
                   el.requirements == null ||
                   user.minor == null ||
+                  user.minor!.isEmpty ||
                   !el.requirements!.containsKey('minor') ||
                   (el.requirements!.containsKey('minor') &&
-                      el.requirements!['minor'] == user.minor),
+                      el.requirements!['minor']
+                          .toString()
+                          .split(',')
+                          .contains(user.minor)),
+            )
+
+            // Contains activity relevant for user's tent
+            .where(
+              (el) =>
+                  el.requirements == null ||
+                  user.tent == null ||
+                  user.tent!.isEmpty ||
+                  !el.requirements!.containsKey('tent') ||
+                  (el.requirements!.containsKey('tent') &&
+                      el.requirements!['tent']
+                          .toString()
+                          .split(',')
+                          .contains(user.tent)),
+            )
+
+            // Only relevant activities for staff
+            .where(
+              (el) =>
+                  el.requirements == null ||
+                  !el.requirements!.containsKey('staff') ||
+                  (el.requirements!.containsKey('staff') &&
+                      user.staff != null &&
+                      user.staff!),
+            )
+
+            // Only relevant activities for staff
+            .where(
+              (el) =>
+                  el.requirements == null ||
+                  !el.requirements!.containsKey('tentLeader') ||
+                  (el.requirements!.containsKey('tentLeader') &&
+                      user.tentLeader != null &&
+                      user.tentLeader!),
+            )
+
+            // Only relevant activities for biblestudy leaders
+            .where(
+              (el) =>
+                  el.requirements == null ||
+                  !el.requirements!.containsKey('biblestudyLeader') ||
+                  (el.requirements!.containsKey('biblestudyLeader') &&
+                      user.biblestudyLeader != null &&
+                      user.biblestudyLeader!),
             )
 
             // Filter on age <13
@@ -177,7 +229,19 @@ class ProgramPageState extends State<ProgramPage> {
                     controller: _listViewController,
                     itemCount: filteredActivities.length,
                     itemBuilder: (BuildContext context, int index) {
-                      return Programitem(activity: filteredActivities[index]);
+                      return Programitem(
+                        isPast: filteredActivities[index]
+                            .date!
+                            .isBefore(DateTime.now()),
+                        isCurrent: isCurrentItem(
+                          filteredActivities[index],
+                          index + 1 < filteredActivities.length
+                              ? filteredActivities[index + 1]
+                              : null,
+                          DateTime.now(),
+                        ),
+                        activity: filteredActivities[index],
+                      );
                     },
                   ),
                 ),
@@ -194,7 +258,8 @@ class ProgramPageState extends State<ProgramPage> {
     Activity? nextActivity,
     DateTime currentTime,
   ) {
-    return activity.date!.isBefore(currentTime) &&
+    return (activity.date!.isBefore(currentTime) ||
+            activity.date!.isAtSameMomentAs(currentTime)) &&
         nextActivity != null &&
         nextActivity.date!.isAfter(currentTime);
   }

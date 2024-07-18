@@ -1,3 +1,5 @@
+import 'dart:ffi';
+
 class UserData {
   UserData({
     this.id,
@@ -8,7 +10,10 @@ class UserData {
     this.minor,
     this.image,
     this.biblestudyGroup,
+    this.biblestudyLeader,
     this.tent,
+    this.tentLeader,
+    this.staff,
   });
 
   UserData.fromJson(Map<String, dynamic> json) {
@@ -20,7 +25,10 @@ class UserData {
     minor = json['minor'] as String;
     image = json['image'] as String;
     biblestudyGroup = json['biblestudyGroup'] as String;
+    biblestudyLeader = json['biblestudyLeader'] as bool;
     tent = json['tent'] as String;
+    tentLeader = json['tentLeader'] as bool;
+    staff = json['staff'] as bool;
   }
 
   String? id;
@@ -34,7 +42,10 @@ class UserData {
       ? 'https://firebasestorage.googleapis.com/v0/b/school-of-performing-arts.appspot.com/o/users%2F$id%2Fprofile%2F$image?alt=media'
       : null;
   String? biblestudyGroup;
+  bool? biblestudyLeader;
   String? tent;
+  bool? tentLeader;
+  bool? staff;
 
   Map<String, dynamic> toJson() {
     return {
@@ -46,7 +57,10 @@ class UserData {
       'minor': minor,
       'image': image,
       'biblestudyGroup': biblestudyGroup,
+      'biblestudyLeader': biblestudyLeader,
       'tent': tent,
+      'tentLeader': tentLeader,
+      'staff': staff,
     };
   }
 }

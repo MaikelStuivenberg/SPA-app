@@ -40,10 +40,12 @@ class RegisterPageState extends State<RegisterPage> {
             });
           } else if (state is AuthStateSuccess) {
             _loading = false;
-            Navigator.of(context).pushNamedAndRemoveUntil(
-              Routes.home,
-              (route) => false,
-            );
+            Navigator.of(context)
+              ..pushNamedAndRemoveUntil(
+                Routes.home,
+                (route) => false,
+              )
+              ..pushNamed(Routes.editUser);
           }
         },
         child: SafeArea(
@@ -171,7 +173,7 @@ class RegisterPageState extends State<RegisterPage> {
                       !_formKey.currentState!.validate()
                   ? null
                   : () {
-                    BlocProvider.of<AuthCubit>(context).register(
+                      BlocProvider.of<AuthCubit>(context).register(
                         _emailController.text,
                         _passwordController.text,
                       );

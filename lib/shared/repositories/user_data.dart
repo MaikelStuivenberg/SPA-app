@@ -32,7 +32,6 @@ class UserDataRepository {
       'age': user.age,
       'major': user.major,
       'minor': user.minor,
-      'tent': user.tent,
     });
   }
 
@@ -80,7 +79,10 @@ class UserDataRepository {
         'minor': '',
         'image': '',
         'biblestudyGroup': '',
+        'biblestudyLeader': false,
         'tent': '',
+        'tentLeader': false,
+        'staff': false,
       });
 
       return getFirebaseUser();

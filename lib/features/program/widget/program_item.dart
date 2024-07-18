@@ -3,14 +3,19 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:intl/intl.dart';
 import 'package:spa_app/features/program/models/activity.dart';
 import 'package:spa_app/routes.dart';
+import 'package:spa_app/utils/app_colors.dart';
 
 class Programitem extends StatelessWidget {
   const Programitem({
     required this.activity,
+    required this.isCurrent,
+    required this.isPast,
     super.key,
   });
 
   final Activity activity;
+  final bool isCurrent;
+  final bool isPast;
 
   @override
   Widget build(BuildContext context) {
@@ -18,13 +23,11 @@ class Programitem extends StatelessWidget {
       padding: const EdgeInsets.only(bottom: 4),
       child: Card(
         elevation: 1,
-        // color: isCurrentItem(
-        //   activity,
-        //   nextActivity,
-        //   DateTime.now(),
-        // )
-        //     ? Colors.blue.shade50
-        //     : Colors.white,
+        color: isCurrent
+            ? AppColors.mainColor.shade50
+            : isPast
+                ? AppColors.secondaryColor.shade50
+                : Colors.white,
         child: InkWell(
           borderRadius: BorderRadius.circular(8),
           onTap: activity.link != null && activity.link!.isNotEmpty

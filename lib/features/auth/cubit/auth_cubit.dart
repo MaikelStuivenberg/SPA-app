@@ -86,4 +86,12 @@ class AuthCubit extends Cubit<AuthState> {
 
     return true;
   }
+
+  Future<void> updateUserData(UserData userData) async {
+    emit(AuthStateLoading());
+
+    await getIt<UserDataRepository>().updateUser(userData);
+
+    emit(AuthStateSuccess(userData));
+  }
 }

@@ -40,9 +40,9 @@ class HomePageState extends State<HomePage> {
 
         final user = snapshot;
 
-        final targetDate = DateTime(2024, 7, 20);
+        final targetDate = DateTime(2024, 7, 20, 14, 30);
         final now = DateTime.now();
-        final daysRemaining = targetDate.difference(now).inDays;
+        final hoursRemaining = targetDate.difference(now).inHours;
 
         return SingleChildScrollView(
           child: SafeArea(
@@ -63,10 +63,8 @@ class HomePageState extends State<HomePage> {
                   const SizedBox(height: 16),
                   const WeatherWidget(),
                   const SizedBox(height: 8),
-                  if(daysRemaining <= 0)
-                    NextProgramWidget(),
-                  if(daysRemaining > 0)
-                    CountdownWidget(),
+                  if (hoursRemaining <= 6) NextProgramWidget(),
+                  if (hoursRemaining > 6) CountdownWidget(),
                   const SizedBox(height: 8),
                   const Row(
                     children: [

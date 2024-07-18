@@ -14,7 +14,6 @@ class ProgramCubit extends Cubit<ProgramState> {
     emit(state.copyWith(isLoading: true));
 
     try {
-      // TODO: Change to actual min and max date
       final minDate =
           DateTime.parse(FirebaseRemoteConfig.instance.getString('start_date'));
       final maxDate =
