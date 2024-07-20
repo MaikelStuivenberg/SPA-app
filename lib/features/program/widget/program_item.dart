@@ -23,11 +23,11 @@ class Programitem extends StatelessWidget {
       padding: const EdgeInsets.only(bottom: 4),
       child: Card(
         elevation: 1,
-        color: isCurrent
-            ? AppColors.mainColor.shade50
-            : isPast
-                ? AppColors.secondaryColor.shade50
-                : Colors.white,
+        // color: isCurrent
+        //     ? AppColors.mainColor.shade50
+        //     : isPast
+        //         ? AppColors.secondaryColor.shade50
+        //         : Colors.white,
         child: InkWell(
           borderRadius: BorderRadius.circular(8),
           onTap: activity.link != null && activity.link!.isNotEmpty
