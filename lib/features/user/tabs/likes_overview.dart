@@ -24,7 +24,7 @@ class _LikesOverviewState extends State<LikesOverview> {
         if (snapshot.hasData) {
           return _buildGridView(snapshot.data!);
         } else if (snapshot.hasError) {
-          return const Text(''); //'${snapshot.error}');
+          return const Text(''); 
         }
         return const Center(
           child: SizedBox(
@@ -81,14 +81,18 @@ class _LikesOverviewState extends State<LikesOverview> {
       child: Column(
         children: [
           Expanded(
-            child: ClipRRect(
-              borderRadius: BorderRadius.circular(4),
-              child: CachedNetworkImage(
-                imageUrl: photo.thumbnailUrl,
-                fit: BoxFit.cover,
-                height: 400,
-                errorListener: (error) => const Center(
-                  child: Icon(Icons.error_outline),
+            child: InkWell(
+              onTap: () {
+              },
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(4),
+                child: CachedNetworkImage(
+                  imageUrl: photo.thumbnailUrl,
+                  fit: BoxFit.cover,
+                  height: 400,
+                  errorListener: (error) => const Center(
+                    child: Icon(Icons.error_outline),
+                  ),
                 ),
               ),
             ),

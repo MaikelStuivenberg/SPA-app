@@ -3,9 +3,9 @@ import 'package:spa_app/routes.dart';
 import 'package:spa_app/shared/widgets/primary_card.dart';
 
 class CountdownWidget extends StatelessWidget {
-  CountdownWidget({super.key});
-
-  final DateTime targetDate = DateTime(2024, 7, 20, 14, 30);
+  CountdownWidget({super.key, required this.targetDate});
+  
+  final DateTime targetDate;
 
   @override
   Widget build(BuildContext context) {
@@ -36,7 +36,7 @@ class CountdownWidget extends StatelessWidget {
                     ),
               ),
               Text(
-                'tot SPA2024',
+                'tot SPA New Years Party',
                 style: Theme.of(context).textTheme.bodyLarge!.copyWith(
                       color: Theme.of(context).colorScheme.onPrimary,
                     ),

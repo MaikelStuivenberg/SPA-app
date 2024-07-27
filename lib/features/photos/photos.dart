@@ -25,7 +25,7 @@ class PhotosPageState extends State<PhotosPage> {
 
     _scrollViewController.addListener(() {
       // When on 3/4 of the page, load more photos
-      if (_scrollViewController.position.extentAfter < 500) {
+      if (_scrollViewController.position.extentAfter < 1000) {
         BlocProvider.of<PhotosCubit>(context).fetchMorePhotos();
       }
     });

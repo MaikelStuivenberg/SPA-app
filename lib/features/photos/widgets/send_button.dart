@@ -25,7 +25,7 @@ class SendButton extends StatelessWidget {
         await file.writeAsBytes(response.bodyBytes);
         await Share.shareXFiles([XFile('$path/spa.jpg')]);
       },
-      icon: const Icon(
+      icon: const FaIcon(
         FontAwesomeIcons.paperPlane,
         color: Colors.black,
       ),

@@ -106,7 +106,7 @@ class PhotoDataRepository {
 
     final querySnapshot =
         await photosCollection.where('likedBy', arrayContains: userId).get();
-    final myPhotos = querySnapshot.docs.map((doc) => doc.id).toList();
+    final myPhotos = querySnapshot.docs.map((doc) => doc.id).toList().reversed;
 
     final likedPhotos = <Photo>[];
 

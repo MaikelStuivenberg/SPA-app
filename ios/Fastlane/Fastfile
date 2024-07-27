@@ -53,9 +53,9 @@ platform :ios do
         export_compliance_uses_encryption: false,
       },
       release_notes: {
-        'default': 'Some bugfixes to improve the experience for SPA 2024!',
-        'en-GB': 'Some bugfixes to improve the experience for SPA 2024!',
-        'nl-NL': 'Enkele foutjes opgelost om nog beter het programma van SPA 2024 te kunnen tonen!',
+        'default': '2025 is over, but the preparation for the New Years Party in 2025 are in full swing!',
+        'en-GB': 'SPA2025 is over, but the preparation for the New Years Party in 2025 are in full swing!',
+        'nl-NL': 'SPA2024 is voorbij, maar de voorbereiding voor de New Years Party in 2025 zijn in volle gang',
       }
     )
   end

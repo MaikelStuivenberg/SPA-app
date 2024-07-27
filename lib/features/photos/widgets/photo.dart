@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:spa_app/features/auth/cubit/auth_cubit.dart';
+import 'package:spa_app/features/photos/widgets/download_button.dart';
 import 'package:spa_app/features/photos/widgets/send_button.dart';
 import 'package:spa_app/shared/models/photo.dart';
 import 'package:spa_app/shared/repositories/photo_data.dart';
@@ -97,7 +98,7 @@ class PhotoStateWidgetState extends State<PhotoStateWidget> {
                             ],
                           ),
                         ),
-                        const SizedBox(width: 8),
+                        DownloadButton(widget: widget),
                         SendButton(widget: widget),
                       ],
                     ),
