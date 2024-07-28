@@ -25,7 +25,7 @@ class PhotoDataRepository {
     url += '&sort=date-taken-desc&min_upload_date=$minUploadDate';
     url += '&max_upload_date=$maxUploadDate';
     url += '&per_page=$photosPerPage&page=$page&format=json';
-    url += '&nojsoncallback=1&extras=url_m,url_k';
+    url += '&nojsoncallback=1&extras=url_m,url_k,date_taken';
 
     final response = await http.get(Uri.parse(url));
 
@@ -44,6 +44,7 @@ class PhotoDataRepository {
           thumbnailUrl: thumbnailUrl,
           likes: await getLikes(photoId),
           likedBy: await getLikedBy(photoId),
+          createdAt: DateTime.parse(photo['datetaken'] as String),
         );
 
         photoResult.add(photoData);
@@ -122,7 +123,7 @@ class PhotoDataRepository {
       var url = 'https://www.flickr.com/services/rest/';
       url += '?method=flickr.photos.getSizes&api_key=$apiKey';
       url +=
-          '&photo_id=$photoId&format=json&nojsoncallback=1&extras=url_m,url_k';
+          '&photo_id=$photoId&format=json&nojsoncallback=1&extras=url_m,url_k,date_taken';
       final response = await http.get(Uri.parse(url));
 
       if (response.statusCode != 200) {
@@ -143,6 +144,7 @@ class PhotoDataRepository {
         // likes: data['likedBy'].length as int,
         likedBy: [],
         // likedBy: data['likedBy'].map((e) => e.toString()).toList(),
+        createdAt: data['datetaken'] as DateTime,
       );
 
       likedPhotos.add(photoData);

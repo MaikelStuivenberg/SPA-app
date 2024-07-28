@@ -5,6 +5,7 @@ class Photo {
     required this.thumbnailUrl,
     required this.likes,
     required this.likedBy,
+    required this.createdAt,
   });
 
   factory Photo.fromJson(Map<String, dynamic> json) {
@@ -14,6 +15,7 @@ class Photo {
       thumbnailUrl: json['thumbnailUrl'] as String,
       likes: json['likes'] as int,
       likedBy: json['likedBy'] as List<String>,
+      createdAt: DateTime.parse(json['createdAt'] as String),
     );
   }
 
@@ -22,4 +24,5 @@ class Photo {
   final String thumbnailUrl;
   int likes;
   final List<String> likedBy;
+  final DateTime createdAt;
 }
