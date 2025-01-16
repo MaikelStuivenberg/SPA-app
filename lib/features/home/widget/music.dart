@@ -25,9 +25,9 @@ class _MusicWidgetState extends State<MusicWidget> {
           );
         }
 
-        if (state.photos == null || state.photos!.isEmpty) {
-          return const Text('No photos found');
-        }
+        // if (state.photos == null || state.photos!.isEmpty) {
+        //   return const Text('No photos found');
+        // }
 
         return Expanded(
           child: CardWidget(

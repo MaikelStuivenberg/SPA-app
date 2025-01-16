@@ -53,9 +53,9 @@ platform :ios do
         export_compliance_uses_encryption: false,
       },
       release_notes: {
-        'default': '2025 is over, but the preparation for the New Years Party in 2025 are in full swing!',
-        'en-GB': 'SPA2025 is over, but the preparation for the New Years Party in 2025 are in full swing!',
-        'nl-NL': 'SPA2024 is voorbij, maar de voorbereiding voor de New Years Party in 2025 zijn in volle gang',
+        'default': 'SPA New Years Party 2025!',
+        'en-GB': 'SPA New Years Party 2025!',
+        'nl-NL': 'SPA New Years Party 2025!',
       }
     )
   end

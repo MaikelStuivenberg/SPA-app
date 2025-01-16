@@ -3,6 +3,6 @@ import 'package:flutter/material.dart';
 class AppColors {
   AppColors._();
 
-  static const mainColor = Colors.deepPurple;
+  static const mainColor = Colors.blueGrey;
   static const secondaryColor = Colors.brown;
 }
