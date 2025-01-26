@@ -36,7 +36,7 @@ class CountdownWidget extends StatelessWidget {
                     ),
               ),
               Text(
-                'tot SPA New Years Party',
+                'tot SPA 2025',
                 style: Theme.of(context).textTheme.bodyLarge!.copyWith(
                       color: Theme.of(context).colorScheme.onPrimary,
                     ),

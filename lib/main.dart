@@ -42,7 +42,6 @@ Future<void> main() async {
   });
 
   await remoteConfig.setDefaults(const {
-    'flickr_album_id': '72177720309943266', //
     'flickr_min_upload_date': 1689804000, // Unix timestamp (2023-07-20)
     'flickr_max_upload_date': 1690840800, // Unix timestamp (2023-08-01)
     'show_photos_per_page': 5,

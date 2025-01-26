@@ -40,7 +40,7 @@ class HomePageState extends State<HomePage> {
 
         final user = snapshot;
 
-        final targetDate = DateTime(2025, 1, 18, 10, 00);
+        final targetDate = DateTime(2025, 7, 19, 14);
         final now = DateTime.now();
         final hoursRemaining = targetDate.difference(now).inHours;
 
@@ -64,7 +64,10 @@ class HomePageState extends State<HomePage> {
                   const WeatherWidget(),
                   const SizedBox(height: 8),
                   if (hoursRemaining <= 6) NextProgramWidget(),
-                  if (hoursRemaining > 6) CountdownWidget(targetDate: targetDate),
+                  if (hoursRemaining > 6)
+                    CountdownWidget(
+                      targetDate: targetDate,
+                    ),
                   const SizedBox(height: 8),
                   const Row(
                     children: [

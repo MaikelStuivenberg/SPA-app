@@ -53,9 +53,9 @@ platform :ios do
         export_compliance_uses_encryption: false,
       },
       release_notes: {
-        'default': 'SPA New Years Party 2025!',
-        'en-GB': 'SPA New Years Party 2025!',
-        'nl-NL': 'SPA New Years Party 2025!',
+        'default': 'First SPA 2025 preperations',
+        'en-GB': 'First SPA 2025 preperations!',
+        'nl-NL': 'Eerste SPA 2025 voorbereidingen!',
       }
     )
   end
