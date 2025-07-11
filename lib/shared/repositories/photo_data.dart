@@ -111,13 +111,6 @@ class PhotoDataRepository {
     final likedPhotos = <Photo>[];
 
     for (final photoId in myPhotos) {
-      // final photo = await photosCollection.doc(photoId).get();
-      // final snapshotData = photo.data();
-
-      // if (snapshotData == null) {
-      //   continue;
-      // }
-
       // get data from flickr
       var url = 'https://www.flickr.com/services/rest/';
       url += '?method=flickr.photos.getSizes&api_key=$apiKey';
@@ -139,15 +132,57 @@ class PhotoDataRepository {
         thumbnailUrl: sizes.firstWhere(
                 (element) => element['label'].toString() == 'Medium')['source']
             as String,
-        likes: 0,
-        // likes: data['likedBy'].length as int,
-        likedBy: [],
-        // likedBy: data['likedBy'].map((e) => e.toString()).toList(),
+        likes: await getLikes(photoId),
+        likedBy: await getLikedBy(photoId),
       );
 
       likedPhotos.add(photoData);
     }
 
+    return likedPhotos;
+  }
+
+  /// Paginated version: returns liked photos for the current user, paginated by Firestore document order.
+  /// [limit]: number of photos to fetch per page
+  /// [startAfter]: last DocumentSnapshot from previous page, or null for first page
+  Future<List<Photo>> getMyLikedPhotosPaginated({
+    required int limit,
+    DocumentSnapshot? startAfter,
+  }) async {
+    final userId = (await UserDataRepository().getFirebaseUser()).id;
+
+    Query query = photosCollection
+        .where('likedBy', arrayContains: userId)
+        .orderBy(FieldPath.documentId, descending: true)
+        .limit(limit);
+    if (startAfter != null) {
+      query = query.startAfterDocument(startAfter);
+    }
+    final querySnapshot = await query.get();
+    final myPhotos = querySnapshot.docs;
+
+    final likedPhotos = <Photo>[];
+    for (final doc in myPhotos) {
+      final photoId = doc.id;
+      // get data from flickr
+      var url = 'https://www.flickr.com/services/rest/';
+      url += '?method=flickr.photos.getSizes&api_key=$apiKey';
+      url += '&photo_id=$photoId&format=json&nojsoncallback=1&extras=url_m,url_k';
+      final response = await http.get(Uri.parse(url));
+      if (response.statusCode != 200) {
+        continue;
+      }
+      final data = json.decode(response.body) as Map<String, dynamic>;
+      final sizes = data['sizes']['size'] as List<dynamic>;
+      final photoData = Photo(
+        id: photoId,
+        url: sizes.firstWhere((element) => element['label'].toString() == 'Large 2048')['source'] as String,
+        thumbnailUrl: sizes.firstWhere((element) => element['label'].toString() == 'Medium')['source'] as String,
+        likes: await getLikes(photoId),
+        likedBy: await getLikedBy(photoId),
+      );
+      likedPhotos.add(photoData);
+    }
     return likedPhotos;
   }
 }

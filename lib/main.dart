@@ -28,7 +28,7 @@ Future<void> main() async {
   final remoteConfig = FirebaseRemoteConfig.instance;
   await remoteConfig.setConfigSettings(
     RemoteConfigSettings(
-      fetchTimeout: const Duration(minutes: 1),
+      fetchTimeout: const Duration(seconds: 30),
       minimumFetchInterval: const Duration(hours: 1),
     ),
   );
@@ -44,7 +44,7 @@ Future<void> main() async {
   await remoteConfig.setDefaults(const {
     'flickr_min_upload_date': 1689804000, // Unix timestamp (2023-07-20)
     'flickr_max_upload_date': 1690840800, // Unix timestamp (2023-08-01)
-    'show_photos_per_page': 5,
+    'show_photos_per_page': 8,
     'start_date': '2025-01-18T01:00:00+02:00',
     'end_date': '2024-01-18T23:00:00+02:00',
     'use_minor': false,

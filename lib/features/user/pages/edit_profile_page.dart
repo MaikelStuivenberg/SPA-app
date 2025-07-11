@@ -9,7 +9,6 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_image_compress/flutter_image_compress.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:spa_app/app/injection/injection.dart';
 import 'package:spa_app/features/auth/cubit/auth_cubit.dart';
 import 'package:spa_app/features/user/models/user.dart';
 import 'package:spa_app/routes.dart';

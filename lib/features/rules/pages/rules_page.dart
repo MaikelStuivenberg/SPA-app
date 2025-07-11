@@ -27,18 +27,22 @@ class RulesPageState extends State<RulesPage> {
               RuleContainerWidget(
                 AppLocalizations.of(context)!.rulesRespect.toUpperCase(),
                 AppLocalizations.of(context)!.rulesRespectText,
+                icon: Icons.handshake,
               ),
               RuleContainerWidget(
                 AppLocalizations.of(context)!.rulesUnity.toUpperCase(),
                 AppLocalizations.of(context)!.rulesUnityText,
+                icon: Icons.groups,
               ),
               RuleContainerWidget(
                 AppLocalizations.of(context)!.rulesSafety.toUpperCase(),
                 AppLocalizations.of(context)!.rulesSafetyText,
+                icon: Icons.shield,
               ),
               RuleContainerWidget(
                 AppLocalizations.of(context)!.rulesTrust.toUpperCase(),
                 AppLocalizations.of(context)!.rulesTrustText,
+                icon: Icons.lock,
               ),
               Container(
                 height: 30,

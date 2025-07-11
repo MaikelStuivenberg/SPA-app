@@ -5,9 +5,7 @@ import 'package:spa_app/routes.dart';
 import 'package:spa_app/shared/widgets/primary_card.dart';
 
 class NextProgramWidget extends StatelessWidget {
-  NextProgramWidget({super.key});
-
-  final DateTime targetDate = DateTime(2024, 7, 20);
+  const NextProgramWidget({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -18,7 +16,7 @@ class NextProgramWidget extends StatelessWidget {
           return Container();
         }
 
-        var nextActivityDateDiff =
+        final nextActivityDateDiff =
             programState.nextActivity!.date!.difference(DateTime.now());
 
         return SizedBox(

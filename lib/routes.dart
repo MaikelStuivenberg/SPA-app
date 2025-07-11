@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:spa_app/features/auth/pages/login_page.dart';
+import 'package:spa_app/features/auth/pages/password_reset_page.dart';
 import 'package:spa_app/features/auth/pages/register_page.dart';
 import 'package:spa_app/features/biblestudy/biblestudy.dart';
 import 'package:spa_app/features/home/home.dart';
@@ -27,6 +28,7 @@ class Routes {
   static const String login = '/login';
   static const String register = '/register';
   static const String weather = '/weather';
+  static const String resetPassword = '/reset-password';
 
   static final routes = <String, WidgetBuilder>{
     home: (BuildContext context) => const HomePage(),
@@ -41,5 +43,6 @@ class Routes {
     login: (BuildContext context) => const LoginPage(),
     register: (BuildContext context) => const RegisterPage(),
     weather: (BuildContext context) => const WeatherPage(),
+    resetPassword: (BuildContext context) => const PasswordResetPage(),
   };
 }

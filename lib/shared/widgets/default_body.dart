@@ -21,6 +21,8 @@ class DefaultScaffoldWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final colorScheme = Theme.of(context).colorScheme;
+    
     return Scaffold(
       floatingActionButton: showMenu
           ? FloatingActionButton(
@@ -36,7 +38,20 @@ class DefaultScaffoldWidget extends StatelessWidget {
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       // backgroundColor: Colors.transparent,
       bottomNavigationBar: showMenu ? _buildNavigationBar(context) : null,
-      body: _childWidget,
+      body:  Container(
+        decoration: BoxDecoration(
+          gradient: LinearGradient(
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
+            colors: [
+              colorScheme.secondary.withOpacity(0),
+              colorScheme.secondary.withOpacity(0.05),
+              colorScheme.secondary.withOpacity(0.1),
+            ],
+          ),
+        ),
+        child: _childWidget,
+      ),
       extendBodyBehindAppBar: true,
       extendBody: true,
       resizeToAvoidBottomInset: true,

@@ -7,6 +7,7 @@ import 'package:spa_app/features/auth/cubit/auth_cubit.dart';
 import 'package:spa_app/routes.dart';
 import 'package:spa_app/shared/widgets/default_body.dart';
 import 'package:spa_app/utils/app_colors.dart';
+import 'package:spa_app/features/auth/pages/password_reset_page.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -22,6 +23,7 @@ class LoginPageState extends State<LoginPage> {
 
   bool _loading = false;
   bool _showWrongCredentials = false;
+  bool _obscurePassword = true;
 
   @override
   void initState() {
@@ -40,6 +42,7 @@ class LoginPageState extends State<LoginPage> {
             });
           } else if (state is AuthStateError) {
             setState(() {
+              print(state.errorMessage);
               _loading = false;
               _showWrongCredentials = true;
             });
@@ -219,15 +222,15 @@ class LoginPageState extends State<LoginPage> {
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         Text(
-          "Don't have an account?",
+          AppLocalizations.of(context)!.loginNoAccount,
           style: Theme.of(context).textTheme.bodyMedium,
         ),
         TextButton(
           onPressed: () {
             Navigator.of(context).pushNamed(Routes.register);
           },
-          child: const Text(
-            'Register',
+          child: Text(
+            AppLocalizations.of(context)!.loginRegister,
           ),
         ),
       ],
@@ -241,29 +244,24 @@ class LoginPageState extends State<LoginPage> {
         children: [
           TextFormField(
             controller: _emailController,
-            decoration: const InputDecoration(
+            decoration: InputDecoration(
               filled: true,
-              border: OutlineInputBorder(
+              border: const OutlineInputBorder(
                 borderRadius: BorderRadius.all(Radius.circular(8)),
               ),
-              hintText: 'Email address',
-              prefixIcon: Icon(Icons.alternate_email),
+              hintText: AppLocalizations.of(context)!.loginEmailHint,
+              prefixIcon: const Icon(Icons.alternate_email),
             ),
             keyboardType: TextInputType.emailAddress,
             autofillHints: const [AutofillHints.username],
             validator: (value) {
               if (value!.isEmpty) {
-                // return AppLocalizations.of(context).emailRequired;
-                return 'Email is required';
+                return AppLocalizations.of(context)!.loginEmailRequired;
               }
-
-              // Use regex to validate email
               if (!RegExp(r'^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$')
                   .hasMatch(value)) {
-                // return AppLocalizations.of(context).emailInvalid;
-                return 'Email is invalid';
+                return AppLocalizations.of(context)!.loginEmailInvalid;
               }
-
               return null;
             },
             onChanged: (_) => {setState(() {})},
@@ -271,47 +269,54 @@ class LoginPageState extends State<LoginPage> {
           const SizedBox(height: 16),
           TextFormField(
             controller: _passwordController,
-            obscureText: true,
-            decoration: const InputDecoration(
+            obscureText: _obscurePassword,
+            decoration: InputDecoration(
               filled: true,
-              border: OutlineInputBorder(
+              border: const OutlineInputBorder(
                 borderRadius: BorderRadius.all(Radius.circular(8)),
               ),
-              hintText: 'Password',
-              prefixIcon: Icon(Icons.password),
+              hintText: AppLocalizations.of(context)!.loginPasswordHint,
+              prefixIcon: const Icon(Icons.password),
+              suffixIcon: IconButton(
+                icon: Icon(
+                  _obscurePassword ? Icons.visibility : Icons.visibility_off,
+                ),
+                onPressed: () {
+                  setState(() {
+                    _obscurePassword = !_obscurePassword;
+                  });
+                },
+              ),
             ),
             keyboardType: TextInputType.visiblePassword,
             autofillHints: const [AutofillHints.password],
             validator: (value) {
               if (value!.isEmpty) {
-                // return AppLocalizations.of(context).passwordRequired;
-                return 'Password is required';
+                return AppLocalizations.of(context)!.loginPasswordRequired;
               }
-
               return null;
             },
             onChanged: (_) => {setState(() {})},
           ),
-          // const SizedBox(height: 0),
-          // Align(
-          //   alignment: Alignment.centerRight,
-          //   child: TextButton(
-          //     onPressed: () {},
-          //     child: const Text(
-          //       // AppLocalizations.of(context).forgotPassword,
-          //       'Forgot password?',
-          //       style: TextStyle(
-          //         fontSize: 16,
-          //         fontWeight: FontWeight.w300,
-          //         color: Colors.white,
-          //       ),
-          //     ),
-          //   ),
-          // ),
+          Align(
+            alignment: Alignment.centerRight,
+            child: TextButton(
+              onPressed: () {
+                Navigator.of(context).pushNamed(Routes.resetPassword);
+              },
+              child: Text(
+                AppLocalizations.of(context)!.loginForgotPassword,
+                style: const TextStyle(
+                  fontSize: 16,
+                  fontWeight: FontWeight.w300,
+                ),
+              ),
+            ),
+          ),
           if (_showWrongCredentials)
-            const Text(
-              'Wrong credentials',
-              style: TextStyle(
+            Text(
+              AppLocalizations.of(context)!.loginWrongCredentials,
+              style: const TextStyle(
                 color: Colors.red,
               ),
             ),
@@ -338,7 +343,7 @@ class LoginPageState extends State<LoginPage> {
               ),
               child: _loading
                   ? const CircularProgressIndicator()
-                  : const Text('Login'),
+                  : Text(AppLocalizations.of(context)!.loginButton),
             ),
           ),
         ],

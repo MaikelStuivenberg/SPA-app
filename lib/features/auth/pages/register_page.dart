@@ -67,6 +67,8 @@ class RegisterPageState extends State<RegisterPage> {
         ),
       ),
       showMenu: false,
+      actions: [], // Hide profile icon
+      back: true,  // Show back button
     );
   }
 

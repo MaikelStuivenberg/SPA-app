@@ -1,5 +1,4 @@
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:firebase_remote_config/firebase_remote_config.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -168,8 +167,7 @@ class UserDetailsPageState extends State<UserDetailsPage> {
                       color: Theme.of(context).dividerColor,
                     ),
                     Container(height: 16),
-
-                    LikesOverview(),
+                    Expanded(child: LikesOverview()),
                   ],
                 );
               } else {
