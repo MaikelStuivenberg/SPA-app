@@ -106,7 +106,7 @@ GEM
       xcodeproj (>= 1.13.0, < 2.0.0)
       xcpretty (~> 0.3.0)
       xcpretty-travis-formatter (>= 0.0.3)
-    fastlane-plugin-match_keystore (0.2.1)
+    fastlane-plugin-match_android (0.3.4)
     gh_inspector (1.1.3)
     google-apis-androidpublisher_v3 (0.43.0)
       google-apis-core (>= 0.11.0, < 2.a)
@@ -215,13 +215,11 @@ GEM
       xcpretty (~> 0.2, >= 0.0.7)
 
 PLATFORMS
-  arm64-darwin-22
   arm64-darwin-23
-  x86_64-linux
 
 DEPENDENCIES
   fastlane
-  fastlane-plugin-match_keystore
+  fastlane-plugin-match_android
   pry
 
 BUNDLED WITH
