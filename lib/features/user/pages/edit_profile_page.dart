@@ -193,12 +193,16 @@ class EditProfilePageState extends State<EditProfilePage> {
                                   ),
                                   items: const [
                                     DropdownMenuItem(
-                                      value: 'Brass Class',
-                                      child: Text('Brass Class'),
+                                      value: 'Brass Class - Beginner',
+                                      child: Text('Brass Class - Beginner'),
                                     ),
                                     DropdownMenuItem(
-                                      value: 'Zingen in stijl!',
-                                      child: Text('Zingen in stijl!'),
+                                      value: 'Brass Class - Gevorderd',
+                                      child: Text('Brass Class - Gevorderd'),
+                                    ),
+                                    DropdownMenuItem(
+                                      value: 'Gospel',
+                                      child: Text('Gospel'),
                                     ),
                                     DropdownMenuItem(
                                       value: 'Ritme',
@@ -219,6 +223,10 @@ class EditProfilePageState extends State<EditProfilePage> {
                                     DropdownMenuItem(
                                       value: 'Directie',
                                       child: Text('Directie'),
+                                    ),
+                                    DropdownMenuItem(
+                                      value: 'Musical',
+                                      child: Text('Musical'),
                                     ),
                                   ],
                                   onChanged: (value) {

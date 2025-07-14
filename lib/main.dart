@@ -47,7 +47,7 @@ Future<void> main() async {
     'show_photos_per_page': 8,
     'start_date': '2025-01-18T01:00:00+02:00',
     'end_date': '2024-01-18T23:00:00+02:00',
-    'use_minor': false,
+    'use_minor': true,
   });
 
   await remoteConfig.fetchAndActivate();
