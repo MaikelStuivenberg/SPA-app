@@ -3,7 +3,7 @@ import 'package:spa_app/routes.dart';
 import 'package:spa_app/shared/widgets/primary_card.dart';
 
 class CountdownWidget extends StatelessWidget {
-  CountdownWidget({super.key, required this.targetDate});
+  const CountdownWidget({required this.targetDate, super.key});
   
   final DateTime targetDate;
 

@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
 class NecessitiesTag extends StatelessWidget {
-  final String text;
 
   const NecessitiesTag({required this.text});
+  final String text;
 
   @override
   Widget build(BuildContext context) {

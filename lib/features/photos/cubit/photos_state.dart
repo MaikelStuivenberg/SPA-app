@@ -15,7 +15,7 @@ class PhotosState {
     return PhotosState(
       isLoading: isLoading ?? this.isLoading,
       photos: photos ?? this.photos,
-      currentPage: page ?? this.currentPage,
+      currentPage: page ?? currentPage,
     );
   }
 }

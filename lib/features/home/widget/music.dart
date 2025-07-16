@@ -36,7 +36,7 @@ class _MusicWidgetState extends State<MusicWidget> {
               onTap: () {
                 // Open the Spotify playlist link
                 launchUrl(Uri.parse(
-                    'https://open.spotify.com/playlist/28ZxH1fGEMHhoT9HrpgJb6?si=8d5d2ba4a60c4f43'));
+                    'https://open.spotify.com/playlist/28ZxH1fGEMHhoT9HrpgJb6?si=8d5d2ba4a60c4f43',),);
               },
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,

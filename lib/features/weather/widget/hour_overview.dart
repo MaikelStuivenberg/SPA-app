@@ -20,10 +20,10 @@ class _HourOverviewWidgetState extends State<HourOverviewWidget> {
           return const CircularProgressIndicator();
         }
 
-        var firstDay = state.weather!.forecast![0];
-        var hours = firstDay.hourFourcast
+        final firstDay = state.weather!.forecast![0];
+        final hours = firstDay.hourFourcast
             .where((element) =>
-                DateTime.parse(element.time).isAfter(DateTime.now()))
+                DateTime.parse(element.time).isAfter(DateTime.now()),)
             .take(12)
             .toList();
 
@@ -39,13 +39,13 @@ class _HourOverviewWidgetState extends State<HourOverviewWidget> {
           scrollDirection: Axis.horizontal,
           child: Row(
             children: [
-              for (var hour in hours)
+              for (final hour in hours)
                 CardWidget(
                   child: Column(
                     children: [
                       Text(
                           DateFormat('HH:00').format(DateTime.parse(hour.time)),
-                          style: Theme.of(context).textTheme.bodyLarge),
+                          style: Theme.of(context).textTheme.bodyLarge,),
                       const SizedBox(height: 4),
                       Text(
                         '${hour.temp}°',

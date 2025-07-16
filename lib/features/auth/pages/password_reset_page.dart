@@ -47,7 +47,7 @@ class _PasswordResetPageState extends State<PasswordResetPage> {
           child: Center(
             child: SingleChildScrollView(
               child: Padding(
-                padding: const EdgeInsets.all(24.0),
+                padding: const EdgeInsets.all(24),
                 child: Form(
                   key: _formKey,
                   child: Column(
@@ -73,7 +73,7 @@ class _PasswordResetPageState extends State<PasswordResetPage> {
                             return AppLocalizations.of(context)!.loginEmailRequired;
                           }
                           if (!RegExp(
-                                  r'^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$')
+                                  r'^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$',)
                               .hasMatch(value)) {
                             return AppLocalizations.of(context)!.loginEmailInvalid;
                           }

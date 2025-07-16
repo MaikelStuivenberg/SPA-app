@@ -3,7 +3,6 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:intl/intl.dart';
 import 'package:spa_app/features/program/models/activity.dart';
 import 'package:spa_app/routes.dart';
-import 'package:spa_app/utils/app_colors.dart';
 
 class Programitem extends StatelessWidget {
   const Programitem({

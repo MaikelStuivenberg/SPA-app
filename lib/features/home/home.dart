@@ -63,7 +63,7 @@ class HomePageState extends State<HomePage> {
                   const SizedBox(height: 16),
                   const WeatherWidget(),
                   const SizedBox(height: 8),
-                  if (hoursRemaining <= 6) NextProgramWidget(),
+                  if (hoursRemaining <= 6) const NextProgramWidget(),
                   if (hoursRemaining > 6)
                     CountdownWidget(
                       targetDate: targetDate,

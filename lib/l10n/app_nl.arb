@@ -53,5 +53,9 @@
     "resetPasswordSendButton": "Verzend herstelmail",
     "resetPasswordBackToLogin": "Terug naar inloggen",
     "resetPasswordFailed": "Verzenden van herstelmail mislukt: {error}",
-    "resetPasswordSuccess": "Herstelmail is verzonden!"
+    "resetPasswordSuccess": "Herstelmail is verzonden!",
+    "tasksTab": "Taken",
+    "tasksNoTasks": "Geen taken toegewezen.",
+    "tasksLocation": "Locatie",
+    "tasksDayTime": "{day} - {time}"
 }

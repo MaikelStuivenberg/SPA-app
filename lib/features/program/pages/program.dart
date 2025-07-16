@@ -8,6 +8,8 @@ import 'package:spa_app/features/program/models/activity.dart';
 import 'package:spa_app/features/program/widget/program_item.dart';
 import 'package:spa_app/shared/widgets/default_body.dart';
 import 'package:spa_app/utils/date_formatter.dart';
+import 'package:spa_app/features/tasks/models/task.dart';
+import 'package:spa_app/shared/repositories/task_data.dart';
 
 class ProgramPage extends StatefulWidget {
   const ProgramPage({super.key});
@@ -23,13 +25,65 @@ class ProgramPageState extends State<ProgramPage> {
   late DateTime minDate;
   late DateTime maxDate;
 
+  Set<String> _doneTaskIds = <String>{};
+  bool _doneTasksLoaded = false;
+
   @override
   void initState() {
     super.initState();
+    _loadDoneTasks();
+  }
+
+  Future<void> _loadDoneTasks() async {
+    final doneIds = await TaskDataRepository().getDoneTaskIds();
+    setState(() {
+      _doneTaskIds = doneIds;
+      _doneTasksLoaded = true;
+    });
   }
 
   @override
   Widget build(BuildContext context) {
+    return BlocBuilder<AuthCubit, AuthState>(
+      builder: (context, authState) {
+        final isStaffOrTentLeader = authState is AuthStateSuccess &&
+            ((authState.user.staff ?? false) ||
+                (authState.user.tentLeader ?? false));
+        final userId = authState is AuthStateSuccess ? authState.user.id : null;
+
+        return DefaultTabController(
+          length: isStaffOrTentLeader ? 2 : 1,
+          child: Scaffold(
+            appBar: AppBar(
+              title: Text(AppLocalizations.of(context)!.programTitle),
+              bottom: TabBar(
+                labelColor: Colors.white,
+                unselectedLabelColor: Colors.white.withOpacity(0.5),
+                indicatorColor: Colors.white,
+                tabs: [
+                  Tab(text: AppLocalizations.of(context)!.programTitle),
+                  if (isStaffOrTentLeader)
+                    Tab(text: AppLocalizations.of(context)!.tasksTab),
+                ],
+              ),
+            ),
+            body: SafeArea(
+              minimum: const EdgeInsets.fromLTRB(0, 0, 0, 24),
+              child: TabBarView(
+                children: [
+                  _buildProgramTab(context),
+                  if (isStaffOrTentLeader && userId != null)
+                    _buildTasksTab(context, userId),
+                ],
+              ),
+            ),
+          ),
+        );
+      },
+    );
+  }
+
+  Widget _buildProgramTab(BuildContext context) {
     // Wait till pageController has clients
     // and then move to page with current date
     WidgetsBinding.instance.addPostFrameCallback((_) {
@@ -40,65 +94,62 @@ class ProgramPageState extends State<ProgramPage> {
       }
     });
 
-    return DefaultScaffoldWidget(
-      AppLocalizations.of(context)!.programTitle,
-      BlocBuilder<ProgramCubit, ProgramState>(
-        bloc: BlocProvider.of<ProgramCubit>(context),
-        builder: (context, programState) {
-          if (programState.isLoading) {
-            return const Center(
-              child: CircularProgressIndicator(),
-            );
-          }
-
-          if (programState.program == null || programState.program!.isEmpty) {
-            return Center(
-              child: Text(AppLocalizations.of(context)!.programNoActivitiesYet),
-            );
-          }
-
-          minDate = programState.program!.first.date!;
-          maxDate = programState.program!.last.date!;
-
-          return RefreshIndicator(
-            child: Stack(
-              children: [
-                Column(
-                  children: [
-                    Expanded(
-                      child: PageView(
-                        controller: _pageController,
-                        children: [
-                          for (var i = 0; i <= programState.amountOfDays; i++)
-                            _buildProgramWidget(
-                              programState
-                                  .activities(minDate.add(Duration(days: i))),
-                            ),
-                        ],
-                      ),
-                    ),
-                    Container(
-                      margin: const EdgeInsets.fromLTRB(0, 0, 0, 36),
-                      child: SmoothPageIndicator(
-                        controller: _pageController, // PageController
-                        count: programState.amountOfDays,
-                        effect: const WormEffect(
-                          // dotColor: AppColors.mainColor,
-                          // activeDotColor: AppColors.secondaryColor,
-                          dotHeight: 8,
-                        ), // your preferred effect
-                        onDotClicked: (index) {},
-                      ),
-                    ),
-                  ],
-                ),
-              ],
-            ),
-            onRefresh: () =>
-                BlocProvider.of<ProgramCubit>(context).fetchProgram(),
+    return BlocBuilder<ProgramCubit, ProgramState>(
+      bloc: BlocProvider.of<ProgramCubit>(context),
+      builder: (context, programState) {
+        if (programState.isLoading) {
+          return const Center(
+            child: CircularProgressIndicator(),
           );
-        },
-      ),
+        }
+
+        if (programState.program == null || programState.program!.isEmpty) {
+          return Center(
+            child: Text(AppLocalizations.of(context)!.programNoActivitiesYet),
+          );
+        }
+
+        minDate = programState.program!.first.date!;
+        maxDate = programState.program!.last.date!;
+
+        return RefreshIndicator(
+          child: Stack(
+            children: [
+              Column(
+                children: [
+                  Expanded(
+                    child: PageView(
+                      controller: _pageController,
+                      children: [
+                        for (var i = 0; i <= programState.amountOfDays; i++)
+                          _buildProgramWidget(
+                            programState
+                                .activities(minDate.add(Duration(days: i))),
+                          ),
+                      ],
+                    ),
+                  ),
+                  Container(
+                    margin: const EdgeInsets.fromLTRB(0, 12, 0, 0),
+                    child: SmoothPageIndicator(
+                      controller: _pageController, // PageController
+                      count: programState.amountOfDays,
+                      effect: const WormEffect(
+                        // dotColor: AppColors.mainColor,
+                        // activeDotColor: AppColors.secondaryColor,
+                        dotHeight: 8,
+                      ), // your preferred effect
+                      onDotClicked: (index) {},
+                    ),
+                  ),
+                ],
+              ),
+            ],
+          ),
+          onRefresh: () =>
+              BlocProvider.of<ProgramCubit>(context).fetchProgram(),
+        );
+      },
     );
   }
 
@@ -162,8 +213,7 @@ class ProgramPageState extends State<ProgramPage> {
                   el.requirements == null ||
                   !el.requirements!.containsKey('staff') ||
                   el.requirements!['staff'] == false ||
-                  (user.staff != null &&
-                      user.staff!),
+                  (user.staff != null && user.staff!),
             )
 
             // Only relevant activities for staff
@@ -172,8 +222,7 @@ class ProgramPageState extends State<ProgramPage> {
                   el.requirements == null ||
                   !el.requirements!.containsKey('tentLeader') ||
                   el.requirements!['tentLeader'] == false ||
-                  (user.tentLeader != null &&
-                      user.tentLeader!),
+                  (user.tentLeader != null && user.tentLeader!),
             )
 
             // Only relevant activities for biblestudy leaders
@@ -182,8 +231,7 @@ class ProgramPageState extends State<ProgramPage> {
                   el.requirements == null ||
                   !el.requirements!.containsKey('biblestudyLeader') ||
                   el.requirements!['biblestudyLeader'] == false ||
-                  (user.biblestudyLeader != null &&
-                      user.biblestudyLeader!),
+                  (user.biblestudyLeader != null && user.biblestudyLeader!),
             )
 
             // Filter on age <13
@@ -211,46 +259,111 @@ class ProgramPageState extends State<ProgramPage> {
             )
             .toList();
 
-        return SafeArea(
-          bottom: false,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Container(height: 16),
-              Center(
-                child: Text(
-                  DateFormatter(filteredActivities.first.date!, context)
-                      .formatAsDayname(),
-                  style: Theme.of(context).textTheme.headlineLarge,
+        return Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Container(height: 16),
+            Center(
+              child: Text(
+                DateFormatter(filteredActivities.first.date!, context)
+                    .formatAsDayname(),
+                style: Theme.of(context).textTheme.headlineLarge,
+              ),
+            ),
+            Container(height: 10),
+            Expanded(
+              child: Container(
+                margin: const EdgeInsets.fromLTRB(16, 0, 16, 0),
+                child: ListView.builder(
+                  controller: _listViewController,
+                  itemCount: filteredActivities.length,
+                  itemBuilder: (BuildContext context, int index) {
+                    return Programitem(
+                      isPast: filteredActivities[index]
+                          .date!
+                          .isBefore(DateTime.now()),
+                      isCurrent: isCurrentItem(
+                        filteredActivities[index],
+                        index + 1 < filteredActivities.length
+                            ? filteredActivities[index + 1]
+                            : null,
+                        DateTime.now(),
+                      ),
+                      activity: filteredActivities[index],
+                    );
+                  },
                 ),
               ),
-              Container(height: 10),
-              Expanded(
-                child: Container(
-                  margin: const EdgeInsets.fromLTRB(16, 0, 16, 0),
-                  child: ListView.builder(
-                    controller: _listViewController,
-                    itemCount: filteredActivities.length,
-                    itemBuilder: (BuildContext context, int index) {
-                      return Programitem(
-                        isPast: filteredActivities[index]
-                            .date!
-                            .isBefore(DateTime.now()),
-                        isCurrent: isCurrentItem(
-                          filteredActivities[index],
-                          index + 1 < filteredActivities.length
-                              ? filteredActivities[index + 1]
-                              : null,
-                          DateTime.now(),
-                        ),
-                        activity: filteredActivities[index],
-                      );
-                    },
-                  ),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+  Widget _buildTasksTab(BuildContext context, String userId) {
+    return FutureBuilder<List<Task>>(
+      future: TaskDataRepository().getTasksForUser(userId),
+      builder: (context, snapshot) {
+        if (!_doneTasksLoaded ||
+            snapshot.connectionState != ConnectionState.done) {
+          return const Center(child: CircularProgressIndicator());
+        }
+        final tasks = snapshot.data ?? [];
+        if (tasks.isEmpty) {
+          return Center(
+              child: Text(AppLocalizations.of(context)!.tasksNoTasks));
+        }
+        final undoneTasks =
+            tasks.where((t) => !_doneTaskIds.contains(t.id)).toList();
+        final doneTasks =
+            tasks.where((t) => _doneTaskIds.contains(t.id)).toList();
+        undoneTasks.sort((a, b) => a.date.compareTo(b.date));
+        doneTasks.sort((a, b) => a.date.compareTo(b.date));
+        final allTasks = [...undoneTasks, ...doneTasks];
+        return ListView.builder(
+          itemCount: allTasks.length,
+          itemBuilder: (context, index) {
+            final task = allTasks[index];
+            final isDone = _doneTaskIds.contains(task.id);
+            final day = DateFormatter(task.date, context).formatAsDayname();
+            final time = TimeOfDay.fromDateTime(task.date).format(context);
+            return Card(
+              margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+              child: ListTile(
+                leading: Checkbox(
+                  value: isDone,
+                  onChanged: (checked) async {
+                    await TaskDataRepository()
+                        .setTaskDone(task.id, checked ?? false);
+                    setState(() {
+                      if (checked ?? false) {
+                        _doneTaskIds.add(task.id);
+                      } else {
+                        _doneTaskIds.remove(task.id);
+                      }
+                    });
+                  },
+                ),
+                title: Text(
+                  task.title,
+                  style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                        decoration: isDone ? TextDecoration.lineThrough : null,
+                        color: isDone ? Colors.grey : null,
+                      ),
+                ),
+                subtitle: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(AppLocalizations.of(context)!.tasksDayTime(day, time)),
+                    Text(
+                        '${AppLocalizations.of(context)!.tasksLocation}: ${task.location}'),
+                    if (task.description.isNotEmpty) Text(task.description),
+                  ],
                 ),
               ),
-            ],
-          ),
+            );
+          },
         );
       },
     );

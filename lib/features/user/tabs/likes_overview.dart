@@ -12,7 +12,7 @@ import 'package:spa_app/shared/repositories/photo_data.dart';
 import 'package:spa_app/shared/repositories/user_data.dart';
 
 class LikesOverview extends StatefulWidget {
-  LikesOverview({super.key});
+  const LikesOverview({super.key});
 
   @override
   State<LikesOverview> createState() => _LikesOverviewState();
@@ -55,7 +55,7 @@ class _LikesOverviewState extends State<LikesOverview> {
     final repo = PhotoDataRepository();
     Query query = repo.photosCollection
         .where('likedBy',
-            arrayContains: (await UserDataRepository().getFirebaseUser()).id)
+            arrayContains: (await UserDataRepository().getFirebaseUser()).id,)
         .orderBy(FieldPath.documentId, descending: true)
         .limit(_pageSize);
     if (_lastDoc != null) {
@@ -82,9 +82,9 @@ class _LikesOverviewState extends State<LikesOverview> {
       final photoData = Photo(
         id: photoId,
         url: sizes.firstWhere((element) =>
-            element['label'].toString() == 'Large 2048')['source'] as String,
+            element['label'].toString() == 'Large 2048',)['source'] as String,
         thumbnailUrl: sizes.firstWhere(
-                (element) => element['label'].toString() == 'Medium')['source']
+                (element) => element['label'].toString() == 'Medium',)['source']
             as String,
         likes: await repo.getLikes(photoId),
         likedBy: await repo.getLikedBy(photoId),
@@ -145,7 +145,7 @@ class _LikesOverviewState extends State<LikesOverview> {
                       // Loading indicator at the bottom
                       return const Center(
                         child: Padding(
-                          padding: EdgeInsets.all(16.0),
+                          padding: EdgeInsets.all(16),
                           child: CircularProgressIndicator(),
                         ),
                       );

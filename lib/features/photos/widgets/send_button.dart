@@ -8,8 +8,7 @@ import 'package:spa_app/features/photos/widgets/photo.dart';
 
 class SendButton extends StatelessWidget {
   const SendButton({
-    super.key,
-    required this.widget,
+    required this.widget, super.key,
   });
 
   final PhotoStateWidget widget;

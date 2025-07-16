@@ -84,11 +84,11 @@ class _UpcomingDaysWidgetState extends State<UpcomingDaysWidget> {
                           ),
                           const Spacer(),
                           Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                            padding: const EdgeInsets.symmetric(horizontal: 8),
                             child: Text(
                               '${weatherForecast.maxtemp}°',
                               style:
-                                  Theme.of(context).textTheme.headlineLarge
+                                  Theme.of(context).textTheme.headlineLarge,
                             ),
                           ),
                         ],

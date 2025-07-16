@@ -57,7 +57,7 @@ class MapPageState extends State<MapPage> {
                     const MapItemWidget('Serre', 'Media'),
                     const MapItemWidget('Korbelzaal', 'Brass Class - Beginner'),
                     const MapItemWidget(
-                        'Schochzaal', 'Brass Class - Gevorderd'),
+                        'Schochzaal', 'Brass Class - Gevorderd',),
                     const MapItemWidget('Witte tent', 'Handige Handjes'),
                     const MapItemWidget('Heritage', 'Musical'),
                     const MapItemWidget('Bosshardt', 'Gospel'),

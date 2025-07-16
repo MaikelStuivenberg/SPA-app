@@ -53,5 +53,9 @@
   "resetPasswordSendButton": "Send Reset Email",
   "resetPasswordBackToLogin": "Back to Login",
   "resetPasswordFailed": "Failed to send reset email: {error}",
-  "resetPasswordSuccess": "Password reset email sent!"
+  "resetPasswordSuccess": "Password reset email sent!",
+  "tasksTab": "Tasks",
+  "tasksNoTasks": "No tasks assigned.",
+  "tasksLocation": "Location",
+  "tasksDayTime": "{day} - {time}"
 }

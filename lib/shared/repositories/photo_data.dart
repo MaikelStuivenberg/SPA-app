@@ -128,9 +128,9 @@ class PhotoDataRepository {
       final photoData = Photo(
         id: photoId,
         url: sizes.firstWhere((element) =>
-            element['label'].toString() == 'Large 2048')['source'] as String,
+            element['label'].toString() == 'Large 2048',)['source'] as String,
         thumbnailUrl: sizes.firstWhere(
-                (element) => element['label'].toString() == 'Medium')['source']
+                (element) => element['label'].toString() == 'Medium',)['source']
             as String,
         likes: await getLikes(photoId),
         likedBy: await getLikedBy(photoId),

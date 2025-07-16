@@ -7,8 +7,7 @@ import 'package:spa_app/features/photos/widgets/photo.dart';
 
 class DownloadButton extends StatelessWidget {
   const DownloadButton({
-    super.key,
-    required this.widget,
+    required this.widget, super.key,
   });
 
   final PhotoStateWidget widget;
@@ -19,15 +18,6 @@ class DownloadButton extends StatelessWidget {
       onPressed: () async {
         final response = await http.get(Uri.parse(widget.photo.url));
         final directory = await getTemporaryDirectory();
-
-        if (directory == null) {
-          ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(
-                content: Text(
-                    'Het lukt op jouw telefoon niet om de fot-o op te slapen. Gebruik de verstuur optie om de foto te delen.')),
-          );
-          return;
-        }
 
         final path = directory.path;
         final file = File('$path/SPA.jpg');

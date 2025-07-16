@@ -32,7 +32,7 @@ class BibleStudyPageState extends State<BibleStudyPage> {
               // crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text('LOOK UP!',
-                    style: Theme.of(context).textTheme.headlineLarge),
+                    style: Theme.of(context).textTheme.headlineLarge,),
                 const SizedBox(height: 4),
                 _buildBenodigdheden(),
                 const SizedBox(height: 16),
@@ -131,7 +131,7 @@ class BibleStudyPageState extends State<BibleStudyPage> {
             ),
             const SizedBox(height: 8),
             const Text(
-                '· Als de leider "Kijk naar elkaar" zegt, moeten iedereen naar iemand anders in de cirkel kijken. Als twee mensen elkaar in de ogen kijken, vallen jullie beide uit het spel.'),
+                '· Als de leider "Kijk naar elkaar" zegt, moeten iedereen naar iemand anders in de cirkel kijken. Als twee mensen elkaar in de ogen kijken, vallen jullie beide uit het spel.',),
             const SizedBox(height: 8),
             const Text('· Ga door totdat er een paar winnaars overblijven.'),
             const SizedBox(height: 8),
@@ -326,7 +326,7 @@ class BibleStudyPageState extends State<BibleStudyPage> {
                 ),
                 const SizedBox(height: 8),
                 const Text(
-                    'God heeft ons veel beloften gegeven in de Bijbel. Deze beloften helpen ons om te weten dat we nooit alleen zijn, zelfs niet als het moeilijk is. Vandaag gaan jullie een belofte kiezen die jullie aanspreekt. Kijk goed naar de versen die we hebben en kies degene die jou het meeste helpt. Misschien is dat een belofte die je geruststelt als je bang bent, of eentje die je herinnert dat God altijd bij je is.'),
+                    'God heeft ons veel beloften gegeven in de Bijbel. Deze beloften helpen ons om te weten dat we nooit alleen zijn, zelfs niet als het moeilijk is. Vandaag gaan jullie een belofte kiezen die jullie aanspreekt. Kijk goed naar de versen die we hebben en kies degene die jou het meeste helpt. Misschien is dat een belofte die je geruststelt als je bang bent, of eentje die je herinnert dat God altijd bij je is.',),
                 const SizedBox(height: 8),
                 const Text(
                   'Nu gaan jullie je potje versieren! Gebruik de materialen die je hebt (stickers, markers, glitters, etc.) en maak het potje helemaal van jou. Als je bijvoorbeeld kiest voor de belofte "Ik zal je leven beschermen", kun je het potje versieren met een schild of een hartje. Wees creatief!',
@@ -354,14 +354,14 @@ class BibleStudyPageState extends State<BibleStudyPage> {
                 ),
                 const SizedBox(height: 8),
                 const Text(
-                    'In de Bijbel heeft God ons veel beloften gegeven die ons helpen om te groeien in ons geloof en om ons te herinneren dat Hij altijd bij ons is, zelfs als het moeilijk is. Vandaag ga je een belofte kiezen die jou het meeste aanspreekt. Lees de versen die we hebben voorbereid en kies degene die jou het meeste raakt. Misschien spreekt een belofte je aan omdat je momenteel door een lastige tijd gaat, of omdat je behoefte hebt aan Gods kracht of liefde.'),
+                    'In de Bijbel heeft God ons veel beloften gegeven die ons helpen om te groeien in ons geloof en om ons te herinneren dat Hij altijd bij ons is, zelfs als het moeilijk is. Vandaag ga je een belofte kiezen die jou het meeste aanspreekt. Lees de versen die we hebben voorbereid en kies degene die jou het meeste raakt. Misschien spreekt een belofte je aan omdat je momenteel door een lastige tijd gaat, of omdat je behoefte hebt aan Gods kracht of liefde.',),
                 const SizedBox(height: 8),
                 const Text(
                   'Hieronder zijn een paar voorbeelden van beloften die je kunt kiezen (maar je mag natuurlijk ook zelf opzoek gaan naar belofte van God die jou aanspreekt!).',
                 ),
                 const SizedBox(height: 8),
                 const Text(
-                    'Kies de belofte die jou het meeste aanspreekt en schrijf deze duidelijk op het kaartje. Je kunt de versen letterlijk overnemen of in je eigen woorden opschrijven wat het voor jou betekent. Neem de tijd om er goed over na te denken. Wat doet deze belofte met je? Hoe kan deze belofte je helpen in je dagelijks leven?'),
+                    'Kies de belofte die jou het meeste aanspreekt en schrijf deze duidelijk op het kaartje. Je kunt de versen letterlijk overnemen of in je eigen woorden opschrijven wat het voor jou betekent. Neem de tijd om er goed over na te denken. Wat doet deze belofte met je? Hoe kan deze belofte je helpen in je dagelijks leven?',),
                 const SizedBox(height: 16),
                 Text(
                   'Jesaja 41:10',
