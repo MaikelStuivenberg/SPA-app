@@ -301,6 +301,7 @@ class EditProfilePageState extends State<EditProfilePage> {
                                 child: ElevatedButton.icon(
                                   icon: const Icon(
                                     Icons.logout,
+                                    color: Colors.white,
                                   ),
                                   onPressed: () {
                                     FirebaseAuth.instance.signOut();
@@ -316,6 +317,63 @@ class EditProfilePageState extends State<EditProfilePage> {
                                     ),
                                   ),
                                   label: const Text('Logout'),
+                                ),
+                              ),
+                              const SizedBox(height: 8),
+                              BlocListener<AuthCubit, AuthState>(
+                                listener: (context, state) {
+                                  if (state is AuthStateError) {
+                                    ScaffoldMessenger.of(context).showSnackBar(
+                                      SnackBar(content: Text(state.errorMessage)),
+                                    );
+                                  } else if (state is AuthStateInitial) {
+                                    Navigator.of(context).pushNamedAndRemoveUntil(
+                                      Routes.login,
+                                      (route) => false,
+                                    );
+                                  }
+                                },
+                                child: SizedBox(
+                                  width: double.infinity,
+                                  child: ElevatedButton.icon(
+                                    icon: const Icon(Icons.delete_forever, color: Colors.red),
+                                    label: Text(
+                                      AppLocalizations.of(context)!.deleteAccountButton,
+                                      style: const TextStyle(color: Colors.red),
+                                    ),
+                                    style: ElevatedButton.styleFrom(
+                                      backgroundColor: Colors.white,
+                                      side: const BorderSide(color: Colors.red),
+                                      shape: RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.circular(8),
+                                      ),
+                                    ),
+                                    onPressed: () async {
+                                      final confirmed = await showDialog<bool>(
+                                        context: context,
+                                        builder: (context) => AlertDialog(
+                                          title: Text(AppLocalizations.of(context)!.deleteAccountTitle),
+                                          content: Text(AppLocalizations.of(context)!.deleteAccountDescription),
+                                          actions: [
+                                            TextButton(
+                                              onPressed: () => Navigator.of(context).pop(false),
+                                              child: Text(AppLocalizations.of(context)!.deleteAccountCancel),
+                                            ),
+                                            TextButton(
+                                              onPressed: () => Navigator.of(context).pop(true),
+                                              child: Text(
+                                                AppLocalizations.of(context)!.deleteAccountConfirm,
+                                                style: const TextStyle(color: Colors.red),
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      );
+                                      if (confirmed == true) {
+                                        context.read<AuthCubit>().deleteAccount();
+                                      }
+                                    },
+                                  ),
                                 ),
                               ),
                             ],

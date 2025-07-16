@@ -57,5 +57,10 @@
     "tasksTab": "Taken",
     "tasksNoTasks": "Geen taken toegewezen.",
     "tasksLocation": "Locatie",
-    "tasksDayTime": "{day} - {time}"
+    "tasksDayTime": "{day} - {time}",
+    "deleteAccountButton": "Account verwijderen",
+    "deleteAccountTitle": "Account verwijderen",
+    "deleteAccountDescription": "Weet je zeker dat je je account wilt verwijderen? Deze actie kan niet ongedaan worden gemaakt.",
+    "deleteAccountCancel": "Annuleren",
+    "deleteAccountConfirm": "Verwijderen"
 }

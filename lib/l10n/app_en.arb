@@ -57,5 +57,10 @@
   "tasksTab": "Tasks",
   "tasksNoTasks": "No tasks assigned.",
   "tasksLocation": "Location",
-  "tasksDayTime": "{day} - {time}"
+  "tasksDayTime": "{day} - {time}",
+  "deleteAccountButton": "Delete Account",
+  "deleteAccountTitle": "Delete Account",
+  "deleteAccountDescription": "Are you sure you want to delete your account? This action cannot be undone.",
+  "deleteAccountCancel": "Cancel",
+  "deleteAccountConfirm": "Delete"
 }

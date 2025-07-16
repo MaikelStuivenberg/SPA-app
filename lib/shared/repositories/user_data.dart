@@ -93,4 +93,20 @@ class UserDataRepository {
 
     return user;
   }
+
+  Future<void> deleteCurrentUserData() async {
+    final uid = FirebaseAuth.instance.currentUser!.uid;
+    // Delete Firestore user document
+    await FirebaseFirestore.instance.collection('users').doc(uid).delete();
+    // Delete all profile images from Storage
+    final storageRef = FirebaseStorage.instance.ref().child('users').child(uid).child('profile');
+    try {
+      final items = await storageRef.listAll();
+      for (final item in items.items) {
+        await item.delete();
+      }
+    } catch (e) {
+      // Ignore if folder does not exist
+    }
+  }
 }

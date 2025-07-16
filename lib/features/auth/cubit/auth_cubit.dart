@@ -104,4 +104,17 @@ class AuthCubit extends Cubit<AuthState> {
       emit(AuthStateError(e.toString()));
     }
   }
+
+  Future<void> deleteAccount() async {
+    emit(AuthStateLoading());
+    try {
+      final user = FirebaseAuth.instance.currentUser;
+      if (user == null) throw Exception('No user logged in');
+      await getIt<UserDataRepository>().deleteCurrentUserData();
+      await user.delete();
+      emit(AuthStateInitial());
+    } catch (e) {
+      emit(AuthStateError(e.toString()));
+    }
+  }
 }
