@@ -53,9 +53,9 @@ platform :ios do
         export_compliance_uses_encryption: false,
       },
       release_notes: {
-        'default': 'First SPA 2025 preperations',
-        'en-GB': 'First SPA 2025 preperations!',
-        'nl-NL': 'Eerste SPA 2025 voorbereidingen!',
+        'default': 'Small bug fixes in the program and a new map',
+        'en-GB': 'Small bug fixes in the program and a new map',
+        'nl-NL': 'Kleine bug fixes in het programma en een nieuwe kaart',
       }
     )
   end

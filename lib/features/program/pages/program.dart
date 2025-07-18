@@ -133,7 +133,7 @@ class ProgramPageState extends State<ProgramPage> {
                     margin: const EdgeInsets.fromLTRB(0, 12, 0, 0),
                     child: SmoothPageIndicator(
                       controller: _pageController, // PageController
-                      count: programState.amountOfDays,
+                      count: programState.amountOfDays + 1,
                       effect: const WormEffect(
                         // dotColor: AppColors.mainColor,
                         // activeDotColor: AppColors.secondaryColor,
@@ -356,6 +356,7 @@ class ProgramPageState extends State<ProgramPage> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(AppLocalizations.of(context)!.tasksDayTime(day, time)),
+                    if (task.location.isNotEmpty)
                     Text(
                         '${AppLocalizations.of(context)!.tasksLocation}: ${task.location}'),
                     if (task.description.isNotEmpty) Text(task.description),
