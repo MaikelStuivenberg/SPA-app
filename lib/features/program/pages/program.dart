@@ -6,10 +6,11 @@ import 'package:spa_app/features/auth/cubit/auth_cubit.dart';
 import 'package:spa_app/features/program/cubit/program_cubit.dart';
 import 'package:spa_app/features/program/models/activity.dart';
 import 'package:spa_app/features/program/widget/program_item.dart';
-import 'package:spa_app/shared/widgets/default_body.dart';
-import 'package:spa_app/utils/date_formatter.dart';
 import 'package:spa_app/features/tasks/models/task.dart';
+import 'package:spa_app/features/tasks/pages/all_tasks_page.dart';
+import 'package:spa_app/features/tasks/pages/task_details_page.dart';
 import 'package:spa_app/shared/repositories/task_data.dart';
+import 'package:spa_app/utils/date_formatter.dart';
 
 class ProgramPage extends StatefulWidget {
   const ProgramPage({super.key});
@@ -56,6 +57,21 @@ class ProgramPageState extends State<ProgramPage> {
           child: Scaffold(
             appBar: AppBar(
               title: Text(AppLocalizations.of(context)!.programTitle),
+              actions: [
+                if (isStaffOrTentLeader)
+                  IconButton(
+                    icon: const Icon(Icons.list),
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const AllTasksPage(),
+                        ),
+                      );
+                    },
+                    tooltip: AppLocalizations.of(context)!.tasksAllTasks,
+                  ),
+              ],
               bottom: TabBar(
                 labelColor: Colors.white,
                 unselectedLabelColor: Colors.white.withOpacity(0.5),
@@ -330,37 +346,48 @@ class ProgramPageState extends State<ProgramPage> {
             final time = TimeOfDay.fromDateTime(task.date).format(context);
             return Card(
               margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-              child: ListTile(
-                leading: Checkbox(
-                  value: isDone,
-                  onChanged: (checked) async {
-                    await TaskDataRepository()
-                        .setTaskDone(task.id, checked ?? false);
-                    setState(() {
-                      if (checked ?? false) {
-                        _doneTaskIds.add(task.id);
-                      } else {
-                        _doneTaskIds.remove(task.id);
-                      }
-                    });
-                  },
-                ),
-                title: Text(
-                  task.title,
-                  style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                        decoration: isDone ? TextDecoration.lineThrough : null,
-                        color: isDone ? Colors.grey : null,
-                      ),
-                ),
-                subtitle: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(AppLocalizations.of(context)!.tasksDayTime(day, time)),
-                    if (task.location.isNotEmpty)
-                    Text(
-                        '${AppLocalizations.of(context)!.tasksLocation}: ${task.location}'),
-                    if (task.description.isNotEmpty) Text(task.description),
-                  ],
+              child: InkWell(
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => TaskDetailsPage(task: task),
+                    ),
+                  );
+                },
+                child: ListTile(
+                  leading: Checkbox(
+                    value: isDone,
+                    onChanged: (checked) async {
+                      await TaskDataRepository()
+                          .setTaskDone(task.id, checked ?? false);
+                      setState(() {
+                        if (checked ?? false) {
+                          _doneTaskIds.add(task.id);
+                        } else {
+                          _doneTaskIds.remove(task.id);
+                        }
+                      });
+                    },
+                  ),
+                  title: Text(
+                    task.title,
+                    style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                          decoration: isDone ? TextDecoration.lineThrough : null,
+                          color: isDone ? Colors.grey : null,
+                        ),
+                  ),
+                  subtitle: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(AppLocalizations.of(context)!.tasksDayTime(day, time)),
+                      if (task.location.isNotEmpty)
+                      Text(
+                          '${AppLocalizations.of(context)!.tasksLocation}: ${task.location}'),
+                      if (task.description.isNotEmpty) Text(task.description),
+                    ],
+                  ),
+                  trailing: const Icon(Icons.arrow_forward_ios, size: 16),
                 ),
               ),
             );

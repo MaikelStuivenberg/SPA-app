@@ -53,9 +53,9 @@ platform :ios do
         export_compliance_uses_encryption: false,
       },
       release_notes: {
-        'default': 'Small bug fixes in the program and a new map',
-        'en-GB': 'Small bug fixes in the program and a new map',
-        'nl-NL': 'Kleine bug fixes in het programma en een nieuwe kaart',
+        'default': 'Some additions for leaders',
+        'en-GB': 'Some additions for leaders',
+        'nl-NL': 'Kleine aanpassingen voor leiders',
       }
     )
   end
