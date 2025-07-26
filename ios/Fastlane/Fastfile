@@ -53,9 +53,9 @@ platform :ios do
         export_compliance_uses_encryption: false,
       },
       release_notes: {
-        'default': 'Some additions for leaders',
-        'en-GB': 'Some additions for leaders',
-        'nl-NL': 'Kleine aanpassingen voor leiders',
+        'default': 'Bugfixes',
+        'en-GB': 'Bugfixes',
+        'nl-NL': 'Bugfixes',
       }
     )
   end

@@ -6,6 +6,7 @@ import 'package:spa_app/features/home/widget/next_program.dart';
 import 'package:spa_app/features/home/widget/photo.dart';
 import 'package:spa_app/features/home/widget/weather.dart';
 import 'package:spa_app/shared/repositories/user_data.dart';
+import 'package:firebase_remote_config/firebase_remote_config.dart';
 import 'package:spa_app/shared/widgets/default_body.dart';
 
 class HomePage extends StatefulWidget {
@@ -40,7 +41,9 @@ class HomePageState extends State<HomePage> {
 
         final user = snapshot;
 
-        final targetDate = DateTime(2025, 7, 19, 14);
+        // Fetch countdown_date from Firebase Remote Config
+        final countdownDateString = FirebaseRemoteConfig.instance.getString('countdown_date');
+        final targetDate = DateTime.parse(countdownDateString);
         final now = DateTime.now();
         final hoursRemaining = targetDate.difference(now).inHours;
 

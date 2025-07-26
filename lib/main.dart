@@ -48,6 +48,8 @@ Future<void> main() async {
     'start_date': '2025-01-18T01:00:00+02:00',
     'end_date': '2024-01-18T23:00:00+02:00',
     'use_minor': true,
+    'countdown_date': '2026-01-17T10:00:00+02:00', // Default countdown date
+    'countdown_event': 'SPA Pre Party 2026',
   });
 
   await remoteConfig.fetchAndActivate();

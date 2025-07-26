@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:spa_app/routes.dart';
 import 'package:spa_app/shared/widgets/primary_card.dart';
+import 'package:firebase_remote_config/firebase_remote_config.dart';
 
 class CountdownWidget extends StatelessWidget {
   const CountdownWidget({required this.targetDate, super.key});
@@ -36,7 +37,7 @@ class CountdownWidget extends StatelessWidget {
                     ),
               ),
               Text(
-                'tot SPA 2025',
+                'tot ' + FirebaseRemoteConfig.instance.getString('countdown_event'),
                 style: Theme.of(context).textTheme.bodyLarge!.copyWith(
                       color: Theme.of(context).colorScheme.onPrimary,
                     ),
