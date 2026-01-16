@@ -31,7 +31,7 @@ class BibleStudyPageState extends State<BibleStudyPage> {
             child: Column(
               // crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text('LOOK UP!',
+                Text('IN THE LIGHT',
                     style: Theme.of(context).textTheme.headlineLarge,),
                 const SizedBox(height: 4),
                 _buildBenodigdheden(),
@@ -76,16 +76,10 @@ class BibleStudyPageState extends State<BibleStudyPage> {
   Widget _buildBenodigdheden() {
     return const Column(
       children: [
-        // Text(
-        //   'Benodigdheden',
-        //   style: Theme.of(context).textTheme.bodyLarge!,//.copyWith(color: Theme.of(context).primaryColor, fontWeight: FontWeight.bold),
-        // ),
-        // const SizedBox(height: 8),
         Row(
           children: [
-            NecessitiesTag(text: 'Belofte kaartjes (13+)'),
-            NecessitiesTag(text: 'Potjes (13-)'),
-            NecessitiesTag(text: 'Bijbelversen (13-)'),
+            NecessitiesTag(text: 'Kraspapier'),
+            NecessitiesTag(text: 'Kraspen / sateprikker'),
           ],
         ),
       ],
@@ -105,7 +99,7 @@ class BibleStudyPageState extends State<BibleStudyPage> {
         ),
         const SizedBox(height: 8),
         Text(
-          'Vandaag gaan we nadenken over het thema "Look Up" – omhoog kijken naar God, vooral wanneer het moeilijk is. Vorig jaar leerden we over "Grow" – groeien in ons geloof. Hoe meer we groeien, hoe meer we beseffen dat we God altijd nodig hebben. In de Bijbeltekst die we vandaag gaan lezen zegt God: “Wees niet bang, want Ik ben bij je” (Jesaja 43:5). God belooft ons altijd te helpen, zelfs in moeilijke tijden. Hoe mooi dat we altijd mogen weten dat er iemand is die het beste met ons voor heeft en ons tegen het kwade wil beschermen? In Jesaja 43:4 zegt Hij: “Je bent kostbaar in mijn ogen, ik houd van jou”. Dus, als je je onzeker voelt, kijk omhoog naar God en vertrouw op Zijn belofte dat Hij altijd bij je is.',
+          'Vorig jaar leerden we over "Look up", toen keken we naar God/ Jezus, leerden we erop te vertrouwen dat Hij de weg weet en er altijd bij zal zijn.\n\nVandaag gaan we nadenken over het thema "In the light". In het licht gaan staan en kinderen van het licht zijn.\n\nHier staat iets over in de bijbel, in Efeze 5:8, maar voordat we daarnaar gaan kijken, doen we eerst even een Icebreaker!',
           style: Theme.of(context).textTheme.bodyMedium,
         ),
       ],
@@ -127,18 +121,16 @@ class BibleStudyPageState extends State<BibleStudyPage> {
                   .copyWith(fontWeight: FontWeight.bold),
             ),
             const Text(
-              '· Ga in een cirkel staan. Zometeen zegt één van jullie de woorden "Kijk omhoog", dan moet iedereen omhoog kijken, wanneer de leider de woorden "Kijk omlaag" zegt, kijkt iedereen naar beneden.',
+              'Om elkaars namen te leren kennen en te ervaren wat het is om even in het licht te gaan staan, doen we de volgende oefening.',
             ),
+            const SizedBox(height: 8),
+            const Text('1. Ga in een kring staan.'),
             const SizedBox(height: 8),
             const Text(
-                '· Als de leider "Kijk naar elkaar" zegt, moeten iedereen naar iemand anders in de cirkel kijken. Als twee mensen elkaar in de ogen kijken, vallen jullie beide uit het spel.',),
+                '2. Om de beurt stap je in de kring en zeg je de volgende zin: Ik ben (je naam) en ik houd van (iets te eten of iets te doen). Let op: dat moet beginnen met de eerste letter van jouw naam! (Bv. Ik ben Alex en ik houd van appels/ Ik ben Sander en ik houd van Skiën)'),
             const SizedBox(height: 8),
-            const Text('· Ga door totdat er een paar winnaars overblijven.'),
-            const SizedBox(height: 8),
-            Text(
-              'Soms zijn we gefocust op anderen of op onszelf, maar vandaag gaan we het hebben hoe waardevol het is om naar God te kijken – "Look Up".',
-              style: Theme.of(context).textTheme.bodyMedium,
-            ),
+            const Text(
+                '3. De groep reageert met op zijn vriendelijkst: hoi (naam)! En zwaait naar de persoon in het midden.'),
           ],
         ),
       ),
@@ -158,7 +150,12 @@ class BibleStudyPageState extends State<BibleStudyPage> {
         ),
         const SizedBox(height: 8),
         const Text(
-          'Lees de volgende Bijbelgedeelten samen en beantwoord de vragen die erbij staan.',
+          'Lees samen',
+          style: TextStyle(fontWeight: FontWeight.bold),
+        ),
+        const SizedBox(height: 8),
+        const Text(
+          'Paulus is een echte brievenschrijver, misschien wel omdat hij regelmatig in de gevangenis zat. Op deze manier wilde hij nieuwe gemeentes met mensen die net tot geloof gekomen waren aanmoedigen. Hoewel men het niet zeker weet, is het wel waarschijnlijk, dat hij ook de brief voor de gemeente in Efeze heeft geschreven. Dat was in die tijd een grote en belangrijke handels- en havenstad. De christelijke gemeente was daar een mix van joodse en niet joodse gelovigen, oude en nieuwe gelovigen.\n\nVoor die tijd leek het onmogelijk dat deze samen een nieuw volk konden worden. Maar door Jezus was dit mogelijk geworden. God liet door Jezus zien, dat voortaan iedereen zich Kind van God mocht noemen. \n\nDe joden hadden hun eigen wetten over wat wel en niet mocht, de overige leden van de gemeente hadden daar andere ideeën over.\n\nDe brief begint met enthousiasme over wie God is, wat Hij gedaan heeft en wat Hij nog gaat doen.\n\nDe briefschrijver wilde de gemeente erop wijzen, dat ze blij moeten zijn dat ze nu allemaal bij Gods volk hoorden.\n\nOm ze uit te leggen wat het betekent om bij God te horen en hoe je dat kunt laten zien, gebruikte hij de vergelijking met donker en licht: leven zonder en leven met God.',
         ),
         const SizedBox(height: 16),
         Card(
@@ -168,57 +165,33 @@ class BibleStudyPageState extends State<BibleStudyPage> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  'Jesaja 43:1-7',
+                  'Efeziërs 5: 8',
                   style: Theme.of(context)
                       .textTheme
                       .bodyLarge!
                       .copyWith(fontWeight: FontWeight.bold),
                 ),
                 const Text(
-                  'De Heer zegt tegen zijn volk: ‘Israël, wees niet bang, ik zal je bevrijden. Want ik heb je gemaakt, ik heb je het leven gegeven. Ik heb jou je naam gegeven, jij bent van mij!\nAls je door water heen moet, zal ik bij je zijn. Als je rivieren oversteekt, zul je niet verdrinken. Als je door vuur loopt, zul je niet verbranden. De vlammen zullen je geen pijn doen. Want ik, de Heer, ben jouw God. Ik ben de heilige God van Israël, en ik zal je bevrijden.\nIsraël, jij bent heel belangrijk voor mij, je bent heel veel waard. Ik houd zo veel van je! Voor jou gaf ik Egypte, Nubië en Seba weg. Voor jou geef ik alles weg, alle mensen en alle volken van de wereld. Wees niet bang, want ik zal bij je zijn. Ik haal je nakomelingen terug uit het oosten en uit het westen. Tegen het noorden zeg ik: ‘Geef mijn volk terug.’ Tegen het zuiden zeg ik: ‘Laat mijn volk gaan!’ Tegen alle verre landen zeg ik: ‘Breng mijn volk weer terug. Breng de Israëlieten allemaal terug. Ze zijn naar mij genoemd. Ik heb hen gemaakt ter ere van mijzelf, ik heb hun het leven gegeven.’’',
+                  'Want vroeger hoorden jullie bij het donker, maar nu horen jullie bij het licht van de Heer. Leef als kinderen van dat licht.',
                 ),
                 const SizedBox(height: 8),
               ],
             ),
           ),
         ),
-        // const SizedBox(height: 16),
-        //   const Text(
-        //     'Jezus vertelde de gelijkenis van het mosterdzaadje om te illustreren hoe het Koninkrijk van God kan groeien. Het kleine verhaal laat ons zien dat iets wat lijkt op een onbenullig beginpunt, kan leiden tot iets heel groots. Net als het mosterdzaadje kunnen ons geloof, onze daden en kleinste bijdragen het potentieel hebben om een ​​aanzienlijke invloed en verandering in deze wereld teweeg te brengen.',
-        //   ),
-        //   const SizedBox(height: 16),
-        //   Card(
-        //     child: Container(
-        //       padding: const EdgeInsets.fromLTRB(16, 8, 16, 8),
-        //       child: Column(
-        //         crossAxisAlignment: CrossAxisAlignment.start,
-        //         children: [
-        //           Text(
-        //             'Kolossenzen 2:7',
-        //             style: Theme.of(context)
-        //                 .textTheme
-        //                 .bodyLarge!
-        //                 .copyWith(fontWeight: FontWeight.bold),
-        //           ),
-        //           const Text(
-        //             '7. Net zoals een boom met zijn wortels stevig in de grond staat, zo moeten jullie stevig in Hem geworteld staan. Dan zullen jullie in Hem opgebouwd worden. En jullie zullen stevig blijven staan in het geloof dat we jullie geleerd hebben. Wees ook dankbaar.',
-        //           ),
-        //           const SizedBox(height: 8),
-        //         ],
-        //       ),
-        //     ),
-        //   ),
-        //   const SizedBox(height: 16),
-        //   const Text(
-        //     'Net zoals een boom sterke wortels nodig heeft om hoog te groeien en vruchten te dragen, hebben wij ook behoefte aan verankering. Gods liefde en waarheid zijn onze voeding om te bloeien in elk aspect van ons leven. Door het liefdevolle werk van God in ons te omarmen, door zijn Heilige Geest, zullen we uitgroeien tot een leven van vervulling en met een doel. En het uiteindelijke resultaat? Een leven vol dankbaarheid!',
-        //   ),
       ],
     );
   }
 
   Widget _buidQuestions() {
     return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
+        const Text(
+          'Bespreek de volgende vragen:',
+          style: TextStyle(fontWeight: FontWeight.bold),
+        ),
+        const SizedBox(height: 8),
         Card(
           child: Container(
             padding: const EdgeInsets.fromLTRB(16, 8, 16, 8),
@@ -226,7 +199,7 @@ class BibleStudyPageState extends State<BibleStudyPage> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  'Vragen 13-',
+                  '13-',
                   style: Theme.of(context)
                       .textTheme
                       .bodyLarge!
@@ -234,23 +207,19 @@ class BibleStudyPageState extends State<BibleStudyPage> {
                 ),
                 const SizedBox(height: 8),
                 const Text(
-                  '1. God zegt in Jesaja 43:1 dat Hij je bij je naam roept en dat je van Hem bent. Hoe voelt het om te weten dat je speciaal en belangrijk voor iemand anders bent?',
+                  '- Als er gesproken wordt over “de donkere wereld”, dan heeft dat vaak te maken met dingen in het leven waar men zich zorgen om maakt. Over welke dingen in de wereld ben jij bezorgd?',
                 ),
                 const SizedBox(height: 8),
                 const Text(
-                  '2. Hoe laat jij aan iemand anders merken dat je hem/haar speciaal en belangrijk vindt?',
+                  '- In dit verhaal betekent donker leven zonder God.\no Kun jij je iets voorstellen bij wat leven zonder God voor jou zou betekenen?\no Heb jij hier ervaring mee?',
                 ),
                 const SizedBox(height: 8),
                 const Text(
-                  '3. Hoe zou God dit aan jou laten merken?',
+                  '- In dit verhaal is licht een leven samen met God. Wat zou er veranderen in de wereld als we zouden leven in Gods licht?',
                 ),
                 const SizedBox(height: 8),
                 const Text(
-                  '4. In vers 2 belooft God dat Hij je helpt, zelfs als je door water of vuur gaat. Kun je een moment bedenken waarop je je bang voelde? Hoe kun je dan naar God kijken?',
-                ),
-                const SizedBox(height: 8),
-                const Text(
-                  '5.Het is belangrijk om omhoog te blijven kijken naar God en op Zijn beloftes te vertrouwen. Welke beloftes zien jullie in de Bijbeltekst terugkomen?',
+                  '- Welke situaties kun jij anders bekijken, omdat je leeft in het licht? (omdat je Jezus kent?)',
                 ),
                 const SizedBox(height: 8),
               ],
@@ -265,7 +234,7 @@ class BibleStudyPageState extends State<BibleStudyPage> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  'Vragen 13+',
+                  '13+',
                   style: Theme.of(context)
                       .textTheme
                       .bodyLarge!
@@ -273,23 +242,11 @@ class BibleStudyPageState extends State<BibleStudyPage> {
                 ),
                 const SizedBox(height: 8),
                 const Text(
-                  '1. Jesaja 43:1 zegt: "Wees niet bang, want ik heb je verlost." Wat betekent het voor jou om te weten dat God je kent en altijd bij je wil zijn?',
+                  '- Het lijkt niet altijd gemakkelijk, om alles wat er in de wereld, en soms ook in ons leven, gebeurt te verdelen in licht en donker. Maar als we toch een poging wagen:\n\nDonker:\no Wat zijn situaties in de wereld die je donker zou noemen?\no Zijn er ook momenten in jouw leven geweest die je donker zou noemen?\n\nLicht:\no Welke situaties in de wereld vind jij getuigen van licht?\no Wanneer ervaar jij in je eigen leven dat je in licht leeft.',
                 ),
                 const SizedBox(height: 8),
                 const Text(
-                  '2. In vers 2 belooft God dat water en vuur je niet zullen overweldigen. Hoe kun je in moeilijke momenten omhoog blijven kijken naar God en op Zijn beloftes vertrouwen?',
-                ),
-                const SizedBox(height: 8),
-                const Text(
-                  '3. Waarom denk je dat God zoveel beloftes in de Bijbel heeft gegeven? Wat laat dit zien over wie Hij is?',
-                ),
-                const SizedBox(height: 8),
-                const Text(
-                  '4. Wat betekent het voor jou om stevig geworteld te zijn in Hem?',
-                ),
-                const SizedBox(height: 8),
-                const Text(
-                  '5. Waarom denk je dat het soms moeilijk is om naar God te blijven kijken en op Zijn beloftes te vertrouwen? Hoe kun je daar beter in worden?',
+                  '- Ken jij zelf het verschil tussen leven in het donker (zonder God) en leven in het licht (met God)?',
                 ),
               ],
             ),
@@ -314,163 +271,21 @@ class BibleStudyPageState extends State<BibleStudyPage> {
         Card(
           child: Container(
             padding: const EdgeInsets.fromLTRB(16, 8, 16, 8),
-            child: Column(
+            child: const Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  '13-',
-                  style: Theme.of(context)
-                      .textTheme
-                      .bodyLarge!
-                      .copyWith(fontWeight: FontWeight.bold),
+                  'Iedereen krijgt een vel kraspapier en een kraspen/ sateprikker. Een zwart vel, dat zodra je het gaat bewerken kleur zal geven.',
                 ),
-                const SizedBox(height: 8),
-                const Text(
-                    'God heeft ons veel beloften gegeven in de Bijbel. Deze beloften helpen ons om te weten dat we nooit alleen zijn, zelfs niet als het moeilijk is. Vandaag gaan jullie een belofte kiezen die jullie aanspreekt. Kijk goed naar de versen die we hebben en kies degene die jou het meeste helpt. Misschien is dat een belofte die je geruststelt als je bang bent, of eentje die je herinnert dat God altijd bij je is.',),
-                const SizedBox(height: 8),
-                const Text(
-                  'Nu gaan jullie je potje versieren! Gebruik de materialen die je hebt (stickers, markers, glitters, etc.) en maak het potje helemaal van jou. Als je bijvoorbeeld kiest voor de belofte "Ik zal je leven beschermen", kun je het potje versieren met een schild of een hartje. Wees creatief!',
-                ),
-                const SizedBox(height: 8),
-                const Text(
-                  'Zet je potje op een plek waar je het vaak kunt zien, bijvoorbeeld op je bureau of op je nachtkastje. Zo word je elke dag herinnerd aan Gods belofte voor jou!',
-                ),
-              ],
-            ),
-          ),
-        ),
-        Card(
-          child: Container(
-            padding: const EdgeInsets.fromLTRB(16, 8, 16, 8),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
+                SizedBox(height: 8),
                 Text(
-                  '13+',
-                  style: Theme.of(context)
-                      .textTheme
-                      .bodyLarge!
-                      .copyWith(fontWeight: FontWeight.bold),
+                  'Schrijf of teken iets waarin je het afgelopen year Gods Licht hebt gezien.',
                 ),
-                const SizedBox(height: 8),
-                const Text(
-                    'In de Bijbel heeft God ons veel beloften gegeven die ons helpen om te groeien in ons geloof en om ons te herinneren dat Hij altijd bij ons is, zelfs als het moeilijk is. Vandaag ga je een belofte kiezen die jou het meeste aanspreekt. Lees de versen die we hebben voorbereid en kies degene die jou het meeste raakt. Misschien spreekt een belofte je aan omdat je momenteel door een lastige tijd gaat, of omdat je behoefte hebt aan Gods kracht of liefde.',),
-                const SizedBox(height: 8),
-                const Text(
-                  'Hieronder zijn een paar voorbeelden van beloften die je kunt kiezen (maar je mag natuurlijk ook zelf opzoek gaan naar belofte van God die jou aanspreekt!).',
-                ),
-                const SizedBox(height: 8),
-                const Text(
-                    'Kies de belofte die jou het meeste aanspreekt en schrijf deze duidelijk op het kaartje. Je kunt de versen letterlijk overnemen of in je eigen woorden opschrijven wat het voor jou betekent. Neem de tijd om er goed over na te denken. Wat doet deze belofte met je? Hoe kan deze belofte je helpen in je dagelijks leven?',),
-                const SizedBox(height: 16),
+                SizedBox(height: 8),
+                Text('of:'),
+                SizedBox(height: 8),
                 Text(
-                  'Jesaja 41:10',
-                  style: Theme.of(context)
-                      .textTheme
-                      .bodyMedium!
-                      .copyWith(fontWeight: FontWeight.bold),
-                ),
-                const Text(
-                  '· "Wees niet bang, want Ik ben bij je. Wees niet bang, want Ik ben je God. Ik maak je sterk, Ik help je, Ik steun je met mijn rechterhand die recht is."',
-                ),
-                const SizedBox(height: 16),
-                Text(
-                  'Deuteronomium 31:6',
-                  style: Theme.of(context)
-                      .textTheme
-                      .bodyMedium!
-                      .copyWith(fontWeight: FontWeight.bold),
-                ),
-                const Text(
-                  '"Wees sterk en moedig. Wees niet bang, want de Heer, je God, is altijd bij je. Hij zal je nooit in de steek laten."',
-                ),
-                const SizedBox(height: 16),
-                Text(
-                  '1 Johannes 1:9',
-                  style: Theme.of(context)
-                      .textTheme
-                      .bodyMedium!
-                      .copyWith(fontWeight: FontWeight.bold),
-                ),
-                const Text(
-                  '· "Als we onze fouten toegeven, is God trouw en rechtvaardig. Hij zal onze fouten vergeven en ons reinigen van alles wat verkeerd is."',
-                ),
-                const SizedBox(height: 16),
-                Text(
-                  'Jeremia 29:11',
-                  style: Theme.of(context)
-                      .textTheme
-                      .bodyMedium!
-                      .copyWith(fontWeight: FontWeight.bold),
-                ),
-                const Text(
-                  '· "Ik weet wat Ik voor jullie in gedachten heb, zegt de Heer. Ik heb plannen voor jullie die goed zijn, en geen plannen die slecht zijn. Ik wil jullie een toekomst vol hoop geven."',
-                ),
-                const SizedBox(height: 16),
-                Text(
-                  'Matteüs 11:28',
-                  style: Theme.of(context)
-                      .textTheme
-                      .bodyMedium!
-                      .copyWith(fontWeight: FontWeight.bold),
-                ),
-                const Text(
-                  '· "Kom bij Mij, jullie die moe zijn en het zwaar hebben. Ik zal jullie rust geven."',
-                ),
-                const SizedBox(height: 16),
-                Text(
-                  'Filippenzen 4:19',
-                  style: Theme.of(context)
-                      .textTheme
-                      .bodyMedium!
-                      .copyWith(fontWeight: FontWeight.bold),
-                ),
-                const Text(
-                  '· "Mijn God zal alles wat jullie nodig hebben, geven uit Zijn grote rijkdom, door Christus Jezus."',
-                ),
-                const SizedBox(height: 16),
-                Text(
-                  'Psalm 121:7',
-                  style: Theme.of(context)
-                      .textTheme
-                      .bodyMedium!
-                      .copyWith(fontWeight: FontWeight.bold),
-                ),
-                const Text(
-                  '· "De Heer zal je beschermen tegen alles kwaad. Hij zal je leven beschermen."',
-                ),
-                const SizedBox(height: 16),
-                Text(
-                  'Johannes 14:27',
-                  style: Theme.of(context)
-                      .textTheme
-                      .bodyMedium!
-                      .copyWith(fontWeight: FontWeight.bold),
-                ),
-                const Text(
-                  '· "Vrede laat Ik jullie, Mijn vrede geef Ik jullie. Ik geef jullie niet zoals de wereld dat doet."',
-                ),
-                const SizedBox(height: 16),
-                Text(
-                  'Jesaja 40:29',
-                  style: Theme.of(context)
-                      .textTheme
-                      .bodyMedium!
-                      .copyWith(fontWeight: FontWeight.bold),
-                ),
-                const Text(
-                  '· "Hij geeft de vermoeiden kracht, en de zwakken maakt Hij sterk."',
-                ),
-                const SizedBox(height: 16),
-                Text(
-                  'Psalm 145:18',
-                  style: Theme.of(context)
-                      .textTheme
-                      .bodyMedium!
-                      .copyWith(fontWeight: FontWeight.bold),
-                ),
-                const Text(
-                  '· "De Heer is dichtbij iedereen die Hem vraagt om te helpen, iedereen die eerlijk naar Hem toe komt."',
+                  'Schrijf of teken een situatie waar je de komende tijd Gods licht op zou willen zien schijnen.',
                 ),
               ],
             ),
@@ -493,11 +308,7 @@ class BibleStudyPageState extends State<BibleStudyPage> {
         ),
         const SizedBox(height: 8),
         const Text(
-          'We willen dit moment afsluiten met Gebed. Gebed is niet alleen een manier om om hulp te vragen, maar ook een moment om stil te staan bij wie God is en wat Hij voor ons doet. Het is een kans om je hart voor Hem open te stellen, je zorgen en dankbaarheid met Hem te delen, en te luisteren naar Zijn leiding.',
-        ),
-        const SizedBox(height: 8),
-        const Text(
-          'Jullie mogen kiezen om het gebed wat hieronder staat te bidden of af te sluiten met open gebed waarbij we jullie willen uitnodigen om een kort gebed uit te spreken voor jezelf of voor een ander. God is altijd bereid om naar je te luisteren, dus voel je vrij om echt open te zijn in dit gesprek met Hem.',
+          'We willen dit moment afsluiten met Gebed. Gebed is niet alleen een manier om om hulp te vragen, maar ook een moment om stil te staan bij wie God is en wat Hij voor ons doet. Het is een kans om je hart voor Hem open te stellen, je zorgen en dankbaarheid met Hem te delen, en te luisteren naar Zijn leiding. Jullie mogen kiezen om het gebed wat hieronder staat te bidden of af te sluiten met open gebed waarbij we jullie willen uitnodigen om een kort gebed uit te spreken voor jezelf of voor een ander. God is altijd bereid om naar je te luisteren, dus voel je vrij om echt open te zijn in dit gesprek met Hem.',
         ),
         const SizedBox(height: 8),
         Card(
@@ -508,7 +319,7 @@ class BibleStudyPageState extends State<BibleStudyPage> {
               children: [
                 SizedBox(height: 8),
                 Text(
-                  "Lieve God,\n\nDank U wel voor Uw geweldige beloften aan ons. Bedankt dat we altijd op U kunnen vertrouwen, zelfs als het moeilijk is. U zegt dat U altijd bij ons bent, ons sterk maakt en ons nooit zult verlaten. We zijn zo blij dat we weten dat we niet bang hoeven te zijn, omdat U bij ons bent, door alles heen. Dank U dat U ons helpt als we fouten maken, en dat U ons altijd vergeeft. Dank U dat we mogen weten dat U een goed plan voor ons hebt en dat U voor ons zorgt, elke dag weer.\nGod, help ons om altijd omhoog te kijken naar U, om te weten dat U ons leidt en helpt. Als we ons verdrietig of bang voelen, herinner ons dan aan Uw beloften. Help ons om te blijven vertrouwen op U, in alles wat we doen.\nDank U voor Uw liefde en voor altijd bij ons zijn. We houden van U!\n\nIn Jezus' naam,\nAmen.",
+                  "Lieve God,\n\nVandaag hebben we mogen lezen, horen en delen over wat leven in uw licht betekent. Dank U wel dat U dit licht in ons leven wilt schijnen en ons op Uw unieke wijze op wat voor manier dan ook wilt helpen. Wilt U de komende maanden, tot dat we weer met SPA bij elkaar mogen komen, met ons mee gaan en ons verbonden houden zodat we niet alleen aan U mogen denken maar ook aan elkaar en zo een licht puntje voor elkaar mogen zijn.\n\nDank U wel In Jezus' naam, Amen",
                 ),
               ],
             ),

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:spa_app/l10n/app_localizations.dart';
 import 'package:spa_app/features/tasks/models/task.dart';
 import 'package:spa_app/features/tasks/pages/task_details_page.dart';
 import 'package:spa_app/features/user/models/user.dart';

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:spa_app/app/injection/injection.dart';
 import 'package:spa_app/features/auth/cubit/auth_cubit.dart';
 import 'package:spa_app/routes.dart';
 import 'package:spa_app/shared/widgets/default_body.dart';
@@ -68,7 +67,7 @@ class RegisterPageState extends State<RegisterPage> {
       ),
       showMenu: false,
       actions: const [], // Hide profile icon
-      back: true,  // Show back button
+      back: true, // Show back button
     );
   }
 

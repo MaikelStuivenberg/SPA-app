@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:spa_app/features/rules/widgets/rule_container.dart';
+import 'package:spa_app/l10n/app_localizations.dart';
 import 'package:spa_app/shared/widgets/default_body.dart';
 
 class RulesPage extends StatefulWidget {

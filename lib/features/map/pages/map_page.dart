@@ -1,6 +1,6 @@
 import 'package:firebase_remote_config/firebase_remote_config.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:spa_app/l10n/app_localizations.dart';
 import 'package:spa_app/features/map/widgets/map_item.dart';
 import 'package:spa_app/shared/widgets/default_body.dart';
 

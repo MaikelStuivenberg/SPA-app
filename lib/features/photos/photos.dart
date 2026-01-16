@@ -1,9 +1,9 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:spa_app/features/photos/cubit/photos_cubit.dart';
 import 'package:spa_app/features/photos/widgets/photo.dart';
+import 'package:spa_app/l10n/app_localizations.dart';
 import 'package:spa_app/shared/models/photo.dart';
 import 'package:spa_app/shared/repositories/photo_data.dart';
 import 'package:spa_app/shared/widgets/default_body.dart';

@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:spa_app/features/auth/cubit/auth_cubit.dart';
 import 'package:spa_app/features/home/cubit/weather_cubit.dart';
 import 'package:spa_app/features/photos/cubit/photos_cubit.dart';
 import 'package:spa_app/features/program/cubit/program_cubit.dart';
 import 'package:spa_app/features/splash/splash.dart';
+import 'package:spa_app/l10n/app_localizations.dart';
 import 'package:spa_app/routes.dart';
 import 'package:spa_app/utils/app_colors.dart';
 import 'package:spa_app/utils/unanimated_page_route.dart';
@@ -78,7 +78,7 @@ class AppView extends StatelessWidget {
         iconTheme: IconThemeData(color: Colors.white),
         backgroundColor: AppColors.mainColor,
       ),
-      bottomAppBarTheme: const BottomAppBarTheme(
+      bottomAppBarTheme: const BottomAppBarThemeData(
         color: Color.fromARGB(255, 240, 246, 246),
       ),
       elevatedButtonTheme: ElevatedButtonThemeData(
@@ -114,7 +114,7 @@ class AppView extends StatelessWidget {
         ),
         iconTheme: IconThemeData(color: Colors.white),
       ),
-      bottomAppBarTheme: const BottomAppBarTheme(
+      bottomAppBarTheme: const BottomAppBarThemeData(
         color: Color.fromARGB(255, 28, 29, 29),
       ),
       elevatedButtonTheme: ElevatedButtonThemeData(

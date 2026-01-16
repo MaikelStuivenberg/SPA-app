@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:spa_app/features/auth/cubit/auth_cubit.dart';
+import 'package:spa_app/l10n/app_localizations.dart';
 import 'package:spa_app/shared/widgets/default_body.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class PasswordResetPage extends StatefulWidget {
   const PasswordResetPage({super.key});
@@ -32,13 +32,15 @@ class _PasswordResetPageState extends State<PasswordResetPage> {
           } else if (state is AuthStateError) {
             setState(() {
               _loading = false;
-              _feedbackMessage = AppLocalizations.of(context)!.resetPasswordFailed(state.errorMessage);
+              _feedbackMessage = AppLocalizations.of(context)!
+                  .resetPasswordFailed(state.errorMessage);
               _feedbackColor = Colors.red;
             });
           } else if (state is AuthStateInitial) {
             setState(() {
               _loading = false;
-              _feedbackMessage = AppLocalizations.of(context)!.resetPasswordSuccess;
+              _feedbackMessage =
+                  AppLocalizations.of(context)!.resetPasswordSuccess;
               _feedbackColor = Colors.green;
             });
           }
@@ -62,7 +64,8 @@ class _PasswordResetPageState extends State<PasswordResetPage> {
                       TextFormField(
                         controller: _emailController,
                         decoration: InputDecoration(
-                          labelText: AppLocalizations.of(context)!.loginEmailHint,
+                          labelText:
+                              AppLocalizations.of(context)!.loginEmailHint,
                           border: const OutlineInputBorder(),
                           prefixIcon: const Icon(Icons.email),
                         ),
@@ -70,12 +73,14 @@ class _PasswordResetPageState extends State<PasswordResetPage> {
                         autofillHints: const [AutofillHints.username],
                         validator: (value) {
                           if (value == null || value.isEmpty) {
-                            return AppLocalizations.of(context)!.loginEmailRequired;
+                            return AppLocalizations.of(context)!
+                                .loginEmailRequired;
                           }
                           if (!RegExp(
-                                  r'^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$',)
-                              .hasMatch(value)) {
-                            return AppLocalizations.of(context)!.loginEmailInvalid;
+                            r'^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$',
+                          ).hasMatch(value)) {
+                            return AppLocalizations.of(context)!
+                                .loginEmailInvalid;
                           }
                           return null;
                         },
@@ -108,7 +113,8 @@ class _PasswordResetPageState extends State<PasswordResetPage> {
                                   child:
                                       CircularProgressIndicator(strokeWidth: 2),
                                 )
-                              : Text(AppLocalizations.of(context)!.resetPasswordSendButton),
+                              : Text(AppLocalizations.of(context)!
+                                  .resetPasswordSendButton),
                         ),
                       ),
                       const SizedBox(height: 16),
@@ -119,7 +125,8 @@ class _PasswordResetPageState extends State<PasswordResetPage> {
                                 Navigator.of(context).pop();
                               },
                         icon: const Icon(Icons.arrow_back),
-                        label: Text(AppLocalizations.of(context)!.resetPasswordBackToLogin),
+                        label: Text(AppLocalizations.of(context)!
+                            .resetPasswordBackToLogin),
                       ),
                     ],
                   ),

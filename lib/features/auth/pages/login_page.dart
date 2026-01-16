@@ -1,13 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:spa_app/app/injection/injection.dart';
 import 'package:spa_app/features/auth/cubit/auth_cubit.dart';
+import 'package:spa_app/l10n/app_localizations.dart';
 import 'package:spa_app/routes.dart';
 import 'package:spa_app/shared/widgets/default_body.dart';
 import 'package:spa_app/utils/app_colors.dart';
-import 'package:spa_app/features/auth/pages/password_reset_page.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});

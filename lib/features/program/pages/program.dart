@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 import 'package:spa_app/features/auth/cubit/auth_cubit.dart';
 import 'package:spa_app/features/program/cubit/program_cubit.dart';
@@ -9,6 +8,7 @@ import 'package:spa_app/features/program/widget/program_item.dart';
 import 'package:spa_app/features/tasks/models/task.dart';
 import 'package:spa_app/features/tasks/pages/all_tasks_page.dart';
 import 'package:spa_app/features/tasks/pages/task_details_page.dart';
+import 'package:spa_app/l10n/app_localizations.dart';
 import 'package:spa_app/shared/repositories/task_data.dart';
 import 'package:spa_app/utils/date_formatter.dart';
 
@@ -373,17 +373,19 @@ class ProgramPageState extends State<ProgramPage> {
                   title: Text(
                     task.title,
                     style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                          decoration: isDone ? TextDecoration.lineThrough : null,
+                          decoration:
+                              isDone ? TextDecoration.lineThrough : null,
                           color: isDone ? Colors.grey : null,
                         ),
                   ),
                   subtitle: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(AppLocalizations.of(context)!.tasksDayTime(day, time)),
+                      Text(AppLocalizations.of(context)!
+                          .tasksDayTime(day, time)),
                       if (task.location.isNotEmpty)
-                      Text(
-                          '${AppLocalizations.of(context)!.tasksLocation}: ${task.location}'),
+                        Text(
+                            '${AppLocalizations.of(context)!.tasksLocation}: ${task.location}'),
                       if (task.description.isNotEmpty) Text(task.description),
                     ],
                   ),
