@@ -45,10 +45,74 @@ class AppLocalizationsEn extends AppLocalizations {
   String get programNoActivitiesYet => 'We are still working on the program';
 
   @override
-  String get photoTitle => 'Most recent photos';
+  String get photoTitle => 'Photo albums';
+
+  @override
+  String get photoAlbumPhotosTitle => 'Photos';
+
+  @override
+  String get photoAlbumFavorites => 'Your favorites';
+
+  @override
+  String get photoAlbumSortShowNewest => 'Show newest first';
+
+  @override
+  String get photoAlbumSortShowOldest => 'Show oldest first';
+
+  @override
+  String get photoAlbumsEmpty =>
+      'We\'re busy adding photos from camp! Check back soon. :)';
+
+  @override
+  String photoAlbumPhotoCount(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count photos',
+      one: '1 photo',
+    );
+    return '$_temp0';
+  }
 
   @override
   String get photoSeeAll => 'See all';
+
+  @override
+  String get photoSelectionCancel => 'Cancel selection';
+
+  @override
+  String photoSelectionCount(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count selected',
+      one: '1 selected',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get photoSelectionLike => 'Like';
+
+  @override
+  String get photoSelectionUnlike => 'Unlike';
+
+  @override
+  String get photoSelectionDownload => 'Download';
+
+  @override
+  String get photoSelectionSend => 'Send';
+
+  @override
+  String photoBulkDownloadSuccess(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count photos saved to your downloads folder.',
+      one: '1 photo saved to your downloads folder.',
+    );
+    return '$_temp0';
+  }
 
   @override
   String get profileTitle => 'Profile';
@@ -75,7 +139,14 @@ class AppLocalizationsEn extends AppLocalizations {
   String get profilePhotosLiked => 'Photo\'s you liked';
 
   @override
+  String get profilePhotosLikedEmpty =>
+      'You haven\'t liked any photos yet — tap the heart on a photo to save it here!';
+
+  @override
   String get rulesTitle => 'Rules';
+
+  @override
+  String get rulesScrollHint => 'Scroll for more';
 
   @override
   String get rulesRespect => 'Respect';
@@ -113,13 +184,6 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get save => 'Save';
-
-  @override
-  String get welcomeTitle => 'Dear SPA-goers';
-
-  @override
-  String get welcomeText =>
-      'This year marks the 75th edition of SPA. What a time and what a milestone that is. Throughout all these years, there have been many footprints left in Belmont by all the participants who have taken part in the camp. Perhaps your own footprint, or that of your parents or other family members. They all experienced beautiful moments there, made memories, and somehow left a footprint behind.\nNow, let this year\'s theme be about \"Footprint\".\nNo, it\'s not just about the previous 74 editions of SPA, nor is it solely about sustainability. Both themes naturally come into play this year.\nWe will start on Saturday with the REUNION of 75 years of SPA, where we will have the opportunity to meet many former participants and leaders. Throughout the week, we will also focus on sustainability, with a meatless meal and even vegetarian snacks. With this year\'s theme of Footprint, we will primarily look at some important people in the Bible and what they left behind. But we will also contemplate who you are or want to be, and what you want to leave behind: your own footprint!\n\nWe wish you a lot of fun!\nMichel & Roel';
 
   @override
   String get weatherTitle => 'Weather';
@@ -214,6 +278,23 @@ class AppLocalizationsEn extends AppLocalizations {
   String get tasksAllTasks => 'All Tasks';
 
   @override
+  String tasksProgress(int completed, int total) {
+    return '$completed of $total completed';
+  }
+
+  @override
+  String get tasksAllDone => 'All tasks completed';
+
+  @override
+  String get tasksCompletedSection => 'Completed';
+
+  @override
+  String get tasksMarkDone => 'Mark as done';
+
+  @override
+  String get tasksUndo => 'Undo';
+
+  @override
   String get deleteAccountButton => 'Delete Account';
 
   @override
@@ -228,4 +309,70 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get deleteAccountConfirm => 'Delete';
+
+  @override
+  String get registerTitle => 'Join SPA online';
+
+  @override
+  String get registerSubtitle =>
+      'Create your app account to stay connected during SPA';
+
+  @override
+  String get registerEmailHint => 'Email address';
+
+  @override
+  String get registerPasswordHint => 'Password';
+
+  @override
+  String get registerPasswordConfirmHint => 'Confirm password';
+
+  @override
+  String get registerPasswordRequired => 'Password is required';
+
+  @override
+  String get registerPasswordMinLength =>
+      'Password must be at least 4 characters';
+
+  @override
+  String get registerPasswordMismatch => 'Passwords do not match';
+
+  @override
+  String get registerButton => 'Sign up';
+
+  @override
+  String get onboardingTitle => 'Set up your profile';
+
+  @override
+  String get onboardingNameTitle => 'What\'s your name?';
+
+  @override
+  String get onboardingNameSubtitle =>
+      'We\'ll use this so leaders and friends can find you in the app.';
+
+  @override
+  String get onboardingFirstnameRequired => 'First name is required';
+
+  @override
+  String get onboardingPhotoTitle => 'Add a profile photo';
+
+  @override
+  String get onboardingPhotoSubtitle =>
+      'Optional — help your tent mates recognize you!';
+
+  @override
+  String get onboardingPhotoSkip => 'Skip for now';
+
+  @override
+  String onboardingWelcomeTitle(String name) {
+    return 'Hey $name!';
+  }
+
+  @override
+  String get onboardingWelcomeBody => 'You\'re all set. See you at SPA!';
+
+  @override
+  String get onboardingContinue => 'Continue';
+
+  @override
+  String get onboardingLetsGo => 'Let\'s go!';
 }

@@ -35,7 +35,7 @@ jobs:
         with:
           channel: 'stable'     
           flutter-version: 3.38.7    
-          
+
       - name: Run Fastlane
         uses: maierj/fastlane-action@v3.1.0
         with:

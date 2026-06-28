@@ -173,14 +173,92 @@ abstract class AppLocalizations {
   /// No description provided for @photoTitle.
   ///
   /// In en, this message translates to:
-  /// **'Most recent photos'**
+  /// **'Photo albums'**
   String get photoTitle;
+
+  /// No description provided for @photoAlbumPhotosTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Photos'**
+  String get photoAlbumPhotosTitle;
+
+  /// No description provided for @photoAlbumFavorites.
+  ///
+  /// In en, this message translates to:
+  /// **'Your favorites'**
+  String get photoAlbumFavorites;
+
+  /// No description provided for @photoAlbumSortShowNewest.
+  ///
+  /// In en, this message translates to:
+  /// **'Show newest first'**
+  String get photoAlbumSortShowNewest;
+
+  /// No description provided for @photoAlbumSortShowOldest.
+  ///
+  /// In en, this message translates to:
+  /// **'Show oldest first'**
+  String get photoAlbumSortShowOldest;
+
+  /// No description provided for @photoAlbumsEmpty.
+  ///
+  /// In en, this message translates to:
+  /// **'We\'re busy adding photos from camp! Check back soon. :)'**
+  String get photoAlbumsEmpty;
+
+  /// No description provided for @photoAlbumPhotoCount.
+  ///
+  /// In en, this message translates to:
+  /// **'{count, plural, =1{1 photo} other{{count} photos}}'**
+  String photoAlbumPhotoCount(int count);
 
   /// No description provided for @photoSeeAll.
   ///
   /// In en, this message translates to:
   /// **'See all'**
   String get photoSeeAll;
+
+  /// No description provided for @photoSelectionCancel.
+  ///
+  /// In en, this message translates to:
+  /// **'Cancel selection'**
+  String get photoSelectionCancel;
+
+  /// No description provided for @photoSelectionCount.
+  ///
+  /// In en, this message translates to:
+  /// **'{count, plural, =1{1 selected} other{{count} selected}}'**
+  String photoSelectionCount(int count);
+
+  /// No description provided for @photoSelectionLike.
+  ///
+  /// In en, this message translates to:
+  /// **'Like'**
+  String get photoSelectionLike;
+
+  /// No description provided for @photoSelectionUnlike.
+  ///
+  /// In en, this message translates to:
+  /// **'Unlike'**
+  String get photoSelectionUnlike;
+
+  /// No description provided for @photoSelectionDownload.
+  ///
+  /// In en, this message translates to:
+  /// **'Download'**
+  String get photoSelectionDownload;
+
+  /// No description provided for @photoSelectionSend.
+  ///
+  /// In en, this message translates to:
+  /// **'Send'**
+  String get photoSelectionSend;
+
+  /// No description provided for @photoBulkDownloadSuccess.
+  ///
+  /// In en, this message translates to:
+  /// **'{count, plural, =1{1 photo saved to your downloads folder.} other{{count} photos saved to your downloads folder.}}'**
+  String photoBulkDownloadSuccess(int count);
 
   /// No description provided for @profileTitle.
   ///
@@ -230,11 +308,23 @@ abstract class AppLocalizations {
   /// **'Photo\'s you liked'**
   String get profilePhotosLiked;
 
+  /// No description provided for @profilePhotosLikedEmpty.
+  ///
+  /// In en, this message translates to:
+  /// **'You haven\'t liked any photos yet — tap the heart on a photo to save it here!'**
+  String get profilePhotosLikedEmpty;
+
   /// No description provided for @rulesTitle.
   ///
   /// In en, this message translates to:
   /// **'Rules'**
   String get rulesTitle;
+
+  /// No description provided for @rulesScrollHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Scroll for more'**
+  String get rulesScrollHint;
 
   /// No description provided for @rulesRespect.
   ///
@@ -301,18 +391,6 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Save'**
   String get save;
-
-  /// No description provided for @welcomeTitle.
-  ///
-  /// In en, this message translates to:
-  /// **'Dear SPA-goers'**
-  String get welcomeTitle;
-
-  /// No description provided for @welcomeText.
-  ///
-  /// In en, this message translates to:
-  /// **'This year marks the 75th edition of SPA. What a time and what a milestone that is. Throughout all these years, there have been many footprints left in Belmont by all the participants who have taken part in the camp. Perhaps your own footprint, or that of your parents or other family members. They all experienced beautiful moments there, made memories, and somehow left a footprint behind.\nNow, let this year\'s theme be about \"Footprint\".\nNo, it\'s not just about the previous 74 editions of SPA, nor is it solely about sustainability. Both themes naturally come into play this year.\nWe will start on Saturday with the REUNION of 75 years of SPA, where we will have the opportunity to meet many former participants and leaders. Throughout the week, we will also focus on sustainability, with a meatless meal and even vegetarian snacks. With this year\'s theme of Footprint, we will primarily look at some important people in the Bible and what they left behind. But we will also contemplate who you are or want to be, and what you want to leave behind: your own footprint!\n\nWe wish you a lot of fun!\nMichel & Roel'**
-  String get welcomeText;
 
   /// No description provided for @weatherTitle.
   ///
@@ -488,6 +566,36 @@ abstract class AppLocalizations {
   /// **'All Tasks'**
   String get tasksAllTasks;
 
+  /// No description provided for @tasksProgress.
+  ///
+  /// In en, this message translates to:
+  /// **'{completed} of {total} completed'**
+  String tasksProgress(int completed, int total);
+
+  /// No description provided for @tasksAllDone.
+  ///
+  /// In en, this message translates to:
+  /// **'All tasks completed'**
+  String get tasksAllDone;
+
+  /// No description provided for @tasksCompletedSection.
+  ///
+  /// In en, this message translates to:
+  /// **'Completed'**
+  String get tasksCompletedSection;
+
+  /// No description provided for @tasksMarkDone.
+  ///
+  /// In en, this message translates to:
+  /// **'Mark as done'**
+  String get tasksMarkDone;
+
+  /// No description provided for @tasksUndo.
+  ///
+  /// In en, this message translates to:
+  /// **'Undo'**
+  String get tasksUndo;
+
   /// No description provided for @deleteAccountButton.
   ///
   /// In en, this message translates to:
@@ -517,6 +625,126 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Delete'**
   String get deleteAccountConfirm;
+
+  /// No description provided for @registerTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Join SPA online'**
+  String get registerTitle;
+
+  /// No description provided for @registerSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Create your app account to stay connected during SPA'**
+  String get registerSubtitle;
+
+  /// No description provided for @registerEmailHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Email address'**
+  String get registerEmailHint;
+
+  /// No description provided for @registerPasswordHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Password'**
+  String get registerPasswordHint;
+
+  /// No description provided for @registerPasswordConfirmHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Confirm password'**
+  String get registerPasswordConfirmHint;
+
+  /// No description provided for @registerPasswordRequired.
+  ///
+  /// In en, this message translates to:
+  /// **'Password is required'**
+  String get registerPasswordRequired;
+
+  /// No description provided for @registerPasswordMinLength.
+  ///
+  /// In en, this message translates to:
+  /// **'Password must be at least 4 characters'**
+  String get registerPasswordMinLength;
+
+  /// No description provided for @registerPasswordMismatch.
+  ///
+  /// In en, this message translates to:
+  /// **'Passwords do not match'**
+  String get registerPasswordMismatch;
+
+  /// No description provided for @registerButton.
+  ///
+  /// In en, this message translates to:
+  /// **'Sign up'**
+  String get registerButton;
+
+  /// No description provided for @onboardingTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Set up your profile'**
+  String get onboardingTitle;
+
+  /// No description provided for @onboardingNameTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'What\'s your name?'**
+  String get onboardingNameTitle;
+
+  /// No description provided for @onboardingNameSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'We\'ll use this so leaders and friends can find you in the app.'**
+  String get onboardingNameSubtitle;
+
+  /// No description provided for @onboardingFirstnameRequired.
+  ///
+  /// In en, this message translates to:
+  /// **'First name is required'**
+  String get onboardingFirstnameRequired;
+
+  /// No description provided for @onboardingPhotoTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Add a profile photo'**
+  String get onboardingPhotoTitle;
+
+  /// No description provided for @onboardingPhotoSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Optional — help your tent mates recognize you!'**
+  String get onboardingPhotoSubtitle;
+
+  /// No description provided for @onboardingPhotoSkip.
+  ///
+  /// In en, this message translates to:
+  /// **'Skip for now'**
+  String get onboardingPhotoSkip;
+
+  /// No description provided for @onboardingWelcomeTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Hey {name}!'**
+  String onboardingWelcomeTitle(String name);
+
+  /// No description provided for @onboardingWelcomeBody.
+  ///
+  /// In en, this message translates to:
+  /// **'You\'re all set. See you at SPA!'**
+  String get onboardingWelcomeBody;
+
+  /// No description provided for @onboardingContinue.
+  ///
+  /// In en, this message translates to:
+  /// **'Continue'**
+  String get onboardingContinue;
+
+  /// No description provided for @onboardingLetsGo.
+  ///
+  /// In en, this message translates to:
+  /// **'Let\'s go!'**
+  String get onboardingLetsGo;
 }
 
 class _AppLocalizationsDelegate

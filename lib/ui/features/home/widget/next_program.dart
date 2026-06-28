@@ -1,0 +1,59 @@
+import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:spa_app/ui/features/program/cubit/program_cubit.dart';
+import 'package:go_router/go_router.dart';
+import 'package:spa_app/core/router/route_paths.dart';
+import 'package:spa_app/ui/core/widgets/primary_card.dart';
+
+class NextProgramWidget extends StatelessWidget {
+  const NextProgramWidget({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return BlocBuilder<ProgramCubit, ProgramState>(
+      bloc: BlocProvider.of<ProgramCubit>(context),
+      builder: (context, programState) {
+        if (programState.nextActivity == null) {
+          return Container();
+        }
+
+        final nextActivityDateDiff =
+            programState.nextActivity!.date!.difference(DateTime.now());
+
+        return SizedBox(
+          width: double.infinity,
+          child: PrimaryCardWidget(
+            onTap: () => context.push(RoutePaths.program),
+            child: Padding(
+              padding: const EdgeInsets.all(8),
+              child: Column(
+                children: [
+                  Text(
+                    programState.nextActivity!.title!,
+                    style: Theme.of(context).textTheme.headlineLarge!.copyWith(
+                          color: Theme.of(context).colorScheme.onPrimary,
+                        ),
+                  ),
+                  if (nextActivityDateDiff.inMinutes < 90)
+                    Text(
+                      'Over ${nextActivityDateDiff.inMinutes} minuten',
+                      style: Theme.of(context).textTheme.bodyLarge!.copyWith(
+                            color: Theme.of(context).colorScheme.onPrimary,
+                          ),
+                    ),
+                  if (nextActivityDateDiff.inMinutes > 90)
+                    Text(
+                      'Over ${nextActivityDateDiff.inHours} uur',
+                      style: Theme.of(context).textTheme.bodyLarge!.copyWith(
+                            color: Theme.of(context).colorScheme.onPrimary,
+                          ),
+                    ),
+                ],
+              ),
+            ),
+          ),
+        );
+      },
+    );
+  }
+}

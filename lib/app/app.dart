@@ -1,159 +1,91 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:spa_app/features/auth/cubit/auth_cubit.dart';
-import 'package:spa_app/features/home/cubit/weather_cubit.dart';
-import 'package:spa_app/features/photos/cubit/photos_cubit.dart';
-import 'package:spa_app/features/program/cubit/program_cubit.dart';
-import 'package:spa_app/features/splash/splash.dart';
+import 'package:go_router/go_router.dart';
+import 'package:spa_app/core/di/injection.dart';
+import 'package:spa_app/core/router/app_router.dart';
+import 'package:spa_app/core/theme/app_theme.dart';
+import 'package:spa_app/data/services/auth_service.dart';
 import 'package:spa_app/l10n/app_localizations.dart';
-import 'package:spa_app/routes.dart';
-import 'package:spa_app/utils/app_colors.dart';
-import 'package:spa_app/utils/unanimated_page_route.dart';
+import 'package:spa_app/ui/features/auth/cubit/auth_cubit.dart';
+import 'package:spa_app/ui/features/home/cubit/home_cubit.dart';
+import 'package:spa_app/ui/features/home/cubit/weather_cubit.dart';
+import 'package:spa_app/ui/features/photos/cubit/albums_cubit.dart';
+import 'package:spa_app/ui/features/program/cubit/program_cubit.dart';
+import 'package:spa_app/ui/features/tasks/cubit/tasks_cubit.dart';
+import 'package:spa_app/ui/features/user/cubit/user_profile_cubit.dart';
 
 class App extends StatefulWidget {
   const App({super.key});
 
   @override
-  AppState createState() => AppState();
+  State<App> createState() => _AppState();
 }
 
-class AppState extends State<App> {
-  // Define your state variables here
+class _AppState extends State<App> {
+  late final AuthCubit _authCubit;
+  late final GoRouter _router;
+
+  @override
+  void initState() {
+    super.initState();
+    _authCubit = getIt<AuthCubit>();
+    _router = createAppRouter(_authCubit, getIt<AuthService>());
+  }
+
+  @override
+  void dispose() {
+    _router.dispose();
+    _authCubit.close();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
-    // Define your view here
     return MultiBlocProvider(
       providers: [
+        BlocProvider<AuthCubit>.value(value: _authCubit),
         BlocProvider(
-          create: (_) => WeatherCubit()..fetchCurrentWeather(),
+          create: (_) => getIt<WeatherCubit>()..fetchCurrentWeather(),
           lazy: false,
         ),
         BlocProvider(
-          create: (_) => PhotosCubit()..fetchLastPhotos(),
+          create: (_) => getIt<AlbumsCubit>()..fetchAlbums(),
           lazy: false,
         ),
         BlocProvider(
-          create: (_) => ProgramCubit()..fetchProgram(),
+          create: (_) => getIt<ProgramCubit>()..fetchProgram(),
           lazy: false,
         ),
-        BlocProvider(
-          create: (_) => AuthCubit(),
-        ),
+        BlocProvider(create: (_) => getIt<HomeCubit>()),
+        BlocProvider(create: (_) => getIt<TasksCubit>()..loadDoneTaskIds()),
+        BlocProvider(create: (_) => getIt<UserProfileCubit>()),
       ],
-      child: const AppView(),
+      child: AppView(router: _router),
     );
   }
 }
 
 class AppView extends StatelessWidget {
-  const AppView({super.key});
+  const AppView({required this.router, super.key});
+
+  final GoRouter router;
 
   @override
   Widget build(BuildContext context) {
-    const colorSchemeLight = ColorScheme.light(
-      primary: AppColors.mainColor,
-      secondary: AppColors.secondaryColor,
-    );
-
-    const colorSchemeDark = ColorScheme.dark(
-      primary: AppColors.mainColor,
-      secondary: AppColors.secondaryColor,
-    );
-
-    final spaThemeLight = ThemeData(
-      useMaterial3: true,
-      colorScheme: colorSchemeLight,
-      brightness: Brightness.light,
-      fontFamily: 'Montserrat',
-      dividerColor: AppColors.mainColor.shade200,
-      appBarTheme: const AppBarTheme(
-        centerTitle: false,
-        titleTextStyle: TextStyle(
-          fontFamily: 'Montserrat',
-          fontSize: 28,
-          color: Colors.white,
-        ),
-        iconTheme: IconThemeData(color: Colors.white),
-        backgroundColor: AppColors.mainColor,
-      ),
-      bottomAppBarTheme: const BottomAppBarThemeData(
-        color: Color.fromARGB(255, 240, 246, 246),
-      ),
-      elevatedButtonTheme: ElevatedButtonThemeData(
-        style: ElevatedButton.styleFrom(
-          backgroundColor: AppColors.mainColor.shade500,
-          foregroundColor: Colors.white,
-          textStyle: const TextStyle(
-            fontSize: 16,
-            fontWeight: FontWeight.w500,
-          ),
-          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(8),
-          ),
-          minimumSize: const Size(88, 36),
-        ),
-      ),
-      iconTheme: IconThemeData(color: colorSchemeDark.primary),
-    );
-
-    final spaThemeDark = ThemeData(
-      useMaterial3: true,
-      colorScheme: colorSchemeDark,
-      brightness: Brightness.dark,
-      fontFamily: 'Montserrat',
-      dividerColor: AppColors.mainColor.shade800,
-      appBarTheme: const AppBarTheme(
-        centerTitle: false,
-        titleTextStyle: TextStyle(
-          fontFamily: 'Montserrat',
-          fontSize: 28,
-          color: Colors.white,
-        ),
-        iconTheme: IconThemeData(color: Colors.white),
-      ),
-      bottomAppBarTheme: const BottomAppBarThemeData(
-        color: Color.fromARGB(255, 28, 29, 29),
-      ),
-      elevatedButtonTheme: ElevatedButtonThemeData(
-        style: ElevatedButton.styleFrom(
-          backgroundColor: AppColors.mainColor.shade900,
-          foregroundColor: Colors.white,
-          textStyle: const TextStyle(
-            fontSize: 16,
-            fontWeight: FontWeight.w500,
-          ),
-          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(8),
-          ),
-          minimumSize: const Size(88, 36),
-        ),
-      ),
-      iconTheme: IconThemeData(color: colorSchemeDark.primary),
-    );
-
     SystemChrome.setPreferredOrientations([
       DeviceOrientation.portraitUp,
       DeviceOrientation.portraitDown,
     ]);
 
-    return MaterialApp(
+    return MaterialApp.router(
       debugShowCheckedModeBanner: false,
       title: 'SPA',
-      home: const SplashPage(),
-      theme: spaThemeLight,
-      darkTheme: spaThemeDark,
-      // themeMode: ThemeMode.dark,
+      theme: AppTheme.light,
+      darkTheme: AppTheme.dark,
       localizationsDelegates: AppLocalizations.localizationsDelegates,
       supportedLocales: AppLocalizations.supportedLocales,
-      onGenerateRoute: (settings) {
-        return UnanimatedPageRoute(
-          builder: (context) => Routes.routes[settings.name]!(context),
-        );
-      },
+      routerConfig: router,
     );
   }
 }

@@ -11,8 +11,42 @@
     "programThursday": "Donderdag",
     "programFriday": "Vrijdag",
     "programNoActivitiesYet": "We zijn nog bezig met het programma. Kom snel even terug :-)",
-    "photoTitle": "Meest recente foto's",
+    "photoTitle": "Fotoalbums",
+    "photoAlbumPhotosTitle": "Foto's",
+    "photoAlbumFavorites": "Jouw favorieten",
+    "photoAlbumSortShowNewest": "Toon nieuwste eerst",
+    "photoAlbumSortShowOldest": "Toon oudste eerst",
+    "photoAlbumsEmpty": "We zijn druk bezig met het toevoegen van kampfoto's! Check later nog eens. :)",
+    "photoAlbumPhotoCount": "{count, plural, =1{1 foto} other{{count} foto's}}",
+    "@photoAlbumPhotoCount": {
+        "placeholders": {
+            "count": {
+                "type": "int"
+            }
+        }
+    },
     "photoSeeAll": "Bekijk alles",
+    "photoSelectionCancel": "Selectie annuleren",
+    "photoSelectionCount": "{count, plural, =1{1 geselecteerd} other{{count} geselecteerd}}",
+    "@photoSelectionCount": {
+        "placeholders": {
+            "count": {
+                "type": "int"
+            }
+        }
+    },
+    "photoSelectionLike": "Like",
+    "photoSelectionUnlike": "Unlike",
+    "photoSelectionDownload": "Downloaden",
+    "photoSelectionSend": "Versturen",
+    "photoBulkDownloadSuccess": "{count, plural, =1{1 foto opgeslagen in je downloads map.} other{{count} foto's opgeslagen in je downloads map.}}",
+    "@photoBulkDownloadSuccess": {
+        "placeholders": {
+            "count": {
+                "type": "int"
+            }
+        }
+    },
     "profileTitle": "Profiel",
     "profileEditTitle": "Profiel wijzigen",
     "profileFirstname": "Voornaam",
@@ -21,7 +55,9 @@
     "profileMajor": "Major",
     "profileMinor": "Minor",
     "profilePhotosLiked": "Foto's die je hebt geliked",
+    "profilePhotosLikedEmpty": "Je hebt nog geen foto's geliked — tik op het hartje bij een foto om hem hier te bewaren!",
     "rulesTitle": "Regels",
+    "rulesScrollHint": "Scroll voor meer",
     "rulesRespect": "Respect",
     "rulesRespectText": "Op dit kamp hebben we respect voor elkaar, hoe verschillend we allemaal ook zijn. Praktisch houdt dat in dat jij iedereen als waardevol beschouwt en dat iedereen de moeite waard is om te leren kennen. In repetities, workshops en andere activiteiten heeft iedereen zijn eigen mening (of is die aan het vormen) en we horen liever een eerlijk dan het correcte antwoord. Verder hebben we respect voor de natuur, de medewerkers van Belmont en de leiders van SPA. We houden samen met elkaar de gebouwen en het kampterrein schoon van zwerfvuil en houden geen watergevechten in de gebouwen.\nBezit en gebruik van alcohol, tabak, drugs en energiedrank is de hele week binnen en buiten het kampterrein niet toegestaan.",
     "rulesUnity": "Eenheid",
@@ -33,8 +69,6 @@
     "mapTitle": "Kaart",
     "loading": "Bezig met laden...",
     "save": "Opslaan",
-    "welcomeTitle": "Beste SPA-gangers",
-    "welcomeText": "Dit jaar is het alweer de 75e editie van SPA. Wat een tijd en wat een mijlpaal is dat.\nEr liggen door al die jaren heen heel wat voetafdrukken in Belmont van alle deelnemers die aan het kamp hebben deelgenomen. Misschien wel jouw eigen footprint, of die van je ouders of andere familieleden. Allemaal hebben ze daar prachtige momenten beleefd, herinneringen gemaakt en is er op de één of andere manier wel een footprint achter gebleven.\nLaat het thema van dit jaar nou gaan over \"Footprint\".\nNee, dat gaat niet over die vorige 74 keer SPA en ook niet alleen maar over duurzaamheid.\nBeide thema's komen op een of andere manier dit jaar natuurlijk voorbij.\nZo starten we op zaterdag met de REUNIE van 75 jaar SPA, waarin we veel oud-deelnemers en -leiders zullen mogen ontmoeten. Daarnaast hebben we gedurende de week ook aandacht voor duurzaamheid, een vleesloze maaltijd en zelfs vega snacks. Met het thema Footprint van dit jaar kijken we vooral naar enkele belangrijke mensen in de bijbel en wat zij hebben achtergelaten. Maar ook denken we na over wie jij zelf bent of zou willen zijn en wat je wilt achterlaten: jouw eigen footprint!\n\nWe wensen jullie veel plezier!\nMichel & Roel",
     "weatherTitle": "Weer",
     "weatherUpcomingHours": "Komende 12 uur",
     "weatherUpcomingDays": "Komende dagen",
@@ -64,9 +98,45 @@
     "tasksTent": "Tent",
     "tasksMajor": "Major",
     "tasksAllTasks": "Alle Taken",
+    "tasksProgress": "{completed} van {total} voltooid",
+    "@tasksProgress": {
+        "placeholders": {
+            "completed": {"type": "int"},
+            "total": {"type": "int"}
+        }
+    },
+    "tasksAllDone": "Alle taken voltooid",
+    "tasksCompletedSection": "Voltooid",
+    "tasksMarkDone": "Markeer als voltooid",
+    "tasksUndo": "Ongedaan maken",
     "deleteAccountButton": "Account verwijderen",
     "deleteAccountTitle": "Account verwijderen",
     "deleteAccountDescription": "Weet je zeker dat je je account wilt verwijderen? Deze actie kan niet ongedaan worden gemaakt.",
     "deleteAccountCancel": "Annuleren",
-    "deleteAccountConfirm": "Verwijderen"
+    "deleteAccountConfirm": "Verwijderen",
+    "registerTitle": "Doe mee met SPA online",
+    "registerSubtitle": "Maak je app-account aan om tijdens SPA verbonden te blijven",
+    "registerEmailHint": "E-mailadres",
+    "registerPasswordHint": "Wachtwoord",
+    "registerPasswordConfirmHint": "Bevestig wachtwoord",
+    "registerPasswordRequired": "Wachtwoord is verplicht",
+    "registerPasswordMinLength": "Wachtwoord moet minimaal 4 tekens zijn",
+    "registerPasswordMismatch": "Wachtwoorden komen niet overeen",
+    "registerButton": "Account aanmaken",
+    "onboardingTitle": "Stel je profiel in",
+    "onboardingNameTitle": "Hoe heet je?",
+    "onboardingNameSubtitle": "Zo kunnen leiding en vrienden je vinden in de app.",
+    "onboardingFirstnameRequired": "Voornaam is verplicht",
+    "onboardingPhotoTitle": "Voeg een profielfoto toe",
+    "onboardingPhotoSubtitle": "Optioneel — zo herkennen je tentgenoten je!",
+    "onboardingPhotoSkip": "Sla over",
+    "onboardingWelcomeTitle": "Hey {name}!",
+    "@onboardingWelcomeTitle": {
+        "placeholders": {
+            "name": {"type": "String"}
+        }
+    },
+    "onboardingWelcomeBody": "Je bent klaar. Tot ziens op SPA!",
+    "onboardingContinue": "Verder",
+    "onboardingLetsGo": "Aan de slag!"
 }

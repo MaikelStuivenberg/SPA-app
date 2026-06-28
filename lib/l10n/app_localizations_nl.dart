@@ -46,10 +46,74 @@ class AppLocalizationsNl extends AppLocalizations {
       'We zijn nog bezig met het programma. Kom snel even terug :-)';
 
   @override
-  String get photoTitle => 'Meest recente foto\'s';
+  String get photoTitle => 'Fotoalbums';
+
+  @override
+  String get photoAlbumPhotosTitle => 'Foto\'s';
+
+  @override
+  String get photoAlbumFavorites => 'Jouw favorieten';
+
+  @override
+  String get photoAlbumSortShowNewest => 'Toon nieuwste eerst';
+
+  @override
+  String get photoAlbumSortShowOldest => 'Toon oudste eerst';
+
+  @override
+  String get photoAlbumsEmpty =>
+      'We zijn druk bezig met het toevoegen van kampfoto\'s! Check later nog eens. :)';
+
+  @override
+  String photoAlbumPhotoCount(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count foto\'s',
+      one: '1 foto',
+    );
+    return '$_temp0';
+  }
 
   @override
   String get photoSeeAll => 'Bekijk alles';
+
+  @override
+  String get photoSelectionCancel => 'Selectie annuleren';
+
+  @override
+  String photoSelectionCount(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count geselecteerd',
+      one: '1 geselecteerd',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get photoSelectionLike => 'Like';
+
+  @override
+  String get photoSelectionUnlike => 'Unlike';
+
+  @override
+  String get photoSelectionDownload => 'Downloaden';
+
+  @override
+  String get photoSelectionSend => 'Versturen';
+
+  @override
+  String photoBulkDownloadSuccess(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count foto\'s opgeslagen in je downloads map.',
+      one: '1 foto opgeslagen in je downloads map.',
+    );
+    return '$_temp0';
+  }
 
   @override
   String get profileTitle => 'Profiel';
@@ -76,7 +140,14 @@ class AppLocalizationsNl extends AppLocalizations {
   String get profilePhotosLiked => 'Foto\'s die je hebt geliked';
 
   @override
+  String get profilePhotosLikedEmpty =>
+      'Je hebt nog geen foto\'s geliked — tik op het hartje bij een foto om hem hier te bewaren!';
+
+  @override
   String get rulesTitle => 'Regels';
+
+  @override
+  String get rulesScrollHint => 'Scroll voor meer';
 
   @override
   String get rulesRespect => 'Respect';
@@ -114,13 +185,6 @@ class AppLocalizationsNl extends AppLocalizations {
 
   @override
   String get save => 'Opslaan';
-
-  @override
-  String get welcomeTitle => 'Beste SPA-gangers';
-
-  @override
-  String get welcomeText =>
-      'Dit jaar is het alweer de 75e editie van SPA. Wat een tijd en wat een mijlpaal is dat.\nEr liggen door al die jaren heen heel wat voetafdrukken in Belmont van alle deelnemers die aan het kamp hebben deelgenomen. Misschien wel jouw eigen footprint, of die van je ouders of andere familieleden. Allemaal hebben ze daar prachtige momenten beleefd, herinneringen gemaakt en is er op de één of andere manier wel een footprint achter gebleven.\nLaat het thema van dit jaar nou gaan over \"Footprint\".\nNee, dat gaat niet over die vorige 74 keer SPA en ook niet alleen maar over duurzaamheid.\nBeide thema\'s komen op een of andere manier dit jaar natuurlijk voorbij.\nZo starten we op zaterdag met de REUNIE van 75 jaar SPA, waarin we veel oud-deelnemers en -leiders zullen mogen ontmoeten. Daarnaast hebben we gedurende de week ook aandacht voor duurzaamheid, een vleesloze maaltijd en zelfs vega snacks. Met het thema Footprint van dit jaar kijken we vooral naar enkele belangrijke mensen in de bijbel en wat zij hebben achtergelaten. Maar ook denken we na over wie jij zelf bent of zou willen zijn en wat je wilt achterlaten: jouw eigen footprint!\n\nWe wensen jullie veel plezier!\nMichel & Roel';
 
   @override
   String get weatherTitle => 'Weer';
@@ -216,6 +280,23 @@ class AppLocalizationsNl extends AppLocalizations {
   String get tasksAllTasks => 'Alle Taken';
 
   @override
+  String tasksProgress(int completed, int total) {
+    return '$completed van $total voltooid';
+  }
+
+  @override
+  String get tasksAllDone => 'Alle taken voltooid';
+
+  @override
+  String get tasksCompletedSection => 'Voltooid';
+
+  @override
+  String get tasksMarkDone => 'Markeer als voltooid';
+
+  @override
+  String get tasksUndo => 'Ongedaan maken';
+
+  @override
   String get deleteAccountButton => 'Account verwijderen';
 
   @override
@@ -230,4 +311,70 @@ class AppLocalizationsNl extends AppLocalizations {
 
   @override
   String get deleteAccountConfirm => 'Verwijderen';
+
+  @override
+  String get registerTitle => 'Doe mee met SPA online';
+
+  @override
+  String get registerSubtitle =>
+      'Maak je app-account aan om tijdens SPA verbonden te blijven';
+
+  @override
+  String get registerEmailHint => 'E-mailadres';
+
+  @override
+  String get registerPasswordHint => 'Wachtwoord';
+
+  @override
+  String get registerPasswordConfirmHint => 'Bevestig wachtwoord';
+
+  @override
+  String get registerPasswordRequired => 'Wachtwoord is verplicht';
+
+  @override
+  String get registerPasswordMinLength =>
+      'Wachtwoord moet minimaal 4 tekens zijn';
+
+  @override
+  String get registerPasswordMismatch => 'Wachtwoorden komen niet overeen';
+
+  @override
+  String get registerButton => 'Account aanmaken';
+
+  @override
+  String get onboardingTitle => 'Stel je profiel in';
+
+  @override
+  String get onboardingNameTitle => 'Hoe heet je?';
+
+  @override
+  String get onboardingNameSubtitle =>
+      'Zo kunnen leiding en vrienden je vinden in de app.';
+
+  @override
+  String get onboardingFirstnameRequired => 'Voornaam is verplicht';
+
+  @override
+  String get onboardingPhotoTitle => 'Voeg een profielfoto toe';
+
+  @override
+  String get onboardingPhotoSubtitle =>
+      'Optioneel — zo herkennen je tentgenoten je!';
+
+  @override
+  String get onboardingPhotoSkip => 'Sla over';
+
+  @override
+  String onboardingWelcomeTitle(String name) {
+    return 'Hey $name!';
+  }
+
+  @override
+  String get onboardingWelcomeBody => 'Je bent klaar. Tot ziens op SPA!';
+
+  @override
+  String get onboardingContinue => 'Verder';
+
+  @override
+  String get onboardingLetsGo => 'Aan de slag!';
 }

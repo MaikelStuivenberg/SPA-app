@@ -53,9 +53,9 @@ platform :ios do
         export_compliance_uses_encryption: false,
       },
       release_notes: {
-        'default': 'Bugfixes',
-        'en-GB': 'Bugfixes',
-        'nl-NL': 'Bugfixes',
+        'default': 'Improved regisration flow, viewing photos, task overview for leaders and more',
+        'en-GB': 'Improved regisration flow, viewing photos, task overview for leaders and more',
+        'nl-NL': 'Verbeterde registratieflow, bekijken van foto\'s, takenoverzicht voor leiders en meer',
       }
     )
   end
