@@ -74,59 +74,66 @@ class Programitem extends StatelessWidget {
                   const Padding(
                     padding: EdgeInsets.only(left: 16),
                   ),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: <Widget>[
-                      Text(
-                        activity.title!,
-                        style: Theme.of(context).textTheme.titleLarge,
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.only(
-                          bottom: 2,
-                          top: 2,
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: <Widget>[
+                        Text(
+                          activity.title!,
+                          style: Theme.of(context).textTheme.titleLarge,
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
                         ),
-                        child: Row(
+                        Padding(
+                          padding: const EdgeInsets.only(
+                            bottom: 2,
+                            top: 2,
+                          ),
+                          child: Row(
+                            children: [
+                              const Icon(
+                                Icons.schedule_outlined,
+                                size: 18,
+                              ),
+                              const Padding(
+                                padding: EdgeInsets.only(left: 4),
+                              ),
+                              Text(
+                                DateFormat('HH:mm').format(
+                                  activity.date!,
+                                ),
+                                style: Theme.of(context).textTheme.bodyMedium,
+                              ),
+                            ],
+                          ),
+                        ),
+                        Row(
                           children: [
-                            const Icon(
-                              Icons.schedule_outlined,
-                              size: 18,
-                            ),
+                            if (activity.location == null ||
+                                activity.location!.trim().isEmpty)
+                              const SizedBox(width: 10)
+                            else
+                              const Icon(
+                                Icons.location_on_outlined,
+                                size: 18,
+                              ),
                             const Padding(
                               padding: EdgeInsets.only(left: 4),
                             ),
-                            Text(
-                              DateFormat('HH:mm').format(
-                                activity.date!,
+                            Expanded(
+                              child: Text(
+                                activity.location ?? '',
+                                style: Theme.of(context).textTheme.bodyMedium,
+                                maxLines: 1,
+                                overflow: TextOverflow.ellipsis,
                               ),
-                              style: Theme.of(context).textTheme.bodyMedium,
                             ),
                           ],
                         ),
-                      ),
-                      Row(
-                        children: [
-                          if (activity.location == null ||
-                              activity.location!.trim().isEmpty)
-                            const SizedBox(width: 10)
-                          else
-                            const Icon(
-                              Icons.location_on_outlined,
-                              size: 18,
-                            ),
-                          const Padding(
-                            padding: EdgeInsets.only(left: 4),
-                          ),
-                          Text(
-                            activity.location ?? '',
-                            style: Theme.of(context).textTheme.bodyMedium,
-                          ),
-                        ],
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
-                  const Spacer(),
                   if (activity.link != null && activity.link!.isNotEmpty)
                     const FaIcon(
                       Icons.arrow_forward_ios,
