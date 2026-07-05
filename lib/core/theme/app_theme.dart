@@ -114,6 +114,14 @@ class AppTheme {
       bottomAppBarTheme: BottomAppBarThemeData(
         color: colorScheme.surfaceContainerLow,
       ),
+      floatingActionButtonTheme: FloatingActionButtonThemeData(
+        backgroundColor: colorScheme.brightness == Brightness.dark
+            ? AppPalette.spaCyan
+            : colorScheme.primary,
+        foregroundColor: colorScheme.brightness == Brightness.dark
+            ? AppPalette.spaNavy
+            : colorScheme.onPrimary,
+      ),
       elevatedButtonTheme: ElevatedButtonThemeData(
         style: ElevatedButton.styleFrom(
           backgroundColor: colorScheme.primary,

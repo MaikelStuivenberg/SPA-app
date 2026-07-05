@@ -2,8 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:go_router/go_router.dart';
 import 'package:spa_app/core/router/route_paths.dart';
+import 'package:spa_app/core/theme/theme_extensions.dart';
 import 'package:spa_app/ui/core/widgets/app_bar_shape.dart';
 import 'package:spa_app/ui/core/widgets/profile_avatar_button.dart';
+
+Color _navIconColor(BuildContext context, {required bool isSelected}) {
+  final scheme = Theme.of(context).colorScheme;
+  return isSelected ? context.appColors.accent : scheme.onSurfaceVariant;
+}
 
 class AppShell extends StatelessWidget {
   const AppShell({required this.child, super.key});
@@ -66,54 +72,69 @@ class AppShell extends StatelessWidget {
 
   Widget _buildNavigationBar(BuildContext context) {
     final location = GoRouterState.of(context).uri.path;
+    final colorScheme = Theme.of(context).colorScheme;
 
-    return BottomAppBar(
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceAround,
-        children: [
-          IconButton(
-            icon: Icon(
-              Icons.calendar_today,
-              color: location == RoutePaths.program
-                  ? Theme.of(context).colorScheme.primary
-                  : null,
-            ),
-            onPressed: () => context.push(RoutePaths.program),
-          ),
-          IconButton(
-            icon: Icon(
-              Icons.image,
-              color: location == RoutePaths.photos
-                  ? Theme.of(context).colorScheme.primary
-                  : null,
-            ),
-            onPressed: () => context.go(RoutePaths.photos),
-          ),
-          FloatingActionButton(
-            onPressed: () => context.go(RoutePaths.home),
-            elevation: location == RoutePaths.home ? 6 : 4,
-            child: const Icon(Icons.home, size: 32),
-          ),
-          IconButton(
-            icon: Icon(
-              Icons.map,
-              color: location == RoutePaths.map
-                  ? Theme.of(context).colorScheme.primary
-                  : null,
-            ),
-            onPressed: () => context.go(RoutePaths.map),
-          ),
-          IconButton(
-            icon: Icon(
-              Icons.list,
-              color: location == RoutePaths.rules
-                  ? Theme.of(context).colorScheme.primary
-                  : null,
-            ),
-            onPressed: () => context.go(RoutePaths.rules),
-          ),
-        ],
+    return Container(
+      decoration: BoxDecoration(
+        border: Border(
+          top: BorderSide(color: colorScheme.outlineVariant),
+        ),
       ),
+      child: BottomAppBar(
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          children: [
+            _ShellNavIcon(
+              icon: Icons.calendar_today,
+              isSelected: location == RoutePaths.program,
+              onPressed: () => context.push(RoutePaths.program),
+            ),
+            _ShellNavIcon(
+              icon: Icons.image,
+              isSelected: location == RoutePaths.photos,
+              onPressed: () => context.go(RoutePaths.photos),
+            ),
+            FloatingActionButton(
+              onPressed: () => context.go(RoutePaths.home),
+              elevation: location == RoutePaths.home ? 6 : 4,
+              child: const Icon(Icons.home, size: 32),
+            ),
+            _ShellNavIcon(
+              icon: Icons.map,
+              isSelected: location == RoutePaths.map,
+              onPressed: () => context.go(RoutePaths.map),
+            ),
+            _ShellNavIcon(
+              icon: Icons.list,
+              isSelected: location == RoutePaths.rules,
+              onPressed: () => context.go(RoutePaths.rules),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class _ShellNavIcon extends StatelessWidget {
+  const _ShellNavIcon({
+    required this.icon,
+    required this.isSelected,
+    required this.onPressed,
+  });
+
+  final IconData icon;
+  final bool isSelected;
+  final VoidCallback onPressed;
+
+  @override
+  Widget build(BuildContext context) {
+    return IconButton(
+      icon: Icon(
+        icon,
+        color: _navIconColor(context, isSelected: isSelected),
+      ),
+      onPressed: onPressed,
     );
   }
 }

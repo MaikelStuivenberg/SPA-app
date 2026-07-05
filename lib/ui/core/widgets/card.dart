@@ -78,7 +78,7 @@ class CardWidget extends StatelessWidget {
             color: colorScheme.surfaceBright,
             borderRadius: borderRadius,
             border: Border.all(
-              color: colorScheme.outlineVariant.withValues(alpha: 0.45),
+              color: colorScheme.outlineVariant,
             ),
             boxShadow: [
               BoxShadow(
