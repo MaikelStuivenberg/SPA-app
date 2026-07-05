@@ -52,6 +52,14 @@ class UserRepositoryImpl implements UserRepository {
   }
 
   @override
+  Future<void> updateLastUsed() async {
+    final uid = _requireUid();
+    await _usersCollection.doc(uid).update({
+      'last_used': FieldValue.serverTimestamp(),
+    });
+  }
+
+  @override
   Future<void> updateUser(UserData user) async {
     final uid = _requireUid();
     await _usersCollection.doc(uid).update({
