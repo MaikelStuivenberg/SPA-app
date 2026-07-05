@@ -8,6 +8,7 @@ import 'package:spa_app/core/theme/theme_extensions.dart';
 import 'package:spa_app/domain/entities/photo_album.dart';
 import 'package:spa_app/l10n/app_localizations.dart';
 import 'package:spa_app/ui/features/photos/cubit/albums_cubit.dart';
+import 'package:spa_app/ui/core/widgets/shell_page_header.dart';
 
 class AlbumsPage extends StatefulWidget {
   const AlbumsPage({super.key});
@@ -38,16 +39,7 @@ class _AlbumsPageState extends State<AlbumsPage> {
 
     return Column(
       children: [
-        Padding(
-          padding: const EdgeInsets.fromLTRB(16, 48, 16, 0),
-          child: Align(
-            alignment: Alignment.centerLeft,
-            child: Text(
-              l10n.photoTitle,
-              style: Theme.of(context).textTheme.headlineLarge,
-            ),
-          ),
-        ),
+        ShellPageHeader(title: l10n.photoTitle),
         Expanded(
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 16),

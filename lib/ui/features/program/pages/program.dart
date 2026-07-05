@@ -1,18 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
+import 'package:spa_app/core/router/route_paths.dart';
+import 'package:spa_app/core/utils/date_formatter.dart';
+import 'package:spa_app/l10n/app_localizations.dart';
+import 'package:spa_app/ui/core/widgets/app_shell.dart';
+import 'package:spa_app/ui/core/widgets/shell_page_header.dart';
 import 'package:spa_app/ui/features/auth/cubit/auth_cubit.dart';
 import 'package:spa_app/ui/features/program/cubit/program_cubit.dart';
 import 'package:spa_app/ui/features/program/models/activity.dart';
 import 'package:spa_app/ui/features/program/widget/program_item.dart';
+import 'package:spa_app/ui/features/tasks/cubit/tasks_cubit.dart';
 import 'package:spa_app/ui/features/tasks/widgets/task_list_tile.dart';
 import 'package:spa_app/ui/features/tasks/widgets/task_progress_header.dart';
-import 'package:spa_app/l10n/app_localizations.dart';
-import 'package:go_router/go_router.dart';
-import 'package:spa_app/core/router/route_paths.dart';
-import 'package:spa_app/ui/features/tasks/cubit/tasks_cubit.dart';
-import 'package:spa_app/core/utils/date_formatter.dart';
-import 'package:spa_app/ui/core/widgets/profile_avatar_button.dart';
 
 class ProgramPage extends StatefulWidget {
   const ProgramPage({super.key});
@@ -47,52 +48,71 @@ class ProgramPageState extends State<ProgramPage> {
   Widget build(BuildContext context) {
     return BlocBuilder<AuthCubit, AuthState>(
       builder: (context, authState) {
+        final l10n = AppLocalizations.of(context)!;
+        final colorScheme = Theme.of(context).colorScheme;
         final isStaffOrTentLeader = authState is AuthStateSuccess &&
             ((authState.user.staff ?? false) ||
                 (authState.user.tentLeader ?? false));
         final userId = authState is AuthStateSuccess ? authState.user.id : null;
+        const bottomClearance = AppShell.bottomNavigationBarHeight;
+
+        if (!isStaffOrTentLeader) {
+          return Column(
+            children: [
+              ShellPageHeader(title: l10n.programTitle),
+              Expanded(
+                child: Padding(
+                  padding: EdgeInsets.only(bottom: bottomClearance),
+                  child: _buildProgramTab(context),
+                ),
+              ),
+            ],
+          );
+        }
 
         return DefaultTabController(
-          length: isStaffOrTentLeader ? 2 : 1,
-          child: Scaffold(
-            appBar: AppBar(
-              title: Text(AppLocalizations.of(context)!.programTitle),
-              actions: [
-                if (isStaffOrTentLeader)
-                  IconButton(
-                    icon: const Icon(Icons.list),
-                    onPressed: () => context.push(RoutePaths.allTasks),
-                    tooltip: AppLocalizations.of(context)!.tasksAllTasks,
-                  ),
-                const Padding(
-                  padding: EdgeInsets.only(right: 8),
-                  child: ProfileAvatarButton(),
+          length: 2,
+          child: Column(
+            children: [
+              ShellPageHeader(title: l10n.programTitle),
+              Padding(
+                padding: const EdgeInsets.fromLTRB(8, 0, 8, 0),
+                child: Row(
+                  children: [
+                    Expanded(
+                      child: TabBar(
+                        labelColor: colorScheme.primary,
+                        unselectedLabelColor: colorScheme.onSurfaceVariant,
+                        indicatorColor: colorScheme.primary,
+                        tabs: [
+                          Tab(text: l10n.programTitle),
+                          Tab(text: l10n.tasksTab),
+                        ],
+                      ),
+                    ),
+                    IconButton(
+                      icon: const Icon(Icons.list),
+                      onPressed: () => context.push(RoutePaths.allTasks),
+                      tooltip: l10n.tasksAllTasks,
+                    ),
+                  ],
                 ),
-              ],
-              bottom: TabBar(
-                labelColor: Theme.of(context).colorScheme.onPrimary,
-                unselectedLabelColor: Theme.of(context)
-                    .colorScheme
-                    .onPrimary
-                    .withValues(alpha: 0.5),
-                indicatorColor: Theme.of(context).colorScheme.onPrimary,
-                tabs: [
-                  Tab(text: AppLocalizations.of(context)!.programTitle),
-                  if (isStaffOrTentLeader)
-                    Tab(text: AppLocalizations.of(context)!.tasksTab),
-                ],
               ),
-            ),
-            body: SafeArea(
-              minimum: const EdgeInsets.fromLTRB(0, 0, 0, 24),
-              child: TabBarView(
-                children: [
-                  _buildProgramTab(context),
-                  if (isStaffOrTentLeader && userId != null)
-                    _buildTasksTab(context, userId),
-                ],
+              Expanded(
+                child: Padding(
+                  padding: EdgeInsets.only(bottom: bottomClearance),
+                  child: TabBarView(
+                    children: [
+                      _buildProgramTab(context),
+                      if (userId != null)
+                        _buildTasksTab(context, userId)
+                      else
+                        const SizedBox.shrink(),
+                    ],
+                  ),
+                ),
               ),
-            ),
+            ],
           ),
         );
       },
@@ -123,7 +143,13 @@ class ProgramPageState extends State<ProgramPage> {
 
         if (programState.program == null || programState.program!.isEmpty) {
           return Center(
-            child: Text(AppLocalizations.of(context)!.programNoActivitiesYet),
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 24),
+              child: Text(
+                AppLocalizations.of(context)!.programNoActivitiesYet,
+                textAlign: TextAlign.center,
+              ),
+            ),
           );
         }
 
@@ -282,19 +308,29 @@ class ProgramPageState extends State<ProgramPage> {
         return Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Container(height: 16),
+            const SizedBox(height: 8),
             Center(
               child: Text(
                 DateFormatter(dayDate, context).formatAsDayname(),
-                style: Theme.of(context).textTheme.headlineLarge,
+                style: Theme.of(context).textTheme.headlineLarge?.copyWith(
+                      height: 1,
+                    ),
+                textHeightBehavior: const TextHeightBehavior(
+                  applyHeightToFirstAscent: false,
+                  applyHeightToLastDescent: false,
+                ),
               ),
             ),
-            Container(height: 10),
+            const SizedBox(height: 4),
             Expanded(
               child: filteredActivities.isEmpty
                   ? Center(
-                      child: Text(
-                        AppLocalizations.of(context)!.programNoActivitiesYet,
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 24),
+                        child: Text(
+                          AppLocalizations.of(context)!.programNoActivitiesYet,
+                          textAlign: TextAlign.center,
+                        ),
                       ),
                     )
                   : Container(
@@ -304,6 +340,7 @@ class ProgramPageState extends State<ProgramPage> {
                         itemCount: filteredActivities.length,
                         itemBuilder: (BuildContext context, int index) {
                           return Programitem(
+                            isFirst: index == 0,
                             isPast: filteredActivities[index]
                                 .date!
                                 .isBefore(DateTime.now()),
@@ -336,7 +373,13 @@ class ProgramPageState extends State<ProgramPage> {
         final tasks = tasksState.tasks;
         if (tasks.isEmpty) {
           return Center(
-            child: Text(AppLocalizations.of(context)!.tasksNoTasks),
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 24),
+              child: Text(
+                AppLocalizations.of(context)!.tasksNoTasks,
+                textAlign: TextAlign.center,
+              ),
+            ),
           );
         }
 

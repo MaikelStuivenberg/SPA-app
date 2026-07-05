@@ -5,12 +5,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:go_router/go_router.dart';
-import 'package:spa_app/core/config/remote_config_keys.dart';
-import 'package:spa_app/core/di/injection.dart';
 import 'package:spa_app/core/router/route_paths.dart';
-import 'package:spa_app/data/services/remote_config_service.dart';
-import 'package:spa_app/l10n/app_localizations.dart';
 import 'package:spa_app/core/theme/theme_extensions.dart';
+import 'package:spa_app/l10n/app_localizations.dart';
 import 'package:spa_app/ui/core/widgets/default_body.dart';
 import 'package:spa_app/ui/features/auth/cubit/auth_cubit.dart';
 import 'package:spa_app/ui/features/user/cubit/user_profile_cubit.dart';
@@ -25,33 +22,9 @@ class EditProfilePage extends StatefulWidget {
 }
 
 class EditProfilePageState extends State<EditProfilePage> {
-  static const _majorOptions = [
-    'Algemeen',
-    'Brass',
-    'Choir',
-    'Dance',
-    'MMS',
-    'Theatre',
-    'Sports',
-  ];
-
-  static const _minorOptions = [
-    'Brass Class - Beginner',
-    'Brass Class - Gevorderd',
-    'Gospel',
-    'Ritme',
-    'Media',
-    'Handige Handjes',
-    'Timbrels',
-    'Directie',
-    'Musical',
-  ];
-
   final _firstnameController = TextEditingController();
   final _lastnameController = TextEditingController();
   final _ageController = TextEditingController();
-  var _majorValue = '';
-  var _minorValue = '';
   var _formInitialized = false;
 
   bool _isSaving = false;
@@ -79,28 +52,8 @@ class EditProfilePageState extends State<EditProfilePage> {
     _firstnameController.text = user.firstname ?? '';
     _lastnameController.text = user.lastname ?? '';
     _ageController.text = user.age ?? '';
-    _majorValue = user.major ?? '';
-    _minorValue = user.minor ?? '';
     _formInitialized = true;
   }
-
-  List<DropdownMenuItem<String>> _dropdownItems(
-    List<String> options,
-    String currentValue,
-  ) {
-    final values = [
-      ...options,
-      if (currentValue.isNotEmpty && !options.contains(currentValue))
-        currentValue,
-    ];
-
-    return values
-        .map((value) => DropdownMenuItem(value: value, child: Text(value)))
-        .toList();
-  }
-
-  String? _dropdownValue(String value) =>
-      value.isEmpty ? null : value;
 
   @override
   Widget build(BuildContext context) {
@@ -171,35 +124,6 @@ class EditProfilePageState extends State<EditProfilePage> {
                                     AppLocalizations.of(context)!.profileAge,
                               ),
                             ),
-                            DropdownButtonFormField(
-                              value: _dropdownValue(_majorValue),
-                              decoration: InputDecoration(
-                                labelText:
-                                    AppLocalizations.of(context)!.profileMajor,
-                              ),
-                              items: _dropdownItems(_majorOptions, _majorValue),
-                              onChanged: (value) {
-                                if (value != null) {
-                                  setState(() => _majorValue = value);
-                                }
-                              },
-                            ),
-                            if (getIt<RemoteConfigService>()
-                                .getBool(RemoteConfigKeys.useMinor))
-                              DropdownButtonFormField(
-                                value: _dropdownValue(_minorValue),
-                                decoration: InputDecoration(
-                                  labelText: AppLocalizations.of(context)!
-                                      .profileMinor,
-                                ),
-                                items:
-                                    _dropdownItems(_minorOptions, _minorValue),
-                                onChanged: (value) {
-                                  if (value != null) {
-                                    setState(() => _minorValue = value);
-                                  }
-                                },
-                              ),
                             const SizedBox(height: 24),
                             SizedBox(
                               width: double.infinity,
@@ -216,8 +140,6 @@ class EditProfilePageState extends State<EditProfilePage> {
                                           firstname: _firstnameController.text,
                                           lastname: _lastnameController.text,
                                           age: _ageController.text,
-                                          major: _majorValue,
-                                          minor: _minorValue,
                                         ),
                                       );
 

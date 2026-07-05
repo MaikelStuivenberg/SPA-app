@@ -90,15 +90,22 @@ class _RuleSlideState extends State<RuleSlide>
     );
 
     return Padding(
-      padding: const EdgeInsets.fromLTRB(16, 8, 16, 24),
+      padding: const EdgeInsets.fromLTRB(8, 0, 8, 24),
       child: LayoutBuilder(
         builder: (context, constraints) {
-          return Transform.scale(
-            scale: widget.scale,
-            child: SizedBox(
-              height: constraints.maxHeight,
-              width: constraints.maxWidth,
-              child: DecoratedBox(
+          final screenH = MediaQuery.sizeOf(context).height;
+          final cardHeight = (screenH * 0.62)
+              .clamp(380.0, 620.0)
+              .clamp(0.0, constraints.maxHeight);
+
+          return Align(
+            alignment: Alignment.topCenter,
+            child: Transform.scale(
+              scale: widget.scale,
+              child: SizedBox(
+                height: cardHeight,
+                width: constraints.maxWidth,
+                child: DecoratedBox(
                 decoration: BoxDecoration(
                   color: theme.colorScheme.surface,
                   borderRadius: BorderRadius.circular(20),
@@ -255,6 +262,7 @@ class _RuleSlideState extends State<RuleSlide>
                   ),
                 ),
               ),
+            ),
             ),
           );
         },

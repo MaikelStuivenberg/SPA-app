@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:go_router/go_router.dart';
 import 'package:spa_app/core/router/route_paths.dart';
 import 'package:spa_app/l10n/app_localizations.dart';
 import 'package:spa_app/ui/core/widgets/default_body.dart';
+import 'package:spa_app/ui/core/widgets/app_back_button.dart';
 import 'package:spa_app/ui/features/auth/cubit/auth_cubit.dart';
 import 'package:spa_app/ui/features/auth/widgets/auth_decorative_background.dart';
 
@@ -64,14 +64,9 @@ class RegisterPageState extends State<RegisterPage> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    IconButton(
-                      icon: const Icon(FontAwesomeIcons.arrowLeft),
-                      onPressed: () => context.pop(),
-                      style: IconButton.styleFrom(
-                        padding: EdgeInsets.zero,
-                        minimumSize: const Size(48, 48),
-                        alignment: Alignment.centerLeft,
-                      ),
+                    const Align(
+                      alignment: Alignment.centerLeft,
+                      child: AppBackButton(onPrimary: false),
                     ),
                     Text(
                       l10n.registerTitle,

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:spa_app/core/theme/app_palette.dart';
 import 'package:spa_app/core/theme/app_semantic_colors.dart';
+import 'package:spa_app/ui/core/widgets/app_bar_shape.dart';
 
 class AppTheme {
   AppTheme._();
@@ -104,6 +105,7 @@ class AppTheme {
         centerTitle: false,
         backgroundColor: colorScheme.primary,
         foregroundColor: colorScheme.onPrimary,
+        shape: AppBarShape(),
         titleTextStyle: TextStyle(
           fontFamily: 'Montserrat',
           fontSize: 28,
@@ -113,6 +115,14 @@ class AppTheme {
       ),
       bottomAppBarTheme: BottomAppBarThemeData(
         color: colorScheme.surfaceContainerLow,
+      ),
+      floatingActionButtonTheme: FloatingActionButtonThemeData(
+        backgroundColor: colorScheme.brightness == Brightness.dark
+            ? AppPalette.spaCyan
+            : colorScheme.primary,
+        foregroundColor: colorScheme.brightness == Brightness.dark
+            ? AppPalette.spaNavy
+            : colorScheme.onPrimary,
       ),
       elevatedButtonTheme: ElevatedButtonThemeData(
         style: ElevatedButton.styleFrom(

@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:go_router/go_router.dart';
 import 'package:spa_app/core/router/route_paths.dart';
-import 'package:spa_app/ui/core/widgets/app_bar_shape.dart';
+import 'package:spa_app/ui/core/widgets/app_back_button.dart';
+import 'package:spa_app/ui/core/widgets/primary_app_bar.dart';
 import 'package:spa_app/ui/core/widgets/profile_avatar_button.dart';
+import 'package:spa_app/ui/core/widgets/scaffold_gradient.dart';
 
 class AppShell extends StatelessWidget {
   const AppShell({required this.child, super.key});
@@ -22,26 +23,11 @@ class AppShell extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final colorScheme = Theme.of(context).colorScheme;
-
     return Scaffold(
       bottomNavigationBar: _buildNavigationBar(context),
       body: Stack(
         children: [
-          Container(
-            decoration: BoxDecoration(
-              gradient: LinearGradient(
-                begin: Alignment.topCenter,
-                end: Alignment.bottomCenter,
-                colors: [
-                  colorScheme.surface.withValues(alpha: 0),
-                  colorScheme.surfaceContainerLow.withValues(alpha: 0.5),
-                  colorScheme.surfaceContainerLow,
-                ],
-              ),
-            ),
-            child: child,
-          ),
+          ScaffoldGradient(child: child),
           Positioned(
             top: 0,
             right: 0,
@@ -78,7 +64,7 @@ class AppShell extends StatelessWidget {
                   ? Theme.of(context).colorScheme.primary
                   : null,
             ),
-            onPressed: () => context.push(RoutePaths.program),
+            onPressed: () => context.go(RoutePaths.program),
           ),
           IconButton(
             icon: Icon(
@@ -105,7 +91,7 @@ class AppShell extends StatelessWidget {
           ),
           IconButton(
             icon: Icon(
-              Icons.list,
+              Icons.handshake,
               color: location == RoutePaths.rules
                   ? Theme.of(context).colorScheme.primary
                   : null,
@@ -119,6 +105,11 @@ class AppShell extends StatelessWidget {
 }
 
 /// Scaffold with optional app bar for pages outside the main shell.
+///
+/// UX rules:
+/// - Tab root in shell → [ShellPageHeader], no back
+/// - Nested in shell → [ShellDetailHeader]
+/// - Pushed route / outside shell → [PageScaffold] with [back] when [canPop]
 class PageScaffold extends StatelessWidget {
   const PageScaffold({
     required this.title,
@@ -126,6 +117,8 @@ class PageScaffold extends StatelessWidget {
     this.showMenu = false,
     this.actions,
     this.back = false,
+    this.showProfileAction = true,
+    this.appBarBottom,
     super.key,
   });
 
@@ -134,6 +127,23 @@ class PageScaffold extends StatelessWidget {
   final bool showMenu;
   final List<Widget>? actions;
   final bool back;
+  final bool showProfileAction;
+  final PreferredSizeWidget? appBarBottom;
+
+  List<Widget>? _resolvedActions(BuildContext context) {
+    if (actions != null) {
+      return actions;
+    }
+    if (!showProfileAction) {
+      return null;
+    }
+    return const [
+      Padding(
+        padding: EdgeInsets.only(right: 8),
+        child: ProfileAvatarButton(),
+      ),
+    ];
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -141,51 +151,17 @@ class PageScaffold extends StatelessWidget {
       return AppShell(child: child);
     }
 
-    final colorScheme = Theme.of(context).colorScheme;
     return Scaffold(
-      body: Container(
-        decoration: BoxDecoration(
-          gradient: LinearGradient(
-            begin: Alignment.topCenter,
-            end: Alignment.bottomCenter,
-            colors: [
-              colorScheme.surface.withValues(alpha: 0),
-              colorScheme.surfaceContainerLow.withValues(alpha: 0.5),
-              colorScheme.surfaceContainerLow,
-            ],
-          ),
-        ),
-        child: child,
-      ),
+      body: ScaffoldGradient(child: child),
       extendBodyBehindAppBar: true,
       extendBody: true,
       appBar: title == null
           ? null
-          : AppBar(
-              shape: AppBarShape(),
-              automaticallyImplyLeading: false,
-              leading: !back
-                  ? null
-                  : Builder(
-                      builder: (context) {
-                        if (context.canPop()) {
-                          return IconButton(
-                            icon: const Icon(FontAwesomeIcons.arrowLeft),
-                            onPressed: () => context.pop(),
-                          );
-                        }
-                        return const SizedBox.shrink();
-                      },
-                    ),
+          : PrimaryAppBar(
               title: Text(title!),
-              actions: actions ??
-                  [
-                    IconButton(
-                      icon: const FaIcon(FontAwesomeIcons.solidUser),
-                      onPressed: () => context.push(RoutePaths.userDetails),
-                      color: colorScheme.onPrimary,
-                    ),
-                  ],
+              leading: back ? const AppBackButton() : null,
+              actions: _resolvedActions(context),
+              bottom: appBarBottom,
             ),
     );
   }

@@ -113,6 +113,11 @@ GoRouter createAppRouter(AuthCubit authCubit, AuthService authService) {
                 noTransitionPage(state, const HomePage()),
           ),
           GoRoute(
+            path: RoutePaths.program,
+            pageBuilder: (context, state) =>
+                noTransitionPage(state, const ProgramPage()),
+          ),
+          GoRoute(
             path: RoutePaths.photos,
             pageBuilder: (context, state) =>
                 noTransitionPage(state, const AlbumsPage()),
@@ -144,11 +149,6 @@ GoRouter createAppRouter(AuthCubit authCubit, AuthService authService) {
                 noTransitionPage(state, const RulesPage()),
           ),
         ],
-      ),
-      GoRoute(
-        path: RoutePaths.program,
-        pageBuilder: (context, state) =>
-            noTransitionPage(state, const ProgramPage()),
       ),
       GoRoute(
         path: RoutePaths.allTasks,

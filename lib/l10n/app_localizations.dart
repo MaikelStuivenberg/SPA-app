@@ -167,7 +167,7 @@ abstract class AppLocalizations {
   /// No description provided for @programNoActivitiesYet.
   ///
   /// In en, this message translates to:
-  /// **'We are still working on the program'**
+  /// **'We\'re busy building the program! Check back soon. :)'**
   String get programNoActivitiesYet;
 
   /// No description provided for @photoTitle.
@@ -515,7 +515,7 @@ abstract class AppLocalizations {
   /// No description provided for @tasksNoTasks.
   ///
   /// In en, this message translates to:
-  /// **'No tasks assigned.'**
+  /// **'Nothing on your list yet — enjoy the breather! :)'**
   String get tasksNoTasks;
 
   /// No description provided for @tasksLocation.
@@ -745,6 +745,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Let\'s go!'**
   String get onboardingLetsGo;
+
+  /// No description provided for @commonBack.
+  ///
+  /// In en, this message translates to:
+  /// **'Back'**
+  String get commonBack;
 }
 
 class _AppLocalizationsDelegate

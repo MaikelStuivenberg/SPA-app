@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 import 'package:spa_app/core/theme/theme_extensions.dart';
 import 'package:spa_app/l10n/app_localizations.dart';
+import 'package:spa_app/ui/core/widgets/app_shell.dart';
+import 'package:spa_app/ui/core/widgets/shell_page_header.dart';
 import 'package:spa_app/ui/features/rules/widgets/rule_slide.dart';
 
 class RulesPage extends StatefulWidget {
@@ -20,7 +22,7 @@ class _RulesPageState extends State<RulesPage> {
   @override
   void initState() {
     super.initState();
-    _pageController = PageController();
+    _pageController = PageController(viewportFraction: 0.88);
     _pageController.addListener(_onPageChanged);
   }
 
@@ -74,18 +76,11 @@ class _RulesPageState extends State<RulesPage> {
     final slides = _slides(l10n, context.appColors.ruleAccents);
     final theme = Theme.of(context);
 
-    return SafeArea(
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Padding(
-            padding: const EdgeInsets.fromLTRB(16, 24, 16, 8),
-            child: Text(
-              l10n.rulesTitle,
-              style: theme.textTheme.headlineLarge,
-            ),
-          ),
-          Expanded(
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        ShellPageHeader(title: l10n.rulesTitle),
+        Expanded(
             child: PageView.builder(
               clipBehavior: Clip.none,
               controller: _pageController,
@@ -114,7 +109,12 @@ class _RulesPageState extends State<RulesPage> {
             ),
           ),
           Padding(
-            padding: const EdgeInsets.fromLTRB(16, 8, 16, 16),
+            padding: const EdgeInsets.fromLTRB(
+              16,
+              8,
+              16,
+              12 + AppShell.bottomNavigationBarHeight,
+            ),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
@@ -146,8 +146,7 @@ class _RulesPageState extends State<RulesPage> {
             ),
           ),
         ],
-      ),
-    );
+      );
   }
 }
 

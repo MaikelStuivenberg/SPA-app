@@ -250,7 +250,8 @@ class AppLocalizationsNl extends AppLocalizations {
   String get tasksTab => 'Taken';
 
   @override
-  String get tasksNoTasks => 'Geen taken toegewezen.';
+  String get tasksNoTasks =>
+      'Nog niets op je lijstje — geniet even van de rust! :)';
 
   @override
   String get tasksLocation => 'Locatie';
@@ -377,4 +378,7 @@ class AppLocalizationsNl extends AppLocalizations {
 
   @override
   String get onboardingLetsGo => 'Aan de slag!';
+
+  @override
+  String get commonBack => 'Terug';
 }
