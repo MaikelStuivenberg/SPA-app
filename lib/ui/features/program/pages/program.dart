@@ -280,28 +280,25 @@ class ProgramPageState extends State<ProgramPage> {
                   (user.biblestudyLeader != null && user.biblestudyLeader!),
             )
 
-            // Filter on age <13
+            // Filter on age (e.g. "<14", ">=16")
             .where(
-              (el) =>
-                  el.requirements == null ||
-                  user.age == null ||
-                  user.age!.isEmpty ||
-                  !el.requirements!.containsKey('age') ||
-                  el.requirements!['age'] != '<13' ||
-                  (int.tryParse(user.age!) != null &&
-                      int.tryParse(user.age!)! < 13),
-            )
+              (el) {
+                if (el.requirements == null ||
+                    user.age == null ||
+                    user.age!.isEmpty ||
+                    !el.requirements!.containsKey('age') ||
+                    el.requirements!['age'] == null) {
+                  return true;
+                }
 
-            // Filter on age >=13
-            .where(
-              (el) =>
-                  el.requirements == null ||
-                  user.age == null ||
-                  user.age!.isEmpty ||
-                  !el.requirements!.containsKey('age') ||
-                  el.requirements!['age'] != '>=13' ||
-                  (int.tryParse(user.age!) != null &&
-                      int.tryParse(user.age!)! >= 13),
+                final userAge = int.tryParse(user.age!);
+                if (userAge == null) return true;
+
+                return _matchesAgeRequirement(
+                  userAge,
+                  el.requirements!['age'].toString(),
+                );
+              },
             )
             .toList();
 
@@ -442,4 +439,21 @@ class ProgramPageState extends State<ProgramPage> {
         nextActivity != null &&
         nextActivity.date!.isAfter(currentTime);
   }
+}
+
+/// Parses age requirements like `<14`, `>=16`, `>12`, `<=18`, `=15`.
+/// Unknown formats are treated as a match so activities stay visible.
+bool _matchesAgeRequirement(int userAge, String requirement) {
+  final match = RegExp(r'^(>=|<=|>|<|=)(\d+)$').firstMatch(requirement.trim());
+  if (match == null) return true;
+
+  final threshold = int.parse(match.group(2)!);
+  return switch (match.group(1)) {
+    '<' => userAge < threshold,
+    '<=' => userAge <= threshold,
+    '>=' => userAge >= threshold,
+    '>' => userAge > threshold,
+    '=' => userAge == threshold,
+    _ => true,
+  };
 }

@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/foundation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:spa_app/core/di/injection.dart';
@@ -27,7 +29,7 @@ class AuthCubit extends Cubit<AuthState> {
 
       if (auth.user == null) throw Exception('User not found');
 
-      emit(AuthStateSuccess(await _userRepository.getUser()));
+      emit(AuthStateSuccess(await _loadAuthenticatedUser()));
     } catch (e) {
       emit(AuthStateError(e.toString()));
     }
@@ -44,7 +46,7 @@ class AuthCubit extends Cubit<AuthState> {
 
     try {
       await _authService.signInWithApple();
-      emit(AuthStateSuccess(await _userRepository.getUser()));
+      emit(AuthStateSuccess(await _loadAuthenticatedUser()));
     } on Exception catch (e) {
       if (kDebugMode) print('exception->$e');
     }
@@ -55,7 +57,7 @@ class AuthCubit extends Cubit<AuthState> {
 
     try {
       await _authService.signInWithGoogle();
-      emit(AuthStateSuccess(await _userRepository.getUser()));
+      emit(AuthStateSuccess(await _loadAuthenticatedUser()));
     } on Exception catch (e) {
       if (kDebugMode) print('exception->$e');
     }
@@ -71,8 +73,22 @@ class AuthCubit extends Cubit<AuthState> {
   Future<bool> tryAutoLogin() async {
     if (_authService.currentUser == null) return false;
 
-    emit(AuthStateSuccess(await _userRepository.getUser()));
+    emit(AuthStateSuccess(await _loadAuthenticatedUser()));
     return true;
+  }
+
+  Future<UserData> _loadAuthenticatedUser() async {
+    final user = await _userRepository.getUser();
+    unawaited(_recordAppOpen());
+    return user;
+  }
+
+  Future<void> _recordAppOpen() async {
+    try {
+      await _userRepository.updateLastUsed();
+    } catch (e) {
+      if (kDebugMode) print('Failed to update last_used: $e');
+    }
   }
 
   Future<void> updateUserData(UserData userData) async {

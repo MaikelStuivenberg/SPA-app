@@ -4,6 +4,7 @@ import 'package:spa_app/ui/features/user/models/user.dart';
 
 abstract class UserRepository {
   Future<UserData> getUser();
+  Future<void> updateLastUsed();
   Future<void> updateUser(UserData user);
   Future<void> setProfileImage(Uint8List imageBytes);
   Future<String> getCurrentUserId();
