@@ -51,6 +51,7 @@ class _BibleStudyPageState extends State<BibleStudyPage> {
           ),
         ),
       ),
+      showMenu: false,
       back: true,
     );
   }

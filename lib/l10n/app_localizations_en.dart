@@ -42,7 +42,8 @@ class AppLocalizationsEn extends AppLocalizations {
   String get programFriday => 'Friday';
 
   @override
-  String get programNoActivitiesYet => 'We are still working on the program';
+  String get programNoActivitiesYet =>
+      'We\'re busy building the program! Check back soon. :)';
 
   @override
   String get photoTitle => 'Photo albums';
@@ -249,7 +250,8 @@ class AppLocalizationsEn extends AppLocalizations {
   String get tasksTab => 'Tasks';
 
   @override
-  String get tasksNoTasks => 'No tasks assigned.';
+  String get tasksNoTasks =>
+      'Nothing on your list yet — enjoy the breather! :)';
 
   @override
   String get tasksLocation => 'Location';
@@ -375,4 +377,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get onboardingLetsGo => 'Let\'s go!';
+
+  @override
+  String get commonBack => 'Back';
 }

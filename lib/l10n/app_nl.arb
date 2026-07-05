@@ -89,7 +89,7 @@
     "resetPasswordFailed": "Verzenden van herstelmail mislukt: {error}",
     "resetPasswordSuccess": "Herstelmail is verzonden!",
     "tasksTab": "Taken",
-    "tasksNoTasks": "Geen taken toegewezen.",
+    "tasksNoTasks": "Nog niets op je lijstje — geniet even van de rust! :)",
     "tasksLocation": "Locatie",
     "tasksDayTime": "{day} - {time}",
     "tasksDetails": "Taak Details",
@@ -138,5 +138,6 @@
     },
     "onboardingWelcomeBody": "Je bent klaar. Tot ziens op SPA!",
     "onboardingContinue": "Verder",
-    "onboardingLetsGo": "Aan de slag!"
+    "onboardingLetsGo": "Aan de slag!",
+    "commonBack": "Terug"
 }

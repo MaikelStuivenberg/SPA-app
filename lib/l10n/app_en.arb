@@ -10,7 +10,7 @@
   "programWednesday": "Wednesday",
   "programThursday": "Thursday",
   "programFriday": "Friday",
-  "programNoActivitiesYet": "We are still working on the program",
+  "programNoActivitiesYet": "We're busy building the program! Check back soon. :)",
   "photoTitle": "Photo albums",
   "photoAlbumPhotosTitle": "Photos",
   "photoAlbumFavorites": "Your favorites",
@@ -89,7 +89,7 @@
   "resetPasswordFailed": "Failed to send reset email: {error}",
   "resetPasswordSuccess": "Password reset email sent!",
   "tasksTab": "Tasks",
-  "tasksNoTasks": "No tasks assigned.",
+  "tasksNoTasks": "Nothing on your list yet — enjoy the breather! :)",
   "tasksLocation": "Location",
   "tasksDayTime": "{day} - {time}",
   "tasksDetails": "Task Details",
@@ -138,5 +138,6 @@
   },
   "onboardingWelcomeBody": "You're all set. See you at SPA!",
   "onboardingContinue": "Continue",
-  "onboardingLetsGo": "Let's go!"
+  "onboardingLetsGo": "Let's go!",
+  "commonBack": "Back"
 }

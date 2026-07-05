@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:go_router/go_router.dart';
 import 'package:spa_app/domain/entities/album_photo_sort.dart';
 import 'package:spa_app/domain/entities/photo.dart';
 import 'package:spa_app/domain/entities/photo_album_ids.dart';
@@ -8,6 +7,7 @@ import 'package:spa_app/l10n/app_localizations.dart';
 import 'package:spa_app/ui/features/photos/cubit/albums_cubit.dart';
 import 'package:spa_app/ui/features/photos/cubit/photos_cubit.dart';
 import 'package:spa_app/ui/features/photos/widgets/photo_selection.dart';
+import 'package:spa_app/ui/core/widgets/shell_detail_header.dart';
 
 class AlbumPhotosPage extends StatefulWidget {
   const AlbumPhotosPage({required this.albumId, super.key});
@@ -81,45 +81,31 @@ class _AlbumPhotosPageState extends State<AlbumPhotosPage> {
       ],
       child: Column(
         children: [
-          Padding(
-            padding: const EdgeInsets.fromLTRB(8, 48, 16, 0),
-            child: Row(
-              children: [
-                IconButton(
-                  icon: const Icon(Icons.arrow_back),
-                  onPressed: () => context.pop(),
+          ShellDetailHeader(
+            title: _albumTitle(context),
+            actions: [
+              if (!widget.isFavorites)
+                BlocBuilder<PhotosCubit, PhotosState>(
+                  buildWhen: (previous, current) =>
+                      previous.sort != current.sort,
+                  builder: (context, state) {
+                    final isNewestFirst =
+                        state.sort == AlbumPhotoSort.newestFirst;
+                    return IconButton(
+                      icon: Icon(
+                        isNewestFirst
+                            ? Icons.arrow_downward
+                            : Icons.arrow_upward,
+                      ),
+                      tooltip: isNewestFirst
+                          ? l10n.photoAlbumSortShowOldest
+                          : l10n.photoAlbumSortShowNewest,
+                      onPressed: () =>
+                          context.read<PhotosCubit>().toggleSort(),
+                    );
+                  },
                 ),
-                Expanded(
-                  child: Text(
-                    _albumTitle(context),
-                    style: Theme.of(context).textTheme.headlineLarge,
-                    maxLines: 2,
-                    overflow: TextOverflow.ellipsis,
-                  ),
-                ),
-                if (!widget.isFavorites)
-                  BlocBuilder<PhotosCubit, PhotosState>(
-                    buildWhen: (previous, current) =>
-                        previous.sort != current.sort,
-                    builder: (context, state) {
-                      final isNewestFirst =
-                          state.sort == AlbumPhotoSort.newestFirst;
-                      return IconButton(
-                        icon: Icon(
-                          isNewestFirst
-                              ? Icons.arrow_downward
-                              : Icons.arrow_upward,
-                        ),
-                        tooltip: isNewestFirst
-                            ? l10n.photoAlbumSortShowOldest
-                            : l10n.photoAlbumSortShowNewest,
-                        onPressed: () =>
-                            context.read<PhotosCubit>().toggleSort(),
-                      );
-                    },
-                  ),
-              ],
-            ),
+            ],
           ),
           Expanded(
             child: Padding(

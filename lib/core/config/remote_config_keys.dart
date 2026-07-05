@@ -10,4 +10,5 @@ class RemoteConfigKeys {
   static const useMinor = 'use_minor';
   static const countdownDate = 'countdown_date';
   static const countdownEvent = 'countdown_event';
+  static const mapRooms = 'map_rooms';
 }

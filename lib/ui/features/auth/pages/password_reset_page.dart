@@ -114,20 +114,11 @@ class _PasswordResetPageState extends State<PasswordResetPage> {
                                   child:
                                       CircularProgressIndicator(strokeWidth: 2),
                                 )
-                              : Text(AppLocalizations.of(context)!
-                                  .resetPasswordSendButton),
+                              : Text(
+                                  AppLocalizations.of(context)!
+                                      .resetPasswordSendButton,
+                                ),
                         ),
-                      ),
-                      const SizedBox(height: 16),
-                      TextButton.icon(
-                        onPressed: _loading
-                            ? null
-                            : () {
-                                Navigator.of(context).pop();
-                              },
-                        icon: const Icon(Icons.arrow_back),
-                        label: Text(AppLocalizations.of(context)!
-                            .resetPasswordBackToLogin),
                       ),
                     ],
                   ),

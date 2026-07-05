@@ -5,6 +5,7 @@ import 'package:spa_app/core/theme/theme_extensions.dart';
 import 'package:spa_app/core/utils/date_formatter.dart';
 import 'package:spa_app/l10n/app_localizations.dart';
 import 'package:spa_app/ui/core/widgets/card.dart';
+import 'package:spa_app/ui/core/widgets/default_body.dart';
 import 'package:spa_app/ui/features/tasks/cubit/tasks_cubit.dart';
 import 'package:spa_app/ui/features/tasks/models/task.dart';
 import 'package:spa_app/ui/features/tasks/widgets/assigned_users_list.dart';
@@ -76,11 +77,9 @@ class _TaskDetailsPageState extends State<TaskDetailsPage> {
     final day = DateFormatter(widget.task.date, context).formatAsDayname();
     final time = TimeOfDay.fromDateTime(widget.task.date).format(context);
 
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(widget.task.title),
-      ),
-      body: _isLoading
+    return DefaultScaffoldWidget(
+      widget.task.title,
+      _isLoading
           ? const Center(child: CircularProgressIndicator())
           : BlocBuilder<TasksCubit, TasksState>(
               builder: (context, state) {
@@ -166,6 +165,8 @@ class _TaskDetailsPageState extends State<TaskDetailsPage> {
                 );
               },
             ),
+      showMenu: false,
+      back: true,
     );
   }
 }

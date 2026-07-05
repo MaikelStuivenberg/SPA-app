@@ -49,6 +49,8 @@ Future<void> _configureRemoteConfig() async {
     'use_minor': true,
     'countdown_date': '2026-01-17T09:00:00+01:00',
     'countdown_event': 'SPA Pre Party 2026',
+    'map_rooms':
+        '{"major":[{"location":"W. Boothzaal","activity":"Brass"},{"location":"Bosshardt","activity":"Choir"},{"location":"C. Boothzaal","activity":"Dance 13-"},{"location":"Heritage","activity":"Dance 13+"},{"location":"Witte tent","activity":"Sports"},{"location":"Schochzaal","activity":"Theatre 13-"},{"location":"Korbelzaal","activity":"Theatre 13+"},{"location":"Congreshal","activity":"MMS"}],"minor":[{"location":"W. Boothzaal","activity":"Ritme"},{"location":"Congreshal","activity":"Tamboerijnen"},{"location":"Serre","activity":"Media"},{"location":"Korbelzaal","activity":"Brass Class - Beginner"},{"location":"Schochzaal","activity":"Brass Class - Gevorderd"},{"location":"Witte tent","activity":"Handige Handjes"},{"location":"Heritage","activity":"Musical"},{"location":"Bosshardt","activity":"Gospel"}],"shared":[{"location":"Vlaszaal","activity":"Prayer room"}]}',
   });
 
   await remoteConfig.fetchAndActivate();

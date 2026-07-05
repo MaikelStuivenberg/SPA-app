@@ -1,15 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:go_router/go_router.dart';
 import 'package:spa_app/core/router/route_paths.dart';
-import 'package:spa_app/core/theme/theme_extensions.dart';
-import 'package:spa_app/ui/core/widgets/app_bar_shape.dart';
+import 'package:spa_app/ui/core/widgets/app_back_button.dart';
+import 'package:spa_app/ui/core/widgets/primary_app_bar.dart';
 import 'package:spa_app/ui/core/widgets/profile_avatar_button.dart';
-
-Color _navIconColor(BuildContext context, {required bool isSelected}) {
-  final scheme = Theme.of(context).colorScheme;
-  return isSelected ? context.appColors.accent : scheme.onSurfaceVariant;
-}
+import 'package:spa_app/ui/core/widgets/scaffold_gradient.dart';
 
 class AppShell extends StatelessWidget {
   const AppShell({required this.child, super.key});
@@ -28,26 +23,11 @@ class AppShell extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final colorScheme = Theme.of(context).colorScheme;
-
     return Scaffold(
       bottomNavigationBar: _buildNavigationBar(context),
       body: Stack(
         children: [
-          Container(
-            decoration: BoxDecoration(
-              gradient: LinearGradient(
-                begin: Alignment.topCenter,
-                end: Alignment.bottomCenter,
-                colors: [
-                  colorScheme.surface.withValues(alpha: 0),
-                  colorScheme.surfaceContainerLow.withValues(alpha: 0.5),
-                  colorScheme.surfaceContainerLow,
-                ],
-              ),
-            ),
-            child: child,
-          ),
+          ScaffoldGradient(child: child),
           Positioned(
             top: 0,
             right: 0,
@@ -72,74 +52,64 @@ class AppShell extends StatelessWidget {
 
   Widget _buildNavigationBar(BuildContext context) {
     final location = GoRouterState.of(context).uri.path;
-    final colorScheme = Theme.of(context).colorScheme;
 
-    return Container(
-      decoration: BoxDecoration(
-        border: Border(
-          top: BorderSide(color: colorScheme.outlineVariant),
-        ),
+    return BottomAppBar(
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
+        children: [
+          IconButton(
+            icon: Icon(
+              Icons.calendar_today,
+              color: location == RoutePaths.program
+                  ? Theme.of(context).colorScheme.primary
+                  : null,
+            ),
+            onPressed: () => context.go(RoutePaths.program),
+          ),
+          IconButton(
+            icon: Icon(
+              Icons.image,
+              color: location == RoutePaths.photos
+                  ? Theme.of(context).colorScheme.primary
+                  : null,
+            ),
+            onPressed: () => context.go(RoutePaths.photos),
+          ),
+          FloatingActionButton(
+            onPressed: () => context.go(RoutePaths.home),
+            elevation: location == RoutePaths.home ? 6 : 4,
+            child: const Icon(Icons.home, size: 32),
+          ),
+          IconButton(
+            icon: Icon(
+              Icons.map,
+              color: location == RoutePaths.map
+                  ? Theme.of(context).colorScheme.primary
+                  : null,
+            ),
+            onPressed: () => context.go(RoutePaths.map),
+          ),
+          IconButton(
+            icon: Icon(
+              Icons.list,
+              color: location == RoutePaths.rules
+                  ? Theme.of(context).colorScheme.primary
+                  : null,
+            ),
+            onPressed: () => context.go(RoutePaths.rules),
+          ),
+        ],
       ),
-      child: BottomAppBar(
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
-          children: [
-            _ShellNavIcon(
-              icon: Icons.calendar_today,
-              isSelected: location == RoutePaths.program,
-              onPressed: () => context.push(RoutePaths.program),
-            ),
-            _ShellNavIcon(
-              icon: Icons.image,
-              isSelected: location == RoutePaths.photos,
-              onPressed: () => context.go(RoutePaths.photos),
-            ),
-            FloatingActionButton(
-              onPressed: () => context.go(RoutePaths.home),
-              elevation: location == RoutePaths.home ? 6 : 4,
-              child: const Icon(Icons.home, size: 32),
-            ),
-            _ShellNavIcon(
-              icon: Icons.map,
-              isSelected: location == RoutePaths.map,
-              onPressed: () => context.go(RoutePaths.map),
-            ),
-            _ShellNavIcon(
-              icon: Icons.list,
-              isSelected: location == RoutePaths.rules,
-              onPressed: () => context.go(RoutePaths.rules),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-}
-
-class _ShellNavIcon extends StatelessWidget {
-  const _ShellNavIcon({
-    required this.icon,
-    required this.isSelected,
-    required this.onPressed,
-  });
-
-  final IconData icon;
-  final bool isSelected;
-  final VoidCallback onPressed;
-
-  @override
-  Widget build(BuildContext context) {
-    return IconButton(
-      icon: Icon(
-        icon,
-        color: _navIconColor(context, isSelected: isSelected),
-      ),
-      onPressed: onPressed,
     );
   }
 }
 
 /// Scaffold with optional app bar for pages outside the main shell.
+///
+/// UX rules:
+/// - Tab root in shell → [ShellPageHeader], no back
+/// - Nested in shell → [ShellDetailHeader]
+/// - Pushed route / outside shell → [PageScaffold] with [back] when [canPop]
 class PageScaffold extends StatelessWidget {
   const PageScaffold({
     required this.title,
@@ -147,6 +117,8 @@ class PageScaffold extends StatelessWidget {
     this.showMenu = false,
     this.actions,
     this.back = false,
+    this.showProfileAction = true,
+    this.appBarBottom,
     super.key,
   });
 
@@ -155,6 +127,23 @@ class PageScaffold extends StatelessWidget {
   final bool showMenu;
   final List<Widget>? actions;
   final bool back;
+  final bool showProfileAction;
+  final PreferredSizeWidget? appBarBottom;
+
+  List<Widget>? _resolvedActions(BuildContext context) {
+    if (actions != null) {
+      return actions;
+    }
+    if (!showProfileAction) {
+      return null;
+    }
+    return const [
+      Padding(
+        padding: EdgeInsets.only(right: 8),
+        child: ProfileAvatarButton(),
+      ),
+    ];
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -162,51 +151,17 @@ class PageScaffold extends StatelessWidget {
       return AppShell(child: child);
     }
 
-    final colorScheme = Theme.of(context).colorScheme;
     return Scaffold(
-      body: Container(
-        decoration: BoxDecoration(
-          gradient: LinearGradient(
-            begin: Alignment.topCenter,
-            end: Alignment.bottomCenter,
-            colors: [
-              colorScheme.surface.withValues(alpha: 0),
-              colorScheme.surfaceContainerLow.withValues(alpha: 0.5),
-              colorScheme.surfaceContainerLow,
-            ],
-          ),
-        ),
-        child: child,
-      ),
+      body: ScaffoldGradient(child: child),
       extendBodyBehindAppBar: true,
       extendBody: true,
       appBar: title == null
           ? null
-          : AppBar(
-              shape: AppBarShape(),
-              automaticallyImplyLeading: false,
-              leading: !back
-                  ? null
-                  : Builder(
-                      builder: (context) {
-                        if (context.canPop()) {
-                          return IconButton(
-                            icon: const Icon(FontAwesomeIcons.arrowLeft),
-                            onPressed: () => context.pop(),
-                          );
-                        }
-                        return const SizedBox.shrink();
-                      },
-                    ),
+          : PrimaryAppBar(
               title: Text(title!),
-              actions: actions ??
-                  [
-                    IconButton(
-                      icon: const FaIcon(FontAwesomeIcons.solidUser),
-                      onPressed: () => context.push(RoutePaths.userDetails),
-                      color: colorScheme.onPrimary,
-                    ),
-                  ],
+              leading: back ? const AppBackButton() : null,
+              actions: _resolvedActions(context),
+              bottom: appBarBottom,
             ),
     );
   }
