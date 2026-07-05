@@ -14,8 +14,10 @@ class AppPalette {
   // Leger des Heils brand red
   static const saRed = Color(0xFFE31B23);
 
-  // Supporting accent
+  // Supporting accents
   static const amber = Color(0xFFF5A623);
+  static const spaGreen = Color(0xFF1F6B45);
+  static const spaGreenLight = Color(0xFF6BC49A);
 
   // Neutrals
   static const onDark = Color(0xFFFFFFFF);

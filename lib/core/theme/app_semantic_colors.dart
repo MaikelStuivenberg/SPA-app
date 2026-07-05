@@ -52,7 +52,7 @@ class AppSemanticColors extends ThemeExtension<AppSemanticColors> {
     shadowLight: Color(0x14000000),
     scrim: Color(0xDE000000),
     ruleAccents: [
-      AppPalette.spaNavy,
+      AppPalette.spaGreen,
       AppPalette.saRed,
       AppPalette.amber,
       AppPalette.spaCyan,
@@ -75,7 +75,7 @@ class AppSemanticColors extends ThemeExtension<AppSemanticColors> {
     shadowLight: Color(0x33000000),
     scrim: Color(0xE6000000),
     ruleAccents: [
-      AppPalette.spaCyan,
+      AppPalette.spaGreenLight,
       AppPalette.saRed,
       AppPalette.amber,
       Color(0xFF6B9FD4),

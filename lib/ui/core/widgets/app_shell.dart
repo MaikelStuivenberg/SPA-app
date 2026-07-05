@@ -91,7 +91,7 @@ class AppShell extends StatelessWidget {
           ),
           IconButton(
             icon: Icon(
-              Icons.list,
+              Icons.handshake,
               color: location == RoutePaths.rules
                   ? Theme.of(context).colorScheme.primary
                   : null,
