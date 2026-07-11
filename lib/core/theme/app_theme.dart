@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:spa_app/core/theme/app_palette.dart';
 import 'package:spa_app/core/theme/app_semantic_colors.dart';
+import 'package:spa_app/core/theme/theme_extensions.dart';
 import 'package:spa_app/ui/core/widgets/app_bar_shape.dart';
 
 class AppTheme {
@@ -115,6 +116,7 @@ class AppTheme {
       ),
       bottomAppBarTheme: BottomAppBarThemeData(
         color: colorScheme.surfaceContainerLow,
+        surfaceTintColor: Colors.transparent,
       ),
       floatingActionButtonTheme: FloatingActionButtonThemeData(
         backgroundColor: colorScheme.brightness == Brightness.dark
@@ -139,7 +141,25 @@ class AppTheme {
           minimumSize: const Size(88, 36),
         ),
       ),
-      iconTheme: IconThemeData(color: colorScheme.primary),
+      iconTheme: IconThemeData(color: colorScheme.onSurfaceIcon),
+      iconButtonTheme: IconButtonThemeData(
+        style: IconButton.styleFrom(
+          foregroundColor: colorScheme.onSurfaceIcon,
+        ),
+      ),
+      tabBarTheme: TabBarThemeData(
+        labelColor: colorScheme.surfaceAccent,
+        unselectedLabelColor: colorScheme.onSurfaceVariant,
+        indicatorColor: colorScheme.surfaceAccent,
+      ),
+      progressIndicatorTheme: ProgressIndicatorThemeData(
+        color: colorScheme.surfaceAccent,
+      ),
+      textButtonTheme: TextButtonThemeData(
+        style: TextButton.styleFrom(
+          foregroundColor: colorScheme.surfaceAccent,
+        ),
+      ),
       cardTheme: CardThemeData(
         color: colorScheme.surface,
         elevation: 2,

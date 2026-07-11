@@ -47,7 +47,7 @@ class _MusicWidgetState extends State<MusicWidget> {
                   'Worship',
                   style: Theme.of(context).textTheme.headlineMedium?.copyWith(
                         fontWeight: FontWeight.bold,
-                        color: colorScheme.primary,
+                        color: colorScheme.surfaceAccent,
                       ),
                   textAlign: TextAlign.center,
                 ),

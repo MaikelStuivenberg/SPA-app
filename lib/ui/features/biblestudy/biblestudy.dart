@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:spa_app/core/theme/theme_extensions.dart';
 import 'package:spa_app/ui/features/biblestudy/widgets/necessities_tag.dart';
 import 'package:spa_app/ui/core/widgets/default_body.dart';
 
@@ -85,7 +86,7 @@ class _BibleStudyPageState extends State<BibleStudyPage> {
           'Introductie',
           style: Theme.of(context).textTheme.headlineSmall!.copyWith(
                 fontWeight: FontWeight.bold,
-                color: Theme.of(context).colorScheme.primary,
+                color: Theme.of(context).colorScheme.surfaceAccent,
               ),
         ),
         const SizedBox(height: 8),
@@ -136,7 +137,7 @@ class _BibleStudyPageState extends State<BibleStudyPage> {
           'Bijbel & Vragen',
           style: Theme.of(context).textTheme.headlineSmall!.copyWith(
                 fontWeight: FontWeight.bold,
-                color: Theme.of(context).colorScheme.primary,
+                color: Theme.of(context).colorScheme.surfaceAccent,
               ),
         ),
         const SizedBox(height: 8),
@@ -255,7 +256,7 @@ class _BibleStudyPageState extends State<BibleStudyPage> {
           'Activiteit',
           style: Theme.of(context).textTheme.headlineSmall!.copyWith(
                 fontWeight: FontWeight.bold,
-                color: Theme.of(context).colorScheme.primary,
+                color: Theme.of(context).colorScheme.surfaceAccent,
               ),
         ),
         const SizedBox(height: 8),
@@ -294,7 +295,7 @@ class _BibleStudyPageState extends State<BibleStudyPage> {
           'Gebed',
           style: Theme.of(context).textTheme.headlineSmall!.copyWith(
                 fontWeight: FontWeight.bold,
-                color: Theme.of(context).colorScheme.primary,
+                color: Theme.of(context).colorScheme.surfaceAccent,
               ),
         ),
         const SizedBox(height: 8),

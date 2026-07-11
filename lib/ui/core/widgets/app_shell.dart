@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:spa_app/core/router/route_paths.dart';
+import 'package:spa_app/core/theme/theme_extensions.dart';
 import 'package:spa_app/ui/core/widgets/app_back_button.dart';
 import 'package:spa_app/ui/core/widgets/primary_app_bar.dart';
 import 'package:spa_app/ui/core/widgets/profile_avatar_button.dart';
@@ -51,7 +52,12 @@ class AppShell extends StatelessWidget {
   }
 
   Widget _buildNavigationBar(BuildContext context) {
+    final colorScheme = Theme.of(context).colorScheme;
     final location = GoRouterState.of(context).uri.path;
+
+    Color navIconColor(String route) => location == route
+        ? colorScheme.surfaceAccent
+        : colorScheme.onSurfaceVariant;
 
     return BottomAppBar(
       child: Row(
@@ -60,18 +66,14 @@ class AppShell extends StatelessWidget {
           IconButton(
             icon: Icon(
               Icons.calendar_today,
-              color: location == RoutePaths.program
-                  ? Theme.of(context).colorScheme.primary
-                  : null,
+              color: navIconColor(RoutePaths.program),
             ),
             onPressed: () => context.go(RoutePaths.program),
           ),
           IconButton(
             icon: Icon(
               Icons.image,
-              color: location == RoutePaths.photos
-                  ? Theme.of(context).colorScheme.primary
-                  : null,
+              color: navIconColor(RoutePaths.photos),
             ),
             onPressed: () => context.go(RoutePaths.photos),
           ),
@@ -83,18 +85,14 @@ class AppShell extends StatelessWidget {
           IconButton(
             icon: Icon(
               Icons.map,
-              color: location == RoutePaths.map
-                  ? Theme.of(context).colorScheme.primary
-                  : null,
+              color: navIconColor(RoutePaths.map),
             ),
             onPressed: () => context.go(RoutePaths.map),
           ),
           IconButton(
             icon: Icon(
               Icons.handshake,
-              color: location == RoutePaths.rules
-                  ? Theme.of(context).colorScheme.primary
-                  : null,
+              color: navIconColor(RoutePaths.rules),
             ),
             onPressed: () => context.go(RoutePaths.rules),
           ),

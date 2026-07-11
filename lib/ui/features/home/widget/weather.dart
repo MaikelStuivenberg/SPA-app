@@ -65,7 +65,7 @@ class _WeatherWidgetState extends State<WeatherWidget> {
             const SizedBox(width: 8),
             Expanded(
               child: CardWidget(
-                accentColor: colorScheme.primary,
+                accentColor: colorScheme.surfaceAccent,
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
                   crossAxisAlignment: CrossAxisAlignment.center,

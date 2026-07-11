@@ -28,6 +28,8 @@ class LoginPageState extends State<LoginPage> {
 
   @override
   Widget build(BuildContext context) {
+    final colorScheme = Theme.of(context).colorScheme;
+
     return DefaultScaffoldWidget(
       null,
       BlocListener<AuthCubit, AuthState>(
@@ -59,7 +61,7 @@ class LoginPageState extends State<LoginPage> {
                     Text(
                       AppLocalizations.of(context)!.loginWelcome,
                       style: Theme.of(context).textTheme.titleLarge!.copyWith(
-                            color: Theme.of(context).colorScheme.primary,
+                            color: colorScheme.surfaceAccent,
                             fontWeight: FontWeight.bold,
                             fontSize: 48,
                           ),
@@ -92,6 +94,8 @@ class LoginPageState extends State<LoginPage> {
   }
 
   Widget _socialWidget() {
+    final colorScheme = Theme.of(context).colorScheme;
+
     return Column(
       children: [
         Row(
@@ -127,7 +131,7 @@ class LoginPageState extends State<LoginPage> {
                 },
                 icon: Icon(
                   FontAwesomeIcons.google,
-                  color: Theme.of(context).colorScheme.primary,
+                  color: colorScheme.surfaceAccent,
                   size: 34,
                 ),
                 style: ButtonStyle(
@@ -152,7 +156,7 @@ class LoginPageState extends State<LoginPage> {
                 },
                 icon: Icon(
                   FontAwesomeIcons.apple,
-                  color: Theme.of(context).colorScheme.primary,
+                  color: colorScheme.surfaceAccent,
                   size: 40,
                 ),
                 style: ButtonStyle(

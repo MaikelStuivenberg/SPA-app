@@ -49,7 +49,6 @@ class ProgramPageState extends State<ProgramPage> {
     return BlocBuilder<AuthCubit, AuthState>(
       builder: (context, authState) {
         final l10n = AppLocalizations.of(context)!;
-        final colorScheme = Theme.of(context).colorScheme;
         final isStaffOrTentLeader = authState is AuthStateSuccess &&
             ((authState.user.staff ?? false) ||
                 (authState.user.tentLeader ?? false));
@@ -81,9 +80,6 @@ class ProgramPageState extends State<ProgramPage> {
                   children: [
                     Expanded(
                       child: TabBar(
-                        labelColor: colorScheme.primary,
-                        unselectedLabelColor: colorScheme.onSurfaceVariant,
-                        indicatorColor: colorScheme.primary,
                         tabs: [
                           Tab(text: l10n.programTitle),
                           Tab(text: l10n.tasksTab),

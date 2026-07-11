@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:go_router/go_router.dart';
+import 'package:spa_app/core/theme/theme_extensions.dart';
 import 'package:spa_app/l10n/app_localizations.dart';
 
 /// Standard back control for all navigation chrome.
@@ -23,7 +24,8 @@ class AppBackButton extends StatelessWidget {
     }
 
     final colorScheme = Theme.of(context).colorScheme;
-    final iconColor = onPrimary ? colorScheme.onPrimary : colorScheme.primary;
+    final iconColor =
+        onPrimary ? colorScheme.onPrimary : colorScheme.onSurfaceIcon;
 
     return IconButton(
       icon: Icon(FontAwesomeIcons.arrowLeft, color: iconColor),

@@ -245,12 +245,12 @@ class _SelectablePhotoGridState extends State<SelectablePhotoGrid> {
                         borderRadius: BorderRadius.circular(4),
                         border: Border.all(
                           color: isSelected
-                              ? colorScheme.primary
+                              ? colorScheme.surfaceAccent
                               : Colors.transparent,
                           width: 3,
                         ),
                         color: isSelected
-                            ? colorScheme.primary.withValues(alpha: 0.25)
+                            ? colorScheme.surfaceAccent.withValues(alpha: 0.25)
                             : appColors.scrim.withValues(alpha: 0.35),
                       ),
                     ),
@@ -262,12 +262,12 @@ class _SelectablePhotoGridState extends State<SelectablePhotoGrid> {
                         width: 28,
                         height: 28,
                         decoration: BoxDecoration(
-                          color: colorScheme.primary,
+                          color: colorScheme.surfaceAccent,
                           shape: BoxShape.circle,
                         ),
                         child: Icon(
                           Icons.check,
-                          color: colorScheme.onPrimary,
+                          color: colorScheme.onSurfaceAccent,
                           size: 18,
                         ),
                       ),

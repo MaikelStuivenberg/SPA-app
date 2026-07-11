@@ -139,7 +139,7 @@ class _TaskDetailsPageState extends State<TaskDetailsPage> {
                                 Icon(
                                   Icons.location_on_outlined,
                                   size: 18,
-                                  color: colorScheme.primary,
+                                  color: colorScheme.surfaceAccent,
                                 ),
                                 const SizedBox(width: 4),
                                 Expanded(

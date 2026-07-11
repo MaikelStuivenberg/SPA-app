@@ -3,6 +3,7 @@ import 'dart:typed_data';
 import 'package:flutter/material.dart';
 import 'package:flutter_image_compress/flutter_image_compress.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:spa_app/core/theme/theme_extensions.dart';
 
 /// Picks a gallery image and compresses it for use as a profile photo.
 Future<Uint8List?> pickAndCompressProfileImage() async {
@@ -62,11 +63,11 @@ class ProfileAvatarPicker extends StatelessWidget {
             right: -size * 0.26,
             child: RawMaterialButton(
               onPressed: onPickPressed,
-              fillColor: colorScheme.primary,
+              fillColor: colorScheme.surfaceAccent,
               shape: const CircleBorder(),
               child: Icon(
                 Icons.camera_alt_outlined,
-                color: colorScheme.onPrimary,
+                color: colorScheme.onSurfaceAccent,
                 size: size * 0.21,
               ),
             ),

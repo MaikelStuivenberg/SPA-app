@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:spa_app/core/router/route_paths.dart';
+import 'package:spa_app/core/theme/theme_extensions.dart';
 import 'package:spa_app/l10n/app_localizations.dart';
 import 'package:spa_app/ui/core/widgets/default_body.dart';
 import 'package:spa_app/ui/core/widgets/app_back_button.dart';
@@ -36,6 +37,7 @@ class RegisterPageState extends State<RegisterPage> {
   @override
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context)!;
+    final colorScheme = Theme.of(context).colorScheme;
 
     return DefaultScaffoldWidget(
       null,
@@ -71,7 +73,7 @@ class RegisterPageState extends State<RegisterPage> {
                     Text(
                       l10n.registerTitle,
                       style: Theme.of(context).textTheme.titleLarge!.copyWith(
-                            color: Theme.of(context).colorScheme.primary,
+                            color: colorScheme.surfaceAccent,
                             fontWeight: FontWeight.bold,
                             fontSize: 36,
                           ),

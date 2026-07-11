@@ -50,9 +50,7 @@ class _AlbumsPageState extends State<AlbumsPage> {
                     child: SizedBox(
                       width: 64,
                       height: 64,
-                      child: CircularProgressIndicator(
-                        color: Theme.of(context).colorScheme.primary,
-                      ),
+                      child: CircularProgressIndicator(),
                     ),
                   );
                 }

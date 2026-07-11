@@ -47,18 +47,23 @@ class CardWidget extends StatelessWidget {
                 ),
               ],
             ),
-            child: Container(
-              width: double.infinity,
-              height: height,
-              padding: EdgeInsets.all(padding),
-              alignment:
-                  height != null ? Alignment.center : Alignment.topCenter,
-              child: DefaultTextStyle(
-                style: TextStyle(
-                  color: textColor ?? colorScheme.onPrimary,
-                ),
-                child: child,
-              ),
+            child: LayoutBuilder(
+              builder: (context, constraints) {
+                return Container(
+                  width:
+                      constraints.hasBoundedWidth ? double.infinity : null,
+                  height: height,
+                  padding: EdgeInsets.all(padding),
+                  alignment:
+                      height != null ? Alignment.center : Alignment.topCenter,
+                  child: DefaultTextStyle(
+                    style: TextStyle(
+                      color: textColor ?? colorScheme.onPrimary,
+                    ),
+                    child: child,
+                  ),
+                );
+              },
             ),
           ),
         ),
@@ -109,21 +114,27 @@ class CardWidget extends StatelessWidget {
                       ),
                     ),
                   ),
-                Container(
-                  width: double.infinity,
-                  height: height,
-                  padding: EdgeInsets.all(padding),
-                  alignment: padding == 0
-                      ? null
-                      : (height != null
-                          ? Alignment.center
-                          : Alignment.topCenter),
-                  child: DefaultTextStyle(
-                    style: TextStyle(
-                      color: textColor ?? colorScheme.onSurface,
-                    ),
-                    child: child,
-                  ),
+                LayoutBuilder(
+                  builder: (context, constraints) {
+                    return Container(
+                      width: constraints.hasBoundedWidth
+                          ? double.infinity
+                          : null,
+                      height: height,
+                      padding: EdgeInsets.all(padding),
+                      alignment: padding == 0
+                          ? null
+                          : (height != null
+                              ? Alignment.center
+                              : Alignment.topCenter),
+                      child: DefaultTextStyle(
+                        style: TextStyle(
+                          color: textColor ?? colorScheme.onSurface,
+                        ),
+                        child: child,
+                      ),
+                    );
+                  },
                 ),
               ],
             ),

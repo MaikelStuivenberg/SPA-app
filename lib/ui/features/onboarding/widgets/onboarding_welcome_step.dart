@@ -80,11 +80,12 @@ class _OnboardingWelcomeStepState extends State<OnboardingWelcomeStep> {
             children: [
               CircleAvatar(
                 radius: 40,
-                backgroundColor: theme.colorScheme.primary.withValues(alpha: 0.12),
+                backgroundColor:
+                    theme.colorScheme.surfaceAccent.withValues(alpha: 0.12),
                 child: FaIcon(
                   FontAwesomeIcons.masksTheater,
                   size: 36,
-                  color: theme.colorScheme.primary,
+                  color: theme.colorScheme.surfaceAccent,
                 ),
               ),
               const SizedBox(height: 32),

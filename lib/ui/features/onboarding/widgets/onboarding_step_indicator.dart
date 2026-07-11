@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:spa_app/core/theme/theme_extensions.dart';
 
 /// Non-interactive horizontal bars showing onboarding progress (not page dots).
 class OnboardingStepIndicator extends StatelessWidget {
@@ -30,7 +31,7 @@ class OnboardingStepIndicator extends StatelessWidget {
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(2),
                 color: isActive
-                    ? colorScheme.primary
+                    ? colorScheme.surfaceAccent
                     : colorScheme.outline.withValues(alpha: 0.25),
               ),
             ),
